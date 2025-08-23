@@ -102,7 +102,7 @@ const ReviewsSection = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center px-0 mx-[20px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mx-[20px] px-[10px]">
           
           <div>
             <div className="text-3xl md:text-4xl font-bold text-primary mb-2">150+</div>
