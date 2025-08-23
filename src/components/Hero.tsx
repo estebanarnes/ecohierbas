@@ -47,7 +47,7 @@ const Hero = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-6 max-w-md">
             <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 animate-float hover:animate-none transition-all duration-300">
-              <div className="text-2xl md:text-3xl font-bold text-white">500+</div>
+              <div className="text-2xl md:text-3xl font-bold text-white">100+</div>
               <div className="text-sm text-white/80">Empresas confían</div>
             </div>
             <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 animate-float hover:animate-none transition-all duration-300" style={{
