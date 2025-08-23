@@ -1,17 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, PlayIcon } from "@heroicons/react/24/outline";
 import heroImage from "@/assets/hero-ecohierbas.jpg";
-
 const Hero = () => {
-  return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+  return <section className="relative min-h-[85vh] flex items-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Hierbas medicinales y aromáticas orgánicas EcoHierbas Chile"
-          className="w-full h-full object-cover"
-        />
+        <img src={heroImage} alt="Hierbas medicinales y aromáticas orgánicas EcoHierbas Chile" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
       </div>
 
@@ -40,20 +34,11 @@ const Hero = () => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-white px-8 py-4 h-auto"
-              data-variant="b2b"
-            >
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8 py-4 h-auto" data-variant="b2b">
               Cotización Corporativa
               <ArrowRightIcon className="ml-2 w-5 h-5" />
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-primary px-8 py-4 h-auto backdrop-blur-sm"
-              data-variant="b2c"
-            >
+            <Button size="lg" variant="outline" data-variant="b2c" className="border-white hover:bg-white px-8 py-4 h-auto backdrop-blur-sm text-lime-600">
               Ver Productos
               <PlayIcon className="ml-2 w-5 h-5" />
             </Button>
@@ -65,11 +50,15 @@ const Hero = () => {
               <div className="text-2xl md:text-3xl font-bold text-white">500+</div>
               <div className="text-sm text-white/80">Empresas confían</div>
             </div>
-            <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 animate-float hover:animate-none transition-all duration-300" style={{animationDelay: '0.5s'}}>
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 animate-float hover:animate-none transition-all duration-300" style={{
+            animationDelay: '0.5s'
+          }}>
               <div className="text-2xl md:text-3xl font-bold text-white">100%</div>
               <div className="text-sm text-white/80">Orgánico</div>
             </div>
-            <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 animate-float hover:animate-none transition-all duration-300" style={{animationDelay: '1s'}}>
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 animate-float hover:animate-none transition-all duration-300" style={{
+            animationDelay: '1s'
+          }}>
               <div className="text-2xl md:text-3xl font-bold text-white">Local</div>
               <div className="text-sm text-white/80">Pudahuel, RM</div>
             </div>
@@ -83,8 +72,6 @@ const Hero = () => {
           <div className="w-1 h-3 bg-white/60 rounded-full mt-2"></div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
