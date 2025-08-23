@@ -38,7 +38,7 @@ const Hero = () => {
               Cotización Corporativa
               <ArrowRightIcon className="ml-2 w-5 h-5" />
             </Button>
-            <Button size="lg" variant="outline" data-variant="b2c" className="border-white hover:bg-white px-8 py-4 h-auto backdrop-blur-sm text-lime-600">
+            <Button size="lg" variant="outline" data-variant="b2c" className="border-white hover:bg-white px-8 py-4 h-auto backdrop-blur-sm text-[#7ab733]">
               Ver Productos
               <PlayIcon className="ml-2 w-5 h-5" />
             </Button>
