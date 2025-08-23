@@ -216,11 +216,11 @@ const Productos = () => {
         <section className="py-16 bg-gradient-to-r from-primary/10 to-accent/10">
           <div className="u-container">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="inline-flex items-center gap-3 bg-primary/10 text-primary px-6 py-3 rounded-full text-base font-medium mb-4">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Envíos todo Chile
+                Envíos a todo Chile
               </div>
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
                 Nuestros Productos
