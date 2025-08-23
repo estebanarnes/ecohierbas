@@ -216,6 +216,12 @@ const Productos = () => {
         <section className="py-16 bg-gradient-to-r from-primary/10 to-accent/10">
           <div className="u-container">
             <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Envíos todo Chile
+              </div>
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
                 Nuestros Productos
               </h1>
@@ -288,102 +294,6 @@ const Productos = () => {
                     <SelectItem value="high">Más de $50.000</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Lokal Wholesale Section */}
-        <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-          <div className="u-container">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
-                SOMOS LOKAL
-              </h2>
-              <p className="text-lg text-muted-foreground mb-2">
-                COMPRA PRODUCTOS AL POR MAYOR
-              </p>
-              <p className="text-lg text-muted-foreground mb-8">
-                EN LOKAL
-              </p>
-              
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg mb-8">
-                <p className="text-base text-muted-foreground mb-4">
-                  Estaríamos muy felices de que tengas <strong>Ecohierbas Chile</strong> en tu tienda.
-                </p>
-                <p className="text-sm text-muted-foreground mb-6">
-                  Nuestros productos están disponibles para comprar en somoslokal.cl. 
-                  Al comprar con ellos puedes disfrutar de pagos a 60 días para tiendas físicas.
-                </p>
-                
-                <h3 className="text-xl font-semibold text-foreground mb-6">
-                  Compra al por mayor
-                </h3>
-                <p className="text-sm text-muted-foreground mb-8">
-                  Nos hemos asociado con Lokal para ofrecerte:
-                </p>
-                
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div className="text-center p-4">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <h4 className="font-semibold text-foreground mb-2">Devoluciones gratis</h4>
-                    <p className="text-sm text-muted-foreground">en tu primera compra</p>
-                  </div>
-                  
-                  <div className="text-center p-4">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                      </svg>
-                    </div>
-                    <h4 className="font-semibold text-foreground mb-2">Condiciones de pago</h4>
-                    <p className="text-sm text-muted-foreground">a 60 días para tiendas físicas</p>
-                  </div>
-                </div>
-                
-                <Button 
-                  className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 text-base"
-                  onClick={() => window.open('https://somoslokal.cl/makers/ecohierbas-chile?referred=ecohierbas-chile', '_blank')}
-                >
-                  Comprar al por mayor
-                </Button>
-              </div>
-              
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 mb-3 bg-primary/10 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                    </svg>
-                  </div>
-                  <h4 className="font-medium text-foreground mb-1">Mínimo</h4>
-                  <p className="text-sm text-muted-foreground">$0</p>
-                </div>
-                
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 mb-3 bg-primary/10 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <h4 className="font-medium text-foreground mb-1">Envío desde</h4>
-                  <p className="text-sm text-muted-foreground">Rancagua</p>
-                </div>
-                
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 mb-3 bg-primary/10 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7H6a2 2 0 00-2 2v9a2 2 0 002 2h8a2 2 0 002-2V9a2 2 0 00-2-2h-2" />
-                    </svg>
-                  </div>
-                  <h4 className="font-medium text-foreground mb-1">Despacho</h4>
-                  <p className="text-sm text-muted-foreground">5 días</p>
-                </div>
               </div>
             </div>
           </div>
@@ -522,6 +432,102 @@ const Productos = () => {
                 ))}
               </div>
             )}
+          </div>
+        </section>
+
+        {/* Lokal Wholesale Section */}
+        <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+          <div className="u-container">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+                SOMOS LOKAL
+              </h2>
+              <p className="text-lg text-muted-foreground mb-2">
+                COMPRA PRODUCTOS AL POR MAYOR
+              </p>
+              <p className="text-lg text-muted-foreground mb-8">
+                EN LOKAL
+              </p>
+              
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg mb-8">
+                <p className="text-base text-muted-foreground mb-4">
+                  Estaríamos muy felices de que tengas <strong>Ecohierbas Chile</strong> en tu tienda.
+                </p>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Nuestros productos están disponibles para comprar en somoslokal.cl. 
+                  Al comprar con ellos puedes disfrutar de pagos a 60 días para tiendas físicas.
+                </p>
+                
+                <h3 className="text-xl font-semibold text-foreground mb-6">
+                  Compra al por mayor
+                </h3>
+                <p className="text-sm text-muted-foreground mb-8">
+                  Nos hemos asociado con Lokal para ofrecerte:
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6 mb-8">
+                  <div className="text-center p-4">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <h4 className="font-semibold text-foreground mb-2">Devoluciones gratis</h4>
+                    <p className="text-sm text-muted-foreground">en tu primera compra</p>
+                  </div>
+                  
+                  <div className="text-center p-4">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </div>
+                    <h4 className="font-semibold text-foreground mb-2">Condiciones de pago</h4>
+                    <p className="text-sm text-muted-foreground">a 60 días para tiendas físicas</p>
+                  </div>
+                </div>
+                
+                <Button 
+                  className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 text-base"
+                  onClick={() => window.open('https://somoslokal.cl/makers/ecohierbas-chile?referred=ecohierbas-chile', '_blank')}
+                >
+                  Comprar al por mayor
+                </Button>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div className="flex flex-col items-center">
+                  <div className="w-12 h-12 mb-3 bg-primary/10 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    </svg>
+                  </div>
+                  <h4 className="font-medium text-foreground mb-1">Mínimo</h4>
+                  <p className="text-sm text-muted-foreground">$0</p>
+                </div>
+                
+                <div className="flex flex-col items-center">
+                  <div className="w-12 h-12 mb-3 bg-primary/10 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <h4 className="font-medium text-foreground mb-1">Envío desde</h4>
+                  <p className="text-sm text-muted-foreground">Rancagua</p>
+                </div>
+                
+                <div className="flex flex-col items-center">
+                  <div className="w-12 h-12 mb-3 bg-primary/10 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7H6a2 2 0 00-2 2v9a2 2 0 002 2h8a2 2 0 002-2V9a2 2 0 00-2-2h-2" />
+                    </svg>
+                  </div>
+                  <h4 className="font-medium text-foreground mb-1">Despacho</h4>
+                  <p className="text-sm text-muted-foreground">5 días</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>

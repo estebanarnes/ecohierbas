@@ -46,6 +46,10 @@ const BenefitsSection = () => {
       <div className="u-container">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+            <TruckIcon className="w-4 h-4" />
+            Envíos todo Chile
+          </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
             ¿Por qué elegir EcoHierbas Chile?
           </h2>
