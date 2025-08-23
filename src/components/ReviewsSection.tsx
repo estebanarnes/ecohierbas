@@ -102,23 +102,15 @@ const ReviewsSection = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mx-0 px-0">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center px-0 mx-[5px]">
           
           <div>
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-              2,450+
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Reseñas verificadas
-            </div>
+            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">150+</div>
+            <div className="text-sm text-muted-foreground">Clientes</div>
           </div>
           <div>
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-              500+
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Empresas B2B
-            </div>
+            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">200+</div>
+            <div className="text-sm text-muted-foreground">Recuperaciones de residuos deshidratados</div>
           </div>
           <div>
             <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
