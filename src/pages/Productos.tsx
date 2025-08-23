@@ -9,132 +9,116 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import ProductDetailModal from "@/components/ProductDetailModal";
-import { 
-  StarIcon, 
-  ShoppingCartIcon, 
-  MagnifyingGlassIcon,
-  AdjustmentsHorizontalIcon 
-} from "@heroicons/react/24/solid";
+import { StarIcon, ShoppingCartIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import productosHierbas from "@/assets/productos-hierbas.jpg";
 import vermicompostaje from "@/assets/vermicompostaje.jpg";
 import maceterosKits from "@/assets/maceteros-kits.jpg";
-
-const productos = [
-  {
-    id: 1,
-    name: "Box Especial Mujer - Refresca tu Piel",
-    slug: "box-especial-mujer-refresca-tu-piel",
-    category: "Infusiones",
-    finalidad: "Piel",
-    price: 24990,
-    originalPrice: 29990,
-    image: productosHierbas,
-    rating: 4.8,
-    reviews: 156,
-    inStock: true,
-    description: "Mezcla especial de hierbas para el cuidado y regeneración de la piel femenina"
-  },
-  {
-    id: 2,
-    name: "Especial Hombres - Sana tu Próstata y Piel",
-    slug: "especial-hombres-sana-tu-prostata-y-piel",
-    category: "Infusiones",
-    finalidad: "Masculina",
-    price: 26990,
-    originalPrice: null,
-    image: productosHierbas,
-    rating: 4.7,
-    reviews: 89,
-    inStock: true,
-    description: "Fórmula natural para la salud masculina integral"
-  },
-  {
-    id: 3,
-    name: "Infusión Relajante Nocturna",
-    slug: "infusion-relajante-nocturna",
-    category: "Infusiones",
-    finalidad: "Relajación",
-    price: 18990,
-    originalPrice: 22990,
-    image: productosHierbas,
-    rating: 4.9,
-    reviews: 203,
-    inStock: true,
-    description: "Mezcla de hierbas para promover un sueño reparador"
-  },
-  {
-    id: 4,
-    name: "Digestivo Natural Premium",
-    slug: "digestivo-natural-premium",
-    category: "Infusiones",
-    finalidad: "Digestivo",
-    price: 21990,
-    originalPrice: null,
-    image: productosHierbas,
-    rating: 4.6,
-    reviews: 134,
-    inStock: true,
-    description: "Hierbas seleccionadas para mejorar la digestión naturalmente"
-  },
-  {
-    id: 5,
-    name: "Vermicompostera 5 Niveles",
-    slug: "vermicompostera-5-niveles",
-    category: "Vermicompostaje",
-    finalidad: null,
-    price: 89990,
-    originalPrice: null,
-    image: vermicompostaje,
-    rating: 4.9,
-    reviews: 89,
-    inStock: true,
-    description: "Sistema completo de vermicompostaje para empresas y hogares"
-  },
-  {
-    id: 6,
-    name: "Kit Vermicompostaje Familiar",
-    slug: "kit-vermicompostaje-familiar",
-    category: "Vermicompostaje",
-    finalidad: null,
-    price: 45990,
-    originalPrice: 54990,
-    image: vermicompostaje,
-    rating: 4.8,
-    reviews: 167,
-    inStock: true,
-    description: "Kit inicial perfecto para familias conscientes"
-  },
-  {
-    id: 7,
-    name: "Eco Macetero Alerce",
-    slug: "eco-macetero-alerce",
-    category: "Maceteros",
-    finalidad: null,
-    price: 15990,
-    originalPrice: 19990,
-    image: maceterosKits,
-    rating: 4.7,
-    reviews: 203,
-    inStock: true,
-    description: "Macetero ecológico de madera alerce sustentable"
-  },
-  {
-    id: 8,
-    name: "Kit Cultivo Hierbas Aromáticas",
-    slug: "kit-cultivo-hierbas-aromaticas",
-    category: "Maceteros",
-    finalidad: null,
-    price: 32990,
-    originalPrice: null,
-    image: maceterosKits,
-    rating: 4.8,
-    reviews: 145,
-    inStock: true,
-    description: "Kit completo para cultivar hierbas aromáticas en casa"
-  }
-];
-
+const productos = [{
+  id: 1,
+  name: "Box Especial Mujer - Refresca tu Piel",
+  slug: "box-especial-mujer-refresca-tu-piel",
+  category: "Infusiones",
+  finalidad: "Piel",
+  price: 24990,
+  originalPrice: 29990,
+  image: productosHierbas,
+  rating: 4.8,
+  reviews: 156,
+  inStock: true,
+  description: "Mezcla especial de hierbas para el cuidado y regeneración de la piel femenina"
+}, {
+  id: 2,
+  name: "Especial Hombres - Sana tu Próstata y Piel",
+  slug: "especial-hombres-sana-tu-prostata-y-piel",
+  category: "Infusiones",
+  finalidad: "Masculina",
+  price: 26990,
+  originalPrice: null,
+  image: productosHierbas,
+  rating: 4.7,
+  reviews: 89,
+  inStock: true,
+  description: "Fórmula natural para la salud masculina integral"
+}, {
+  id: 3,
+  name: "Infusión Relajante Nocturna",
+  slug: "infusion-relajante-nocturna",
+  category: "Infusiones",
+  finalidad: "Relajación",
+  price: 18990,
+  originalPrice: 22990,
+  image: productosHierbas,
+  rating: 4.9,
+  reviews: 203,
+  inStock: true,
+  description: "Mezcla de hierbas para promover un sueño reparador"
+}, {
+  id: 4,
+  name: "Digestivo Natural Premium",
+  slug: "digestivo-natural-premium",
+  category: "Infusiones",
+  finalidad: "Digestivo",
+  price: 21990,
+  originalPrice: null,
+  image: productosHierbas,
+  rating: 4.6,
+  reviews: 134,
+  inStock: true,
+  description: "Hierbas seleccionadas para mejorar la digestión naturalmente"
+}, {
+  id: 5,
+  name: "Vermicompostera 5 Niveles",
+  slug: "vermicompostera-5-niveles",
+  category: "Vermicompostaje",
+  finalidad: null,
+  price: 89990,
+  originalPrice: null,
+  image: vermicompostaje,
+  rating: 4.9,
+  reviews: 89,
+  inStock: true,
+  description: "Sistema completo de vermicompostaje para empresas y hogares"
+}, {
+  id: 6,
+  name: "Kit Vermicompostaje Familiar",
+  slug: "kit-vermicompostaje-familiar",
+  category: "Vermicompostaje",
+  finalidad: null,
+  price: 45990,
+  originalPrice: 54990,
+  image: vermicompostaje,
+  rating: 4.8,
+  reviews: 167,
+  inStock: true,
+  description: "Kit inicial perfecto para familias conscientes"
+}, {
+  id: 7,
+  name: "Eco Macetero Alerce",
+  slug: "eco-macetero-alerce",
+  category: "Maceteros",
+  finalidad: null,
+  price: 15990,
+  originalPrice: 19990,
+  image: maceterosKits,
+  rating: 4.7,
+  reviews: 203,
+  inStock: true,
+  description: "Macetero ecológico de madera alerce sustentable"
+}, {
+  id: 8,
+  name: "Kit Cultivo Hierbas Aromáticas",
+  slug: "kit-cultivo-hierbas-aromaticas",
+  category: "Maceteros",
+  finalidad: null,
+  price: 32990,
+  originalPrice: null,
+  image: maceterosKits,
+  rating: 4.8,
+  reviews: 145,
+  inStock: true,
+  description: "Kit completo para cultivar hierbas aromáticas en casa"
+}];
 interface ModalProduct {
   id: number;
   name: string;
@@ -147,7 +131,6 @@ interface ModalProduct {
   badge: string;
   description: string;
 }
-
 const Productos = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -155,11 +138,12 @@ const Productos = () => {
   const [priceFilter, setPriceFilter] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<ModalProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { addItem, openCart } = useCart();
-
+  const {
+    addItem,
+    openCart
+  } = useCart();
   const handleAddToCart = (product: typeof productos[0]) => {
     if (!product.inStock) return;
-    
     addItem({
       id: product.id,
       name: product.name,
@@ -168,17 +152,15 @@ const Productos = () => {
       originalPrice: product.originalPrice || undefined,
       image: product.image,
       category: product.category,
-      inStock: product.inStock,
+      inStock: product.inStock
     });
-
     toast.success(`${product.name} agregado al carrito`, {
       action: {
         label: "Ver Carrito",
-        onClick: () => openCart(),
-      },
+        onClick: () => openCart()
+      }
     });
   };
-
   const handleViewProduct = (product: typeof productos[0]) => {
     setSelectedProduct({
       id: product.id,
@@ -194,37 +176,22 @@ const Productos = () => {
     });
     setIsModalOpen(true);
   };
-
   const filteredProducts = productos.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
     const matchesFinalidad = selectedFinalidad === "all" || product.finalidad === selectedFinalidad;
-    
     let matchesPrice = true;
-    if (priceFilter === "low") matchesPrice = product.price <= 25000;
-    else if (priceFilter === "medium") matchesPrice = product.price > 25000 && product.price <= 50000;
-    else if (priceFilter === "high") matchesPrice = product.price > 50000;
-
+    if (priceFilter === "low") matchesPrice = product.price <= 25000;else if (priceFilter === "medium") matchesPrice = product.price > 25000 && product.price <= 50000;else if (priceFilter === "high") matchesPrice = product.price > 50000;
     return matchesSearch && matchesCategory && matchesFinalidad && matchesPrice;
   });
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header />
       <main>
         {/* Hero */}
         <section className="py-16 bg-gradient-to-r from-primary/10 to-accent/10">
           <div className="u-container">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Envíos todo Chile
-              </div>
-              <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
-                Nuestros Productos
-              </h1>
+              <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">Envíos a todo Chile</h1>
               <p className="text-lg text-muted-foreground mb-6">
                 Descubre nuestra completa gama de productos orgánicos: hierbas medicinales, 
                 sistemas de vermicompostaje y maceteros ecológicos.
@@ -243,12 +210,7 @@ const Productos = () => {
               {/* Search */}
               <div className="relative flex-1 max-w-md">
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  placeholder="Buscar productos..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
+                <Input placeholder="Buscar productos..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
               </div>
 
               {/* Filters */}
@@ -296,142 +258,6 @@ const Productos = () => {
                 </Select>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Products Grid */}
-        <section className="py-16">
-          <div className="u-container">
-            {filteredProducts.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-lg text-muted-foreground">
-                  No se encontraron productos que coincidan con los filtros seleccionados.
-                </p>
-                <Button 
-                  onClick={() => {
-                    setSearchTerm("");
-                    setSelectedCategory("all");
-                    setSelectedFinalidad("all");
-                    setPriceFilter("all");
-                  }}
-                  variant="outline"
-                  className="mt-4"
-                >
-                  Limpiar filtros
-                </Button>
-              </div>
-            ) : (
-              <div className="u-grid u-grid--cols-4 gap-6">
-                {filteredProducts.map((product) => (
-                  <Card 
-                    key={product.id} 
-                    className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden"
-                  >
-                    <CardHeader className="p-0 relative">
-                      <div className="relative overflow-hidden">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        
-                        {/* Stock Status */}
-                        <Badge 
-                          className={`absolute top-3 left-3 ${
-                            product.inStock 
-                              ? "bg-green-100 text-green-800 border-green-200" 
-                              : "bg-red-100 text-red-800 border-red-200"
-                          }`}
-                        >
-                          {product.inStock ? "En Stock" : "Agotado"}
-                        </Badge>
-
-                        {/* Quick Actions */}
-                        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <Button size="icon" variant="secondary" className="w-8 h-8">
-                            <EyeIcon className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardHeader>
-
-                    <CardContent className="p-4">
-                      <div className="mb-2">
-                        <Badge variant="outline" className="text-xs">
-                          {product.category}
-                        </Badge>
-                        {product.finalidad && (
-                          <Badge variant="outline" className="text-xs ml-2">
-                            {product.finalidad}
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <h3 className="font-semibold text-base text-foreground mb-2 line-clamp-2">
-                        {product.name}
-                      </h3>
-                      
-                      <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
-                        {product.description}
-                      </p>
-
-                      {/* Rating */}
-                      <div className="flex items-center gap-1 mb-3">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <StarIcon
-                              key={i}
-                              className={`w-3 h-3 ${
-                                i < Math.floor(product.rating)
-                                  ? "text-yellow-400 fill-current"
-                                  : "text-gray-300"
-                              }`}
-                            />
-                          ))}
-                        </div>
-                        <span className="text-xs font-medium">{product.rating}</span>
-                        <span className="text-xs text-muted-foreground">
-                          ({product.reviews})
-                        </span>
-                      </div>
-
-                      {/* Price */}
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-primary">
-                          ${product.price.toLocaleString('es-CL')}
-                        </span>
-                        {product.originalPrice && (
-                          <span className="text-xs text-muted-foreground line-through">
-                            ${product.originalPrice.toLocaleString('es-CL')}
-                          </span>
-                        )}
-                      </div>
-                    </CardContent>
-
-                    <CardFooter className="p-4 pt-0">
-                      <div className="flex gap-2 w-full">
-                        <Button 
-                          className="flex-1 bg-primary hover:bg-primary/90"
-                          disabled={!product.inStock}
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          <ShoppingCartIcon className="w-4 h-4 mr-1" />
-                          Agregar
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          className="px-3"
-                          onClick={() => handleViewProduct(product)}
-                        >
-                          Ver
-                        </Button>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            )}
           </div>
         </section>
 
@@ -487,10 +313,7 @@ const Productos = () => {
                   </div>
                 </div>
                 
-                <Button 
-                  className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 text-base"
-                  onClick={() => window.open('https://somoslokal.cl/makers/ecohierbas-chile?referred=ecohierbas-chile', '_blank')}
-                >
+                <Button className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 text-base" onClick={() => window.open('https://somoslokal.cl/makers/ecohierbas-chile?referred=ecohierbas-chile', '_blank')}>
                   Comprar al por mayor
                 </Button>
               </div>
@@ -530,18 +353,104 @@ const Productos = () => {
             </div>
           </div>
         </section>
+
+        {/* Products Grid */}
+        <section className="py-16">
+          <div className="u-container">
+            {filteredProducts.length === 0 ? <div className="text-center py-16">
+                <p className="text-lg text-muted-foreground">
+                  No se encontraron productos que coincidan con los filtros seleccionados.
+                </p>
+                <Button onClick={() => {
+              setSearchTerm("");
+              setSelectedCategory("all");
+              setSelectedFinalidad("all");
+              setPriceFilter("all");
+            }} variant="outline" className="mt-4">
+                  Limpiar filtros
+                </Button>
+              </div> : <div className="u-grid u-grid--cols-4 gap-6">
+                {filteredProducts.map(product => <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden">
+                    <CardHeader className="p-0 relative">
+                      <div className="relative overflow-hidden">
+                        <img src={product.image} alt={product.name} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        
+                        {/* Stock Status */}
+                        <Badge className={`absolute top-3 left-3 ${product.inStock ? "bg-green-100 text-green-800 border-green-200" : "bg-red-100 text-red-800 border-red-200"}`}>
+                          {product.inStock ? "En Stock" : "Agotado"}
+                        </Badge>
+
+                        {/* Quick Actions */}
+                        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <Button size="icon" variant="secondary" className="w-8 h-8">
+                            <EyeIcon className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardHeader>
+
+                    <CardContent className="p-4">
+                      <div className="mb-2">
+                        <Badge variant="outline" className="text-xs">
+                          {product.category}
+                        </Badge>
+                        {product.finalidad && <Badge variant="outline" className="text-xs ml-2">
+                            {product.finalidad}
+                          </Badge>}
+                      </div>
+                      
+                      <h3 className="font-semibold text-base text-foreground mb-2 line-clamp-2">
+                        {product.name}
+                      </h3>
+                      
+                      <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
+                        {product.description}
+                      </p>
+
+                      {/* Rating */}
+                      <div className="flex items-center gap-1 mb-3">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => <StarIcon key={i} className={`w-3 h-3 ${i < Math.floor(product.rating) ? "text-yellow-400 fill-current" : "text-gray-300"}`} />)}
+                        </div>
+                        <span className="text-xs font-medium">{product.rating}</span>
+                        <span className="text-xs text-muted-foreground">
+                          ({product.reviews})
+                        </span>
+                      </div>
+
+                      {/* Price */}
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg font-bold text-primary">
+                          ${product.price.toLocaleString('es-CL')}
+                        </span>
+                        {product.originalPrice && <span className="text-xs text-muted-foreground line-through">
+                            ${product.originalPrice.toLocaleString('es-CL')}
+                          </span>}
+                      </div>
+                    </CardContent>
+
+                    <CardFooter className="p-4 pt-0">
+                      <div className="flex gap-2 w-full">
+                        <Button className="flex-1 bg-primary hover:bg-primary/90" disabled={!product.inStock} onClick={() => handleAddToCart(product)}>
+                          <ShoppingCartIcon className="w-4 h-4 mr-1" />
+                          Agregar
+                        </Button>
+                        <Button variant="outline" className="px-3" onClick={() => handleViewProduct(product)}>
+                          Ver
+                        </Button>
+                      </div>
+                    </CardFooter>
+                  </Card>)}
+              </div>}
+          </div>
+        </section>
       </main>
 
       {/* Product Detail Modal */}
-      <ProductDetailModal
-        product={selectedProduct}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <ProductDetailModal product={selectedProduct} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Productos;
