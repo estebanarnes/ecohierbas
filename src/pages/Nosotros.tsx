@@ -2,58 +2,34 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from "@/components/ui/carousel";
-import { 
-  HeartIcon, 
-  GlobeAltIcon, 
-  AcademicCapIcon,
-  ArrowPathIcon,
-  ShieldCheckIcon,
-  UserGroupIcon
-} from "@heroicons/react/24/outline";
-
-const valores = [
-  {
-    icon: HeartIcon,
-    title: "Salud y Bienestar",
-    description: "Promovemos el bienestar integral a través de productos naturales que nutren cuerpo y alma."
-  },
-  {
-    icon: GlobeAltIcon,
-    title: "Sostenibilidad",
-    description: "Cada decisión que tomamos considera el impacto ambiental para las futuras generaciones."
-  },
-  {
-    icon: ArrowPathIcon,
-    title: "Economía Circular",
-    description: "Transformamos residuos en recursos, cerrando ciclos y minimizando desperdicios."
-  },
-  {
-    icon: AcademicCapIcon,
-    title: "Educación",
-    description: "Compartimos conocimiento para empoderar a comunidades hacia prácticas sustentables."
-  },
-  {
-    icon: ShieldCheckIcon,
-    title: "Calidad",
-    description: "Mantenemos los más altos estándares en todos nuestros procesos y productos."
-  },
-  {
-    icon: UserGroupIcon,
-    title: "Comunidad",
-    description: "Fortalecemos redes locales y apoyamos el desarrollo económico regional."
-  }
-];
-
+import { HeartIcon, GlobeAltIcon, AcademicCapIcon, ArrowPathIcon, ShieldCheckIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+const valores = [{
+  icon: HeartIcon,
+  title: "Salud y Bienestar",
+  description: "Promovemos el bienestar integral a través de productos naturales que nutren cuerpo y alma."
+}, {
+  icon: GlobeAltIcon,
+  title: "Sostenibilidad",
+  description: "Cada decisión que tomamos considera el impacto ambiental para las futuras generaciones."
+}, {
+  icon: ArrowPathIcon,
+  title: "Economía Circular",
+  description: "Transformamos residuos en recursos, cerrando ciclos y minimizando desperdicios."
+}, {
+  icon: AcademicCapIcon,
+  title: "Educación",
+  description: "Compartimos conocimiento para empoderar a comunidades hacia prácticas sustentables."
+}, {
+  icon: ShieldCheckIcon,
+  title: "Calidad",
+  description: "Mantenemos los más altos estándares en todos nuestros procesos y productos."
+}, {
+  icon: UserGroupIcon,
+  title: "Comunidad",
+  description: "Fortalecemos redes locales y apoyamos el desarrollo económico regional."
+}];
 const Nosotros = () => {
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header />
       <main>
         {/* Hero Section */}
@@ -140,121 +116,6 @@ const Nosotros = () => {
           </div>
         </section>
 
-        {/* Carrusel de Fotografías */}
-        <section className="py-16 bg-background">
-          <div className="u-container">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
-                Nuestra Historia en Imágenes
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Un recorrido visual por los momentos más importantes de EcoHierbas Chile
-              </p>
-            </div>
-
-            <div className="relative max-w-6xl mx-auto">
-              <Carousel className="w-full" opts={{ align: "start", loop: true }}>
-                <CarouselContent className="-ml-2 md:-ml-4">
-                  <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img 
-                          src="/src/assets/hero-ecohierbas.jpg" 
-                          alt="Cultivos orgánicos de EcoHierbas"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-foreground mb-2">Nuestros Cultivos</h3>
-                        <p className="text-sm text-muted-foreground">Hierbas orgánicas cultivadas con los más altos estándares de calidad</p>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-
-                  <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img 
-                          src="/src/assets/productos-hierbas.jpg" 
-                          alt="Productos de hierbas medicinales"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-foreground mb-2">Productos Premium</h3>
-                        <p className="text-sm text-muted-foreground">Selección cuidadosa de hierbas medicinales para el bienestar</p>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-
-                  <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img 
-                          src="/src/assets/vermicompostaje.jpg" 
-                          alt="Sistema de vermicompostaje"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-foreground mb-2">Vermicompostaje</h3>
-                        <p className="text-sm text-muted-foreground">Innovación en economía circular y sostenibilidad ambiental</p>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-
-                  <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img 
-                          src="/src/assets/maceteros-kits.jpg" 
-                          alt="Kits de cultivo ecológico"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-foreground mb-2">Kits Ecológicos</h3>
-                        <p className="text-sm text-muted-foreground">Soluciones completas para cultivo urbano sustentable</p>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-
-                  <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
-                      <div className="aspect-[4/3] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                        <div className="text-center p-6">
-                          <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <AcademicCapIcon className="w-8 h-8 text-primary" />
-                          </div>
-                          <h3 className="font-semibold text-foreground mb-2">Talleres Educativos</h3>
-                          <p className="text-sm text-muted-foreground">Compartiendo conocimiento sobre sustentabilidad</p>
-                        </div>
-                      </div>
-                    </Card>
-                  </CarouselItem>
-
-                  <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
-                      <div className="aspect-[4/3] bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center">
-                        <div className="text-center p-6">
-                          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <UserGroupIcon className="w-8 h-8 text-green-600" />
-                          </div>
-                          <h3 className="font-semibold text-foreground mb-2">Comunidad</h3>
-                          <p className="text-sm text-muted-foreground">Más de 500 empresas y miles de familias</p>
-                        </div>
-                      </div>
-                    </Card>
-                  </CarouselItem>
-                </CarouselContent>
-                
-                <CarouselPrevious className="left-4 bg-white/90 border-border/50 hover:bg-white" />
-                <CarouselNext className="right-4 bg-white/90 border-border/50 hover:bg-white" />
-              </Carousel>
-            </div>
-          </div>
-        </section>
-
         {/* Valores */}
         <section className="py-20 bg-muted/20">
           <div className="u-container">
@@ -269,9 +130,8 @@ const Nosotros = () => {
 
             <div className="u-grid u-grid--cols-3 gap-8">
               {valores.map((valor, index) => {
-                const IconComponent = valor.icon;
-                return (
-                  <Card key={index} className="bg-white border-border/50 hover:border-primary/20 transition-all duration-300">
+              const IconComponent = valor.icon;
+              return <Card key={index} className="bg-white border-border/50 hover:border-primary/20 transition-all duration-300">
                     <CardContent className="p-6 text-center">
                       <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                         <IconComponent className="w-6 h-6 text-primary" />
@@ -283,9 +143,8 @@ const Nosotros = () => {
                         {valor.description}
                       </p>
                     </CardContent>
-                  </Card>
-                );
-              })}
+                  </Card>;
+            })}
             </div>
           </div>
         </section>
@@ -341,9 +200,7 @@ const Nosotros = () => {
               </div>
               
               <div className="text-center group">
-                <div className="w-20 h-20 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors">
-                  <ShieldCheckIcon className="w-10 h-10 text-green-600" />
-                </div>
+                
                 <h3 className="font-semibold text-foreground mb-2">HACCP</h3>
                 <p className="text-xs text-muted-foreground">Certificación Internacional</p>
               </div>
@@ -400,8 +257,6 @@ const Nosotros = () => {
         </section>
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Nosotros;
