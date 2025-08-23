@@ -103,12 +103,7 @@ const ReviewsSection = () => {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            
-            <div className="text-sm text-muted-foreground">
-              Calificación promedio
-            </div>
-          </div>
+          
           <div>
             <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
               2,450+
