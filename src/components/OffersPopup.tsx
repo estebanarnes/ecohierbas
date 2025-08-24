@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { XMarkIcon, GiftIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 import productosHierbas from "@/assets/productos-hierbas.jpg";
 
 interface OffersPopupProps {
@@ -73,12 +74,8 @@ const OffersPopup = ({ isOpen, onClose }: OffersPopupProps) => {
               </div>
 
               <div className="space-y-3">
-                <Button 
-                  size="lg" 
-                  className="w-full bg-primary hover:bg-primary/90"
-                  onClick={onClose}
-                >
-                  Explorar Productos
+                <Button asChild size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  <Link to="/productos">Explorar Productos</Link>
                 </Button>
                 <Button 
                   size="lg" 

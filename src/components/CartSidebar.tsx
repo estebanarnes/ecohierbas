@@ -10,6 +10,7 @@ import {
   ShoppingBagIcon,
   TrashIcon 
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const CartSidebar = () => {
   const { state, updateQuantity, removeItem, closeCart, clearCart } = useCart();
@@ -33,8 +34,8 @@ const CartSidebar = () => {
             <p className="text-muted-foreground mb-6">
               Agrega algunos productos para comenzar
             </p>
-            <Button onClick={closeCart} className="bg-primary hover:bg-primary/90">
-              Continuar Comprando
+            <Button asChild className="bg-primary hover:bg-primary/90">
+              <Link to="/productos">Continuar Comprando</Link>
             </Button>
           </div>
         </SheetContent>
@@ -159,16 +160,38 @@ const CartSidebar = () => {
             </div>
           </div>
 
+          {/* Payment Methods */}
+          <div className="mb-4">
+            <p className="text-xs text-muted-foreground mb-2 text-center">Métodos de pago disponibles:</p>
+            <div className="flex justify-center items-center gap-3 flex-wrap">
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-8 h-5 bg-blue-600 rounded text-white text-[8px] font-bold flex items-center justify-center">VISA</div>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-8 h-5 bg-red-500 rounded text-white text-[7px] font-bold flex items-center justify-center">MC</div>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-8 h-5 bg-red-600 rounded text-white text-[6px] font-bold flex items-center justify-center">WebPay</div>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-8 h-5 bg-green-600 rounded text-white text-[7px] font-bold flex items-center justify-center">Khipu</div>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-8 h-5 bg-gray-600 rounded text-white text-[6px] font-bold flex items-center justify-center">Transf</div>
+              </div>
+            </div>
+          </div>
+
           <div className="space-y-2">
             <Button className="w-full bg-primary hover:bg-primary/90">
               Finalizar Compra
             </Button>
             <Button 
+              asChild
               variant="outline" 
               className="w-full"
-              onClick={closeCart}
             >
-              Continuar Comprando
+              <Link to="/productos">Continuar Comprando</Link>
             </Button>
           </div>
         </div>

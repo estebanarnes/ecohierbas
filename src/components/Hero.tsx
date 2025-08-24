@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, PlayIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-ecohierbas.jpg";
 const Hero = () => {
   return <section className="relative min-h-[85vh] flex items-center overflow-hidden">
@@ -38,9 +39,8 @@ const Hero = () => {
               Cotización Corporativa
               <ArrowRightIcon className="ml-2 w-5 h-5" />
             </Button>
-            <Button size="lg" variant="outline" data-variant="b2c" className="border-white hover:bg-white px-8 py-4 h-auto backdrop-blur-sm text-[#7ab733]">
-              Ver Productos
-              <PlayIcon className="ml-2 w-5 h-5" />
+            <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 font-medium">
+              <Link to="/productos">Ver Productos</Link>
             </Button>
           </div>
 

@@ -6,6 +6,8 @@ import {
   AcademicCapIcon,
   ArrowPathIcon 
 } from "@heroicons/react/24/outline";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const benefits = [
   {
@@ -95,12 +97,12 @@ const BenefitsSection = () => {
               orgánicos para cuidar la salud de sus colaboradores.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="u-btn bg-primary text-primary-foreground hover:bg-primary/90">
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Solicitar Catálogo B2B
-              </button>
-              <button className="u-btn bg-transparent border border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                Ver Productos
-              </button>
+              </Button>
+              <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                <Link to="/productos">Ver Productos</Link>
+              </Button>
             </div>
           </div>
         </div>
