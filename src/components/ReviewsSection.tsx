@@ -50,27 +50,6 @@ const ReviewsSection = () => {
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center px-0 mx-[30px] mb-12">
-          
-          <div>
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">150+</div>
-            <div className="text-sm text-muted-foreground">Clientes</div>
-          </div>
-          <div>
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">200+</div>
-            <div className="text-sm text-muted-foreground">Recuperaciones de residuos deshidratados</div>
-          </div>
-          <div>
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-              98%
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Recomendarían
-            </div>
-          </div>
-        </div>
-
         {/* Reviews Grid */}
         <div className="u-grid u-grid--cols-3 gap-8">
           {reviews.map(review => <Card key={review.id} className="bg-white border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-md">
