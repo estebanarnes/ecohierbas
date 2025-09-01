@@ -10,6 +10,7 @@ import {
   ShoppingBagIcon,
   TrashIcon 
 } from "@heroicons/react/24/outline";
+import { CreditCard, Building, Smartphone, DollarSign } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const CartSidebar = () => {
@@ -164,20 +165,30 @@ const CartSidebar = () => {
           <div className="mb-4">
             <p className="text-xs text-muted-foreground mb-2 text-center">Métodos de pago disponibles:</p>
             <div className="flex justify-center items-center gap-3 flex-wrap">
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <div className="w-8 h-5 bg-blue-600 rounded text-white text-[8px] font-bold flex items-center justify-center">VISA</div>
+              <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-10 h-6 bg-blue-600 rounded text-white text-[8px] font-bold flex items-center justify-center">
+                  VISA
+                </div>
               </div>
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <div className="w-8 h-5 bg-red-500 rounded text-white text-[7px] font-bold flex items-center justify-center">MC</div>
+              <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-10 h-6 bg-gradient-to-r from-red-500 to-orange-400 rounded text-white text-[7px] font-bold flex items-center justify-center">
+                  MC
+                </div>
               </div>
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <div className="w-8 h-5 bg-red-600 rounded text-white text-[6px] font-bold flex items-center justify-center">WebPay</div>
+              <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-10 h-6 bg-red-600 rounded text-white text-[6px] font-bold flex items-center justify-center">
+                  <Smartphone className="w-3 h-3" />
+                </div>
               </div>
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <div className="w-8 h-5 bg-green-600 rounded text-white text-[7px] font-bold flex items-center justify-center">Khipu</div>
+              <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-10 h-6 bg-green-600 rounded text-white text-[7px] font-bold flex items-center justify-center">
+                  <CreditCard className="w-3 h-3" />
+                </div>
               </div>
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <div className="w-8 h-5 bg-gray-600 rounded text-white text-[6px] font-bold flex items-center justify-center">Transf</div>
+              <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                <div className="w-10 h-6 bg-gray-600 rounded text-white text-[6px] font-bold flex items-center justify-center">
+                  <Building className="w-3 h-3" />
+                </div>
               </div>
             </div>
           </div>
