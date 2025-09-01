@@ -167,7 +167,7 @@ const CartSidebar = () => {
             <div className="flex justify-center items-center gap-3 flex-wrap">
               <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
                 <div className="w-10 h-6 bg-white rounded border flex items-center justify-center p-1">
-                  <img src="/lovable-uploads/386c86d7-0b35-4bd2-aabe-7cff876f96a3.png" alt="Visa" className="w-full h-full object-contain" />
+                  <img src="/lovable-uploads/df926a2d-1aa7-4eef-b253-2f6a979dba1c.png" alt="Visa" className="w-full h-full object-contain" />
                 </div>
               </div>
               <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
@@ -176,13 +176,13 @@ const CartSidebar = () => {
                 </div>
               </div>
               <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
-                <div className="w-10 h-6 bg-red-600 rounded text-white text-[6px] font-bold flex items-center justify-center">
-                  <Smartphone className="w-3 h-3" />
+                <div className="w-10 h-6 bg-white rounded border flex items-center justify-center p-1">
+                  <img src="/lovable-uploads/1c0b50be-da02-4f90-aaa1-29fecf8d0af6.png" alt="WebPay" className="w-full h-full object-contain" />
                 </div>
               </div>
               <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
-                <div className="w-10 h-6 bg-green-600 rounded text-white text-[7px] font-bold flex items-center justify-center">
-                  <CreditCard className="w-3 h-3" />
+                <div className="w-10 h-6 bg-white rounded border flex items-center justify-center p-1">
+                  <img src="/lovable-uploads/7fc26e92-13e6-452b-bb5b-1084beb96e1a.png" alt="Khipu" className="w-full h-full object-contain" />
                 </div>
               </div>
               <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">

@@ -193,6 +193,38 @@ const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailModalProp
               </div>
             </div>
 
+            {/* Payment Methods */}
+            <div className="mt-6">
+              <h4 className="font-semibold text-lg mb-3">Métodos de pago disponibles</h4>
+              <div className="flex justify-start items-center gap-3 flex-wrap">
+                <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                  <div className="w-12 h-7 bg-white rounded border flex items-center justify-center p-1">
+                    <img src="/lovable-uploads/df926a2d-1aa7-4eef-b253-2f6a979dba1c.png" alt="Visa" className="w-full h-full object-contain" />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                  <div className="w-12 h-7 bg-gradient-to-r from-red-500 to-orange-400 rounded text-white text-[8px] font-bold flex items-center justify-center">
+                    MC
+                  </div>
+                </div>
+                <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                  <div className="w-12 h-7 bg-white rounded border flex items-center justify-center p-1">
+                    <img src="/lovable-uploads/1c0b50be-da02-4f90-aaa1-29fecf8d0af6.png" alt="WebPay" className="w-full h-full object-contain" />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                  <div className="w-12 h-7 bg-white rounded border flex items-center justify-center p-1">
+                    <img src="/lovable-uploads/7fc26e92-13e6-452b-bb5b-1084beb96e1a.png" alt="Khipu" className="w-full h-full object-contain" />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                  <div className="w-12 h-7 bg-gray-600 rounded text-white text-[7px] font-bold flex items-center justify-center">
+                    TRANSF
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Additional Info */}
             <div className="mt-8 pt-6 border-t border-border">
               <div className="grid grid-cols-2 gap-4 text-sm">
