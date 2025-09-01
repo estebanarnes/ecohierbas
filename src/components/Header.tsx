@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Bars3Icon, ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useCart } from "@/contexts/CartContext";
 import B2BQuoteForm from "@/components/B2BQuoteForm";
 
@@ -48,9 +48,6 @@ const Header = () => {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="icon">
-              <UserIcon className="w-5 h-5" />
-            </Button>
             <Button 
               variant="ghost" 
               size="icon" 
@@ -93,9 +90,6 @@ const Header = () => {
                     </Link>
                   ))}
                   <div className="pt-4 border-t border-border space-y-4">
-                    <Button className="w-full" variant="outline">
-                      Mi Cuenta
-                    </Button>
                     <Button 
                       className="w-full bg-primary hover:bg-primary/90"
                       onClick={() => {
