@@ -166,8 +166,8 @@ const CartSidebar = () => {
             <p className="text-xs text-muted-foreground mb-2 text-center">Métodos de pago disponibles:</p>
             <div className="flex justify-center items-center gap-3 flex-wrap">
               <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
-                <div className="w-10 h-6 bg-blue-600 rounded text-white text-[8px] font-bold flex items-center justify-center">
-                  VISA
+                <div className="w-10 h-6 bg-white rounded border flex items-center justify-center p-1">
+                  <img src="/lovable-uploads/debcd0d7-6515-4ff4-bb07-d5bc28e6bff9.png" alt="Visa" className="w-full h-full object-contain" />
                 </div>
               </div>
               <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
