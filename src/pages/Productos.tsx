@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import PageTemplate from "@/components/templates/PageTemplate";
+import { useWooCommerce, useWCProductAdapter } from "@/hooks/useWooCommerce";
+import { useWordPressTemplate } from "@/hooks/useWordPress";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -156,6 +157,18 @@ const Productos = () => {
   const [selectedProduct, setSelectedProduct] = useState<ModalProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { addItem, openCart } = useCart();
+  
+  // WordPress integration
+  const { data: page, template } = useWordPressTemplate('productos');
+  const { useProducts, useCategories } = useWooCommerce();
+  const { convertWCProductToCartItem } = useWCProductAdapter();
+  
+  // Obtener productos y categorías desde WooCommerce
+  const { data: wcProducts, isLoading: productsLoading } = useProducts({
+    per_page: 50,
+    status: 'publish'
+  });
+  const { data: wcCategories } = useCategories();
 
   const handleAddToCart = (product: typeof productos[0]) => {
     if (!product.inStock) return;
@@ -208,10 +221,34 @@ const Productos = () => {
     return matchesSearch && matchesCategory && matchesFinalidad && matchesPrice;
   });
 
+  // Usar productos WooCommerce o fallback
+  const allProducts = wcProducts 
+    ? wcProducts.map(wcProduct => ({
+        id: wcProduct.id,
+        name: wcProduct.name,
+        slug: wcProduct.slug,
+        category: wcProduct.categories[0]?.name || 'Sin categoría',
+        finalidad: wcProduct.attributes.find(attr => attr.name === 'finalidad')?.options[0] || null,
+        price: parseFloat(wcProduct.price) || 0,
+        originalPrice: wcProduct.sale_price ? parseFloat(wcProduct.regular_price) : null,
+        image: wcProduct.images[0]?.src || '/placeholder.svg',
+        rating: parseFloat(wcProduct.average_rating) || 4.5,
+        reviews: wcProduct.rating_count || 0,
+        inStock: wcProduct.stock_status === 'instock',
+        description: wcProduct.short_description?.replace(/<[^>]*>/g, '') || wcProduct.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...' || ''
+      }))
+    : productos;
+
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
+    <PageTemplate 
+      page={page} 
+      template={template}
+      customSEO={{
+        title: 'Productos Orgánicos y Sustentables - Ecohierbas Chile',
+        description: 'Descubre nuestra amplia gama de productos orgánicos: hierbas medicinales, sistemas de vermicompostaje y maceteros ecológicos. Envíos a todo Chile.',
+        keywords: 'productos orgánicos, hierbas medicinales, vermicompostaje, maceteros ecológicos, sustentable, chile'
+      }}
+    >
         {/* Hero */}
         <section className="py-16 bg-gradient-to-r from-primary/10 to-accent/10">
           <div className="u-container">
@@ -302,7 +339,22 @@ const Productos = () => {
         {/* Products Grid */}
         <section className="py-16">
           <div className="u-container">
-            {filteredProducts.length === 0 ? (
+            {productsLoading ? (
+              // Loading skeleton
+              <div className="u-grid u-grid--cols-4 gap-6">
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <Card key={index} className="animate-pulse">
+                    <div className="h-48 bg-muted"></div>
+                    <CardContent className="p-4">
+                      <div className="h-3 bg-muted rounded mb-2"></div>
+                      <div className="h-4 bg-muted rounded mb-2"></div>
+                      <div className="h-3 bg-muted rounded mb-3"></div>
+                      <div className="h-4 bg-muted rounded"></div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : filteredProducts.length === 0 ? (
               <div className="text-center py-16">
                 <p className="text-lg text-muted-foreground">
                   No se encontraron productos que coincidan con los filtros seleccionados.
@@ -322,7 +374,18 @@ const Productos = () => {
               </div>
             ) : (
               <div className="u-grid u-grid--cols-4 gap-6">
-                {filteredProducts.map((product) => (
+                {allProducts.filter(product => {
+                  const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+                  const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
+                  const matchesFinalidad = selectedFinalidad === "all" || product.finalidad === selectedFinalidad;
+                  
+                  let matchesPrice = true;
+                  if (priceFilter === "low") matchesPrice = product.price <= 25000;
+                  else if (priceFilter === "medium") matchesPrice = product.price > 25000 && product.price <= 50000;
+                  else if (priceFilter === "high") matchesPrice = product.price > 50000;
+
+                  return matchesSearch && matchesCategory && matchesFinalidad && matchesPrice;
+                }).map((product) => (
                   <Card 
                     key={product.id} 
                     className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden"
@@ -530,17 +593,14 @@ const Productos = () => {
             </div>
           </div>
         </section>
-      </main>
 
-      {/* Product Detail Modal */}
-      <ProductDetailModal
-        product={selectedProduct}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-      
-      <Footer />
-    </div>
+        {/* Product Detail Modal */}
+        <ProductDetailModal
+          product={selectedProduct}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+    </PageTemplate>
   );
 };
 

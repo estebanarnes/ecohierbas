@@ -8,61 +8,81 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductDetailModal from "@/components/ProductDetailModal";
-import productosHierbas from "@/assets/productos-hierbas.jpg";
-import vermicompostaje from "@/assets/vermicompostaje.jpg";
-import maceterosKits from "@/assets/maceteros-kits.jpg";
-
-const featuredProducts = [
-  {
-    id: 1,
-    name: "Box Especial Mujer - Refresca tu Piel",
-    category: "Infusiones",
-    price: 24990,
-    originalPrice: 29990,
-    image: productosHierbas,
-    rating: 4.8,
-    reviews: 156,
-    badge: "Más Vendido",
-    description: "Mezcla de hierbas especialmente seleccionadas para el cuidado de la piel femenina"
-  },
-  {
-    id: 2,
-    name: "Vermicompostera 5 Niveles",
-    category: "Vermicompostaje",
-    price: 89990,
-    originalPrice: null,
-    image: vermicompostaje,
-    rating: 4.9,
-    reviews: 89,
-    badge: "B2B Popular",
-    description: "Sistema completo de vermicompostaje para empresas y hogares conscientes"
-  },
-  {
-    id: 3,
-    name: "Eco Macetero Alerce + Kit Cultivo",
-    category: "Maceteros",
-    price: 15990,
-    originalPrice: 19990,
-    image: maceterosKits,
-    rating: 4.7,
-    reviews: 203,
-    badge: "Oferta",
-    description: "Macetero ecológico de madera alerce con kit completo para cultivar hierbas"
-  }
-];
+import { useWooCommerce, useWCProductAdapter } from "@/hooks/useWooCommerce";
 
 const FeaturedProducts = () => {
   const { addItem, openCart } = useCart();
   const navigate = useNavigate();
-  const [selectedProduct, setSelectedProduct] = useState<typeof featuredProducts[0] | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Usar WooCommerce para obtener productos destacados
+  const { useFeaturedProducts } = useWooCommerce();
+  const { convertWCProductToCartItem } = useWCProductAdapter();
+  const { data: wcProducts, isLoading, error } = useFeaturedProducts();
 
-  const handleViewProduct = (product: typeof featuredProducts[0]) => {
+  // Fallback a productos estáticos si no hay conexión con WooCommerce
+  const fallbackProducts = [
+    {
+      id: 1,
+      name: "Box Especial Mujer - Refresca tu Piel",
+      category: "Infusiones",
+      price: 24990,
+      originalPrice: 29990,
+      image: "/assets/productos-hierbas.jpg",
+      rating: 4.8,
+      reviews: 156,
+      badge: "Más Vendido",
+      description: "Mezcla de hierbas especialmente seleccionadas para el cuidado de la piel femenina"
+    },
+    {
+      id: 2,
+      name: "Vermicompostera 5 Niveles",
+      category: "Vermicompostaje",
+      price: 89990,
+      originalPrice: null,
+      image: "/assets/vermicompostaje.jpg",
+      rating: 4.9,
+      reviews: 89,
+      badge: "B2B Popular",
+      description: "Sistema completo de vermicompostaje para empresas y hogares conscientes"
+    },
+    {
+      id: 3,
+      name: "Eco Macetero Alerce + Kit Cultivo",
+      category: "Maceteros",
+      price: 15990,
+      originalPrice: 19990,
+      image: "/assets/maceteros-kits.jpg",
+      rating: 4.7,
+      reviews: 203,
+      badge: "Oferta",
+      description: "Macetero ecológico de madera alerce con kit completo para cultivar hierbas"
+    }
+  ];
+
+  // Convertir productos WooCommerce o usar fallback
+  const products = wcProducts 
+    ? wcProducts.slice(0, 3).map(wcProduct => ({
+        id: wcProduct.id,
+        name: wcProduct.name,
+        category: wcProduct.categories[0]?.name || 'Sin categoría',
+        price: parseFloat(wcProduct.price) || 0,
+        originalPrice: wcProduct.sale_price ? parseFloat(wcProduct.regular_price) : null,
+        image: wcProduct.images[0]?.src || '/placeholder.svg',
+        rating: parseFloat(wcProduct.average_rating) || 4.5,
+        reviews: wcProduct.rating_count || 0,
+        badge: wcProduct.featured ? "Destacado" : (wcProduct.on_sale ? "Oferta" : "Disponible"),
+        description: wcProduct.short_description?.replace(/<[^>]*>/g, '') || wcProduct.description?.replace(/<[^>]*>/g, '').substring(0, 100) + '...' || ''
+      }))
+    : fallbackProducts;
+
+  const handleViewProduct = (product: typeof products[0]) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
   };
 
-  const handleAddToCart = (product: typeof featuredProducts[0]) => {
+  const handleAddToCart = (product: typeof products[0]) => {
     addItem({
       id: product.id,
       name: product.name,
@@ -101,7 +121,21 @@ const FeaturedProducts = () => {
 
         {/* Products Grid */}
         <div className="u-grid u-grid--cols-3 gap-8 mb-12">
-          {featuredProducts.map((product) => (
+          {isLoading ? (
+            // Loading skeleton
+            Array.from({ length: 3 }).map((_, index) => (
+              <Card key={index} className="animate-pulse">
+                <div className="h-64 bg-muted"></div>
+                <CardContent className="p-6">
+                  <div className="h-4 bg-muted rounded mb-2"></div>
+                  <div className="h-6 bg-muted rounded mb-2"></div>
+                  <div className="h-4 bg-muted rounded mb-4"></div>
+                  <div className="h-6 bg-muted rounded"></div>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            products.map((product) => (
             <Card 
               key={product.id} 
               className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden"
@@ -204,7 +238,8 @@ const FeaturedProducts = () => {
                 </div>
               </CardFooter>
             </Card>
-          ))}
+          ))
+          )}
         </div>
 
         {/* CTA */}
