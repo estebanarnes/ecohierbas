@@ -760,10 +760,10 @@ const Productos = () => {
                                   ))}
                                 </div>
 
-                                {/* Segunda fila - 5 productos (si hay más) */}
-                                {pageProducts.length > 5 && (
-                                  <div className="grid grid-cols-5 gap-4">
-                                    {pageProducts.slice(5, 10).map((product) => (
+                                {/* Segunda fila - 4 productos (si hay más) */}
+                                {pageProducts.length > 4 && (
+                                  <div className="grid grid-cols-4 gap-6">
+                                    {pageProducts.slice(4, 8).map((product) => (
                                       <Card 
                                         key={product.id} 
                                         className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden"
