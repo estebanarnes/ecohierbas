@@ -284,10 +284,10 @@ const Contacto = () => {
         <section className="py-16 relative z-10">
           <div className="u-container">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-3xl font-serif font-bold text-white mb-4 drop-shadow-lg">
                 Preguntas Frecuentes
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/90 drop-shadow-md">
                 Encuentra respuestas rápidas a las consultas más comunes
               </p>
             </div>
