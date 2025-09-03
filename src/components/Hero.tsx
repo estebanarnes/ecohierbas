@@ -9,7 +9,7 @@ const Hero = () => {
       style={{
         backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`,
         backgroundSize: 'cover',
-        backgroundPosition: '-30px center',
+        backgroundPosition: '-30px -40px',
         backgroundAttachment: 'fixed'
       }}
     >
