@@ -103,7 +103,7 @@ const FeaturedProducts = () => {
   };
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background rounded-t-3xl relative z-10 -mt-16">
       <div className="u-container">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
