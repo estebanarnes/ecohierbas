@@ -2,30 +2,15 @@ import { HeartIcon, GlobeAltIcon, ShieldCheckIcon, TruckIcon, AcademicCapIcon, A
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 const benefits = [{
-  icon: HeartIcon,
-  title: "Salud y Bienestar",
-  description: "Productos naturales que cuidan tu salud con ingredientes 100% orgánicos",
-  image: "/src/assets/productos-hierbas.jpg"
-}, {
-  icon: GlobeAltIcon,
-  title: "Sostenibilidad",
-  description: "Comprometidos con el medio ambiente y prácticas sustentables",
-  image: "/src/assets/hero-ecohierbas.jpg"
-}, {
-  icon: ArrowPathIcon,
-  title: "Economía Circular",
-  description: "Transformamos residuos en recursos valiosos a través del compostaje",
-  image: "/src/assets/vermicompostaje.jpg"
-}, {
   icon: TruckIcon,
   title: "Producción Local",
   description: "Cultivado y producido en Pudahuel, apoyando la economía local",
   image: "/src/assets/maceteros-kits.jpg"
 }, {
-  icon: AcademicCapIcon,
-  title: "Educación Ambiental",
-  description: "Talleres y capacitaciones para promover hábitos sustentables",
-  image: "/src/assets/productos-hierbas.jpg"
+  icon: GlobeAltIcon,
+  title: "Sostenibilidad",
+  description: "Comprometidos con el medio ambiente y prácticas sustentables",
+  image: "/src/assets/hero-ecohierbas.jpg"
 }, {
   icon: ShieldCheckIcon,
   title: "Calidad Certificada",
