@@ -6,14 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  MapPinIcon, 
-  PhoneIcon, 
-  EnvelopeIcon,
-  ClockIcon,
-  ChatBubbleLeftRightIcon
-} from "@heroicons/react/24/outline";
-
+import { MapPinIcon, PhoneIcon, EnvelopeIcon, ClockIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 const Contacto = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const faqParallaxRef = useRef<HTMLDivElement>(null);
@@ -23,38 +16,31 @@ const Contacto = () => {
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
       const speed = 0.5;
-      
+
       // Hero parallax
       if (parallaxRef.current) {
         parallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
       }
-      
+
       // FAQ parallax
       if (faqParallaxRef.current) {
         faqParallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
         console.log('FAQ parallax applied:', scrolled * speed);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header />
       <main>
         {/* Hero */}
         <section className="relative py-16 overflow-hidden">
           {/* Parallax Background */}
-          <div 
-            ref={parallaxRef}
-            className="absolute inset-0 bg-cover bg-center transform scale-110"
-            style={{
-              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-              willChange: 'transform'
-            }}
-          ></div>
+          <div ref={parallaxRef} className="absolute inset-0 bg-cover bg-center transform scale-110" style={{
+          backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+          willChange: 'transform'
+        }}></div>
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/40"></div>
           
@@ -139,10 +125,7 @@ const Contacto = () => {
                       <label className="text-sm font-medium text-foreground mb-2 block">
                         Mensaje *
                       </label>
-                      <Textarea 
-                        placeholder="Cuéntanos cómo podemos ayudarte..."
-                        className="min-h-[120px]"
-                      />
+                      <Textarea placeholder="Cuéntanos cómo podemos ayudarte..." className="min-h-[120px]" />
                     </div>
 
                     <div className="flex items-start gap-3">
@@ -222,16 +205,8 @@ const Contacto = () => {
                       ¿Necesitas una respuesta rápida? Contáctanos por WhatsApp 
                       para consultas urgentes y cotizaciones express.
                     </p>
-                    <Button 
-                      className="w-full bg-accent hover:bg-accent/90"
-                      size="lg"
-                      asChild
-                    >
-                      <a 
-                        href="https://wa.me/56912345678?text=Hola%20EcoHierbas%20Chile,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20naturales%20y%20sustentables"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                    <Button className="w-full bg-accent hover:bg-accent/90" size="lg" asChild>
+                      <a href="https://wa.me/56912345678?text=Hola%20EcoHierbas%20Chile,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20naturales%20y%20sustentables" target="_blank" rel="noopener noreferrer">
                         Escribir por WhatsApp
                       </a>
                     </Button>
@@ -249,10 +224,7 @@ const Contacto = () => {
                       volúmenes corporativos o soluciones personalizadas, contáctanos 
                       directamente.
                     </p>
-                    <Button 
-                      variant="outline" 
-                      className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                    >
+                    <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                       Solicitar Cotización B2B
                     </Button>
                   </CardContent>
@@ -262,20 +234,10 @@ const Contacto = () => {
                 <Card className="border-border/50">
                   <CardContent className="p-0">
                     <div className="h-64 rounded-lg overflow-hidden cursor-pointer group relative">
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.123456789!2d-70.9876543!3d-34.4567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDI3JzI0LjQiUyA3MMKwNTknMTUuNiJX!5e0!3m2!1ses!2scl!4v1635789012345!5m2!1ses!2scl"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Ubicación EcoHierbas Chile"
-                      ></iframe>
-                      <div 
-                        className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-                        onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Camino El tambo, San Vicente Tagua Tagua, VI Región')}`, '_blank')}
-                      >
+                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.123456789!2d-70.9876543!3d-34.4567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDI3JzI0LjQiUyA3MMKwNTknMTUuNiJX!5e0!3m2!1ses!2scl!4v1635789012345!5m2!1ses!2scl" width="100%" height="100%" style={{
+                      border: 0
+                    }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Ubicación EcoHierbas Chile"></iframe>
+                      <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center" onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Camino El tambo, San Vicente Tagua Tagua, VI Región')}`, '_blank')}>
                         <div className="text-white bg-primary/80 px-4 py-2 rounded-lg shadow-lg">
                           <p className="text-sm font-medium">Abrir en Google Maps</p>
                         </div>
@@ -291,18 +253,14 @@ const Contacto = () => {
         {/* FAQ Section */}
         <section className="py-16 relative overflow-hidden min-h-[600px]">
           {/* Parallax Background */}
-          <div 
-            ref={faqParallaxRef}
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105"
-            style={{
-              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-              willChange: 'transform',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center'
-            }}
-          ></div>
+          <div ref={faqParallaxRef} className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105" style={{
+          backgroundImage: `url(/lovable-uploads/62e97ad3-752c-480f-8ab6-1cdda9102893.png)`,
+          willChange: 'transform',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center'
+        }}></div>
           {/* Overlay */}
-          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="absolute inset-0 bg-transparent"></div>
           
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
@@ -367,8 +325,6 @@ const Contacto = () => {
         </section>
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Contacto;
