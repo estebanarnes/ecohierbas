@@ -1,144 +1,84 @@
 <?php
 /**
  * Template Part: Stats Section
- * Replica exactamente el componente StatsSection.tsx
+ * Sección de estadísticas e impacto
  */
 ?>
 
-<section class="py-16 md:py-24 bg-primary/5 relative overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" fill-rule=\"evenodd\"><g fill=\"%23059669\" fill-opacity=\"0.3\"><circle cx=\"7\" cy=\"7\" r=\"7\"/></g></g></svg>'); background-size: 60px 60px;"></div>
-    </div>
-
-    <div class="u-container relative z-10">
-        <!-- Header -->
+<section class="py-16 md:py-24 bg-muted/20">
+    <div class="u-container">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-foreground mb-6">
-                <?php esc_html_e('EcoHierbas en Números', 'ecohierbas'); ?>
+                <?php esc_html_e('Impacto EcoHierbas', 'ecohierbas'); ?>
             </h2>
             <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
-                <?php esc_html_e('Más de una década construyendo confianza y transformando vidas a través de productos naturales.', 'ecohierbas'); ?>
+                <?php esc_html_e('Nuestros números reflejan el compromiso con la sustentabilidad y el bienestar de nuestros clientes.', 'ecohierbas'); ?>
             </p>
         </div>
 
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Stat 1: Años de Experiencia -->
-            <div class="text-center group">
-                <div class="bg-background rounded-2xl p-8 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
-                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="text-4xl font-bold text-primary mb-2" data-count="10">10+</div>
-                    <div class="text-lg font-semibold text-foreground mb-2"><?php esc_html_e('Años', 'ecohierbas'); ?></div>
-                    <div class="text-sm text-muted-foreground"><?php esc_html_e('de experiencia en el mercado', 'ecohierbas'); ?></div>
-                </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Stat 1: Productos -->
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-primary mb-2">500+</div>
+                <h3 class="text-lg font-semibold mb-2"><?php esc_html_e('Productos Entregados', 'ecohierbas'); ?></h3>
+                <p class="text-muted-foreground"><?php esc_html_e('Mensualmente a todo Chile', 'ecohierbas'); ?></p>
             </div>
 
-            <!-- Stat 2: Clientes Satisfechos -->
-            <div class="text-center group">
-                <div class="bg-background rounded-2xl p-8 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
-                    <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="text-4xl font-bold text-accent mb-2" data-count="5000">5K+</div>
-                    <div class="text-lg font-semibold text-foreground mb-2"><?php esc_html_e('Clientes', 'ecohierbas'); ?></div>
-                    <div class="text-sm text-muted-foreground"><?php esc_html_e('satisfechos en todo Chile', 'ecohierbas'); ?></div>
-                </div>
+            <!-- Stat 2: Clientes -->
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-accent mb-2">2000+</div>
+                <h3 class="text-lg font-semibold mb-2"><?php esc_html_e('Clientes Satisfechos', 'ecohierbas'); ?></h3>
+                <p class="text-muted-foreground"><?php esc_html_e('Confiando en nuestros productos', 'ecohierbas'); ?></p>
             </div>
 
-            <!-- Stat 3: Productos -->
-            <div class="text-center group">
-                <div class="bg-background rounded-2xl p-8 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
-                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                        </svg>
-                    </div>
-                    <div class="text-4xl font-bold text-secondary mb-2" data-count="200">200+</div>
-                    <div class="text-lg font-semibold text-foreground mb-2"><?php esc_html_e('Productos', 'ecohierbas'); ?></div>
-                    <div class="text-sm text-muted-foreground"><?php esc_html_e('naturales y orgánicos', 'ecohierbas'); ?></div>
-                </div>
+            <!-- Stat 3: Experiencia -->
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">10+</div>
+                <h3 class="text-lg font-semibold mb-2"><?php esc_html_e('Años de Experiencia', 'ecohierbas'); ?></h3>
+                <p class="text-muted-foreground"><?php esc_html_e('En productos naturales', 'ecohierbas'); ?></p>
             </div>
 
-            <!-- Stat 4: Satisfacción -->
-            <div class="text-center group">
-                <div class="bg-background rounded-2xl p-8 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
-                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <!-- Stat 4: Cobertura -->
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-primary mb-2">16</div>
+                <h3 class="text-lg font-semibold mb-2"><?php esc_html_e('Regiones de Chile', 'ecohierbas'); ?></h3>
+                <p class="text-muted-foreground"><?php esc_html_e('Cobertura nacional completa', 'ecohierbas'); ?></p>
+            </div>
+        </div>
+
+        <!-- Additional Stats -->
+        <div class="mt-16 pt-16 border-t border-border">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <div class="text-4xl font-bold text-primary mb-2" data-count="98">98%</div>
-                    <div class="text-lg font-semibold text-foreground mb-2"><?php esc_html_e('Satisfacción', 'ecohierbas'); ?></div>
-                    <div class="text-sm text-muted-foreground"><?php esc_html_e('de nuestros clientes', 'ecohierbas'); ?></div>
+                    <h3 class="text-lg font-semibold mb-2"><?php esc_html_e('98% Satisfacción', 'ecohierbas'); ?></h3>
+                    <p class="text-muted-foreground"><?php esc_html_e('Calificación promedio de nuestros clientes', 'ecohierbas'); ?></p>
                 </div>
-            </div>
-        </div>
-
-        <!-- Testimonial -->
-        <div class="mt-16 text-center">
-            <div class="bg-background rounded-2xl p-8 max-w-4xl mx-auto shadow-lg">
-                <div class="flex justify-center mb-6">
-                    <?php for ($i = 0; $i < 5; $i++): ?>
-                        <svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
-                    <?php endfor; ?>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2"><?php esc_html_e('Entrega Rápida', 'ecohierbas'); ?></h3>
+                    <p class="text-muted-foreground"><?php esc_html_e('Promedio de 3 días hábiles', 'ecohierbas'); ?></p>
                 </div>
-                <blockquote class="text-xl italic text-muted-foreground mb-6">
-                    "<?php esc_html_e('EcoHierbas ha transformado mi relación con la alimentación natural. Sus productos son de calidad excepcional y el servicio al cliente es incomparable.', 'ecohierbas'); ?>"
-                </blockquote>
-                <cite class="text-lg font-semibold text-foreground">
-                    <?php esc_html_e('María González', 'ecohierbas'); ?>
-                    <span class="text-sm text-muted-foreground block"><?php esc_html_e('Cliente desde 2019', 'ecohierbas'); ?></span>
-                </cite>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2"><?php esc_html_e('Eco-Impacto', 'ecohierbas'); ?></h3>
+                    <p class="text-muted-foreground"><?php esc_html_e('5 toneladas de CO₂ reducidas anualmente', 'ecohierbas'); ?></p>
+                </div>
             </div>
         </div>
     </div>
 </section>
-
-<script>
-// Animación de contadores
-document.addEventListener('DOMContentLoaded', function() {
-    const observerOptions = {
-        threshold: 0.5,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counters = entry.target.querySelectorAll('[data-count]');
-                counters.forEach(counter => {
-                    const target = parseInt(counter.dataset.count);
-                    const increment = target / 100;
-                    let current = 0;
-                    
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            counter.textContent = target + (counter.textContent.includes('+') ? '+' : counter.textContent.includes('%') ? '%' : '');
-                            clearInterval(timer);
-                        } else {
-                            counter.textContent = Math.floor(current) + (counter.textContent.includes('+') ? '+' : counter.textContent.includes('%') ? '%' : '');
-                        }
-                    }, 20);
-                });
-                
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    const statsSection = document.querySelector('[data-count]')?.closest('section');
-    if (statsSection) {
-        observer.observe(statsSection);
-    }
-});
-</script>
