@@ -135,7 +135,7 @@ const Nosotros = () => {
                   <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
                       <div className="aspect-[4/3] overflow-hidden">
-                        <img src="/src/assets/hero-ecohierbas.jpg" alt="Cultivos orgánicos de EcoHierbas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <img src="/lovable-uploads/8adecc65-ccf3-4b16-baeb-71a26cb59adb.png" alt="Compostaje y manejo sustentable del suelo" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       </div>
                       <CardContent className="p-4">
                         <h3 className="font-semibold text-foreground mb-2">Nuestros Cultivos</h3>
