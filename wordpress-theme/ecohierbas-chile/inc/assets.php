@@ -14,7 +14,7 @@ function ecohierbas_enqueue_assets() {
         'ecohierbas-style',
         get_stylesheet_uri(),
         array(),
-        ECOHIERBAS_VERSION
+        ECOHIERBAS_THEME_VERSION
     );
     
     // CSS compilado
@@ -22,7 +22,7 @@ function ecohierbas_enqueue_assets() {
         'ecohierbas-app',
         ECOHIERBAS_THEME_URL . '/assets/css/app.css',
         array(),
-        ECOHIERBAS_VERSION
+        ECOHIERBAS_THEME_VERSION
     );
 
     // JavaScript utilities (debe cargarse primero)
@@ -30,7 +30,7 @@ function ecohierbas_enqueue_assets() {
         'ecohierbas-utils',
         ECOHIERBAS_THEME_URL . '/assets/js/utils.js',
         array(),
-        ECOHIERBAS_VERSION,
+        ECOHIERBAS_THEME_VERSION,
         true
     );
     
@@ -39,7 +39,7 @@ function ecohierbas_enqueue_assets() {
         'ecohierbas-modals',
         ECOHIERBAS_THEME_URL . '/assets/js/modals.js',
         array('ecohierbas-utils'),
-        ECOHIERBAS_VERSION,
+        ECOHIERBAS_THEME_VERSION,
         true
     );
     
@@ -48,7 +48,7 @@ function ecohierbas_enqueue_assets() {
         'ecohierbas-cart',
         ECOHIERBAS_THEME_URL . '/assets/js/cart.js',
         array('ecohierbas-utils'),
-        ECOHIERBAS_VERSION,
+        ECOHIERBAS_THEME_VERSION,
         true
     );
     
@@ -58,7 +58,7 @@ function ecohierbas_enqueue_assets() {
             'ecohierbas-filters',
             ECOHIERBAS_THEME_URL . '/assets/js/filters.js',
             array('ecohierbas-utils'),
-            ECOHIERBAS_VERSION,
+            ECOHIERBAS_THEME_VERSION,
             true
         );
     }
@@ -89,7 +89,7 @@ function ecohierbas_enqueue_assets() {
         wp_enqueue_style(
             'ecohierbas-woocommerce',
             ECOHIERBAS_THEME_URL . '/assets/css/woocommerce.css',
-            array('ecohierbas-main'),
+            array('ecohierbas-app'),
             ECOHIERBAS_THEME_VERSION
         );
     }
