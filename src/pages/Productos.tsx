@@ -425,9 +425,6 @@ const Productos = () => {
                         Productos ({filtered.length})
                       </h2>
                       <div className="text-xs md:text-sm text-muted-foreground">
-                        <span className="md:hidden">
-                          {mobilePages.length} página{mobilePages.length > 1 ? 's' : ''} • {productsPerPageMobile} productos/página
-                        </span>
                         <span className="hidden md:inline">
                           {desktopPages.length} página{desktopPages.length > 1 ? 's' : ''} • {productsPerPageDesktop} productos/página
                         </span>
