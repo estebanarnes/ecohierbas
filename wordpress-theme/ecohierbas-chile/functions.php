@@ -20,6 +20,7 @@ define('ECOHIERBAS_THEME_URL', get_template_directory_uri());
 require_once ECOHIERBAS_THEME_PATH . '/inc/setup.php';
 require_once ECOHIERBAS_THEME_PATH . '/inc/assets.php';
 require_once ECOHIERBAS_THEME_PATH . '/inc/products.php';
+require_once ECOHIERBAS_THEME_PATH . '/inc/ajax-handlers.php';
 
 /**
  * Configuración inicial del tema
