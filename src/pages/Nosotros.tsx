@@ -147,7 +147,7 @@ const Nosotros = () => {
                   <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
                       <div className="aspect-[4/3] overflow-hidden">
-                        <img src="/src/assets/productos-hierbas.jpg" alt="Productos de hierbas medicinales" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <img src="/lovable-uploads/600b2247-6f71-428e-b9b5-661118e80152.png" alt="Hierbas medicinales premium de EcoHierbas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       </div>
                       <CardContent className="p-4">
                         <h3 className="font-semibold text-foreground mb-2">Productos Premium</h3>
