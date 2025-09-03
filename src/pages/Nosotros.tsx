@@ -37,10 +37,10 @@ const Nosotros = () => {
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
           {/* Logo transparente de fondo */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-50 pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none z-0">
             <img src="/lovable-uploads/8b7e9f40-2cae-4354-85aa-4c6be95c0095.png" alt="EcoHierbas Chile Logo" className="w-96 h-96 object-contain" />
           </div>
-          <div className="u-container">
+          <div className="u-container relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
                 Nuestra Historia
