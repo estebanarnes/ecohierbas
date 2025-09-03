@@ -298,7 +298,7 @@ const Contacto = () => {
           }}
         >
           {/* FAQ Overlay */}
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-black/70"></div>
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-serif font-bold text-white mb-4 drop-shadow-lg">
