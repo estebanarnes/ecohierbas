@@ -3,12 +3,14 @@ import { ArrowRightIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-ecohierbas.jpg";
 const Hero = () => {
-  return <section className="relative min-h-[95vh] flex items-center overflow-hidden">
-      {/* Background Image with Overlay */}
+  return <section className="relative min-h-[95vh] flex items-center overflow-hidden" style={{backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+      {/* Fixed Background for scroll effect */}
       <div className="fixed inset-0 -z-10">
         <img src={heroImage} alt="Hierbas medicinales y aromáticas orgánicas EcoHierbas Chile" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 -bottom-8 bg-gradient-to-r from-black/70 via-black/40 to-transparent mb-8"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
       </div>
+      {/* Overlay for hero section */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
 
       {/* Content */}
       <div className="relative z-20 u-container">
