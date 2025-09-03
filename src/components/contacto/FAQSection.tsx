@@ -8,10 +8,13 @@ const FAQSection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
-      const speed = 0.5;
+      const speed = 0.3; // Velocidad más lenta para evitar que se mueva demasiado
 
       if (parallaxRef.current) {
-        parallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
+        // Limitamos el movimiento para que no se salga del contenedor
+        const maxTransform = 50;
+        const transform = Math.min(scrolled * speed, maxTransform);
+        parallaxRef.current.style.transform = `translateY(${transform}px)`;
       }
     };
     
@@ -51,7 +54,7 @@ const FAQSection = () => {
       />
       
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/30" />
       
       {/* Content */}
       <div className="relative z-10 u-container">
