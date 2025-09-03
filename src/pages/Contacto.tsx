@@ -37,18 +37,18 @@ const Contacto = () => {
       <main>
         {/* Hero */}
         <section className="relative py-16 overflow-hidden">
-          {/* Parallax Background - Extended to cover next section */}
+          {/* Parallax Background - Extended to cover all sections */}
           <div 
             ref={parallaxRef}
             className="absolute inset-0 bg-cover bg-center transform scale-110"
             style={{
               backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
               willChange: 'transform',
-              height: '200vh'
+              height: '300vh'
             }}
           ></div>
-          {/* Overlay - Extended to cover next section */}
-          <div className="absolute inset-0 bg-black/40" style={{height: '200vh'}}></div>
+          {/* Overlay - Extended to cover all sections */}
+          <div className="absolute inset-0 bg-black/40" style={{height: '300vh'}}></div>
           
           <div className="u-container relative z-10">
             <div className="max-w-3xl">
@@ -281,7 +281,7 @@ const Contacto = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 relative z-10">
+        <section className="py-16 relative">
           <div className="u-container">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-serif font-bold text-white mb-4 drop-shadow-lg">
@@ -293,48 +293,48 @@ const Contacto = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              <Card className="border-border/50">
+              <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     ¿Hacen envíos a todo Chile?
                   </h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-white/80 text-sm">
                     Sí, realizamos envíos a todo Chile. Los tiempos de entrega varían 
                     según la región, entre 2-7 días hábiles.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-border/50">
+              <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     ¿Ofrecen descuentos por volumen?
                   </h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-white/80 text-sm">
                     Sí, tenemos precios especiales para empresas y compras corporativas. 
                     Contáctanos para una cotización personalizada.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-border/50">
+              <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     ¿Los productos están certificados?
                   </h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-white/80 text-sm">
                     Todos nuestros productos cuentan con certificación orgánica 
                     y cumplen con los estándares de calidad nacional.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-border/50">
+              <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     ¿Realizan talleres presenciales?
                   </h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-white/80 text-sm">
                     Sí, realizamos talleres presenciales en nuestras instalaciones 
                     y también podemos ir a tu empresa.
                   </p>
