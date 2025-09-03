@@ -5,11 +5,11 @@ import heroImage from "@/assets/hero-ecohierbas.jpg";
 const Hero = () => {
   return (
     <section 
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative h-[120vh] flex items-center overflow-hidden"
       style={{
         backgroundImage: `url(${heroImage})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center top',
         backgroundAttachment: 'fixed'
       }}
     >
