@@ -10,7 +10,7 @@ const benefits = [{
   icon: GlobeAltIcon,
   title: "Sostenibilidad",
   description: "Comprometidos con el medio ambiente y prácticas sustentables",
-  image: "/src/assets/hero-ecohierbas.jpg"
+  image: "/lovable-uploads/e13791b6-0e8d-4f23-ba3f-2cd4243ea531.png"
 }, {
   icon: ShieldCheckIcon,
   title: "Calidad Certificada",
