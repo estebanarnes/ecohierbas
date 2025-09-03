@@ -357,8 +357,8 @@ const Nosotros = () => {
               </div>
               
               <div className="text-center group">
-                <div className="w-20 h-20 bg-yellow-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-200 transition-colors">
-                  <span className="text-lg font-bold text-yellow-600">ML</span>
+                <div className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <img src="/lovable-uploads/3fb978b6-70af-4293-9f46-eb9844c19a47.png" alt="Mercado Libre" className="w-full h-full object-contain" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">Mercado Libre</h3>
                 <p className="text-xs text-muted-foreground">Plataforma de ventas</p>
