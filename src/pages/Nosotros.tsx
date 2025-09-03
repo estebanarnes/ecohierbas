@@ -45,9 +45,6 @@ const Nosotros = () => {
               <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
                 Nuestra Historia
               </Badge>
-              <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6">
-                EcoHierbas Chile
-              </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">Somos una microempresa chilena fundada en 2015 con la misión de promover la salud natural y la sostenibilidad ambiental a través de productos orgánicos de la más alta calidad.</p>
             </div>
           </div>
