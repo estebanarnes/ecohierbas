@@ -403,11 +403,19 @@ const Productos = () => {
                   );
                 }
 
-                // Crear páginas de productos (4x2 en desktop, 1x4 en mobile)
-                const productsPerPage = 8;
-                const pages = [];
-                for (let i = 0; i < filtered.length; i += productsPerPage) {
-                  pages.push(filtered.slice(i, i + productsPerPage));
+                // Crear páginas de productos (3 en mobile, 8 en desktop)
+                const productsPerPageMobile = 3;
+                const productsPerPageDesktop = 8;
+                
+                // Crear páginas separadas para mobile y desktop
+                const mobilePages = [];
+                for (let i = 0; i < filtered.length; i += productsPerPageMobile) {
+                  mobilePages.push(filtered.slice(i, i + productsPerPageMobile));
+                }
+                
+                const desktopPages = [];
+                for (let i = 0; i < filtered.length; i += productsPerPageDesktop) {
+                  desktopPages.push(filtered.slice(i, i + productsPerPageDesktop));
                 }
 
                 return (
@@ -416,21 +424,24 @@ const Productos = () => {
                       <h2 className="text-xl md:text-2xl font-semibold text-foreground">
                         Productos ({filtered.length})
                       </h2>
-                      {pages.length > 1 && (
-                        <div className="text-xs md:text-sm text-muted-foreground">
-                          {pages.length} página{pages.length > 1 ? 's' : ''} • {productsPerPage} productos/página
-                        </div>
-                      )}
+                      <div className="text-xs md:text-sm text-muted-foreground">
+                        <span className="md:hidden">
+                          {mobilePages.length} página{mobilePages.length > 1 ? 's' : ''} • {productsPerPageMobile} productos/página
+                        </span>
+                        <span className="hidden md:inline">
+                          {desktopPages.length} página{desktopPages.length > 1 ? 's' : ''} • {productsPerPageDesktop} productos/página
+                        </span>
+                      </div>
                     </div>
 
-                    <Carousel className="w-full" opts={{ align: "start", loop: true }}>
-                      <CarouselContent>
-                        {pages.map((pageProducts, pageIndex) => (
-                          <CarouselItem key={pageIndex} className="pl-2 md:pl-4">
-                            <div className="space-y-4 md:space-y-6">
-                              {/* Primera fila - 4 productos en desktop, 1 en mobile */}
-                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-                                {pageProducts.slice(0, 4).map((product) => (
+                    {/* Mobile Carousel (3 products per page) */}
+                    <div className="md:hidden">
+                      <Carousel className="w-full" opts={{ align: "start", loop: true }}>
+                        <CarouselContent>
+                          {mobilePages.map((pageProducts, pageIndex) => (
+                            <CarouselItem key={pageIndex} className="pl-2">
+                              <div className="grid grid-cols-1 gap-3">
+                                {pageProducts.map((product) => (
                                   <Card 
                                     key={product.id} 
                                     className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden"
@@ -440,7 +451,7 @@ const Productos = () => {
                                         <img
                                           src={product.image}
                                           alt={product.name}
-                                          className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                                          className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                         
@@ -469,19 +480,19 @@ const Productos = () => {
                                       </div>
                                     </CardHeader>
 
-                                    <CardContent className="p-3 md:p-4">
+                                    <CardContent className="p-3">
                                       <div className="mb-2">
                                         <Badge variant="outline" className="text-xs">
                                           {product.category}
                                         </Badge>
                                         {product.finalidad && (
-                                          <Badge variant="outline" className="text-xs ml-1 md:ml-2">
+                                          <Badge variant="outline" className="text-xs ml-1">
                                             {product.finalidad}
                                           </Badge>
                                         )}
                                       </div>
                                       
-                                      <h3 className="font-semibold text-sm md:text-base text-foreground mb-2 line-clamp-2">
+                                      <h3 className="font-semibold text-sm text-foreground mb-2 line-clamp-2">
                                         {product.name}
                                       </h3>
                                       
@@ -511,7 +522,7 @@ const Productos = () => {
 
                                       {/* Price */}
                                       <div className="flex items-center gap-2">
-                                        <span className="text-base md:text-lg font-bold text-primary">
+                                        <span className="text-base font-bold text-primary">
                                           ${product.price.toLocaleString('es-CL')}
                                         </span>
                                         {product.originalPrice && (
@@ -522,22 +533,21 @@ const Productos = () => {
                                       </div>
                                     </CardContent>
 
-                                    <CardFooter className="p-3 md:p-4 pt-0">
+                                    <CardFooter className="p-3 pt-0">
                                       <div className="flex gap-2 w-full">
                                         <Button 
                                           size="sm"
-                                          className="flex-1 bg-primary hover:bg-primary/90 text-xs md:text-sm"
+                                          className="flex-1 bg-primary hover:bg-primary/90 text-xs"
                                           disabled={!product.inStock}
                                           onClick={() => handleAddToCart(product)}
                                         >
-                                          <ShoppingCartIcon className="w-3 h-3 md:w-4 md:h-4 mr-1" />
-                                          <span className="hidden sm:inline">Agregar</span>
-                                          <span className="sm:hidden">+</span>
+                                          <ShoppingCartIcon className="w-3 h-3 mr-1" />
+                                          Agregar
                                         </Button>
                                         <Button 
                                           size="sm"
                                           variant="outline" 
-                                          className="px-2 md:px-3 text-xs md:text-sm"
+                                          className="px-2 text-xs"
                                           onClick={() => handleViewProduct(product)}
                                         >
                                           Ver
@@ -547,11 +557,38 @@ const Productos = () => {
                                   </Card>
                                 ))}
                               </div>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                      </Carousel>
 
-                              {/* Segunda fila - 4 productos (si hay más) */}
-                              {pageProducts.length > 4 && (
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-                                  {pageProducts.slice(4, 8).map((product) => (
+                      {/* Mobile Pagination Dots */}
+                      {mobilePages.length > 1 && (
+                        <div className="flex justify-center mt-6">
+                          <div className="flex gap-2">
+                            {mobilePages.map((_, index) => (
+                              <div 
+                                key={index} 
+                                className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium shadow-lg"
+                              >
+                                {index + 1}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Desktop Carousel (8 products per page in 4x2 grid) */}
+                    <div className="hidden md:block">
+                      <Carousel className="w-full" opts={{ align: "start", loop: true }}>
+                        <CarouselContent>
+                          {desktopPages.map((pageProducts, pageIndex) => (
+                            <CarouselItem key={pageIndex} className="pl-4">
+                              <div className="space-y-6">
+                                {/* Primera fila - 4 productos */}
+                                <div className="grid grid-cols-4 gap-6">
+                                  {pageProducts.slice(0, 4).map((product) => (
                                     <Card 
                                       key={product.id} 
                                       className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden"
@@ -665,33 +702,152 @@ const Productos = () => {
                                     </Card>
                                   ))}
                                 </div>
-                              )}
-                            </div>
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      
-                      {pages.length > 1 && (
-                        <>
-                          <CarouselPrevious className="left-2 md:left-4 bg-white/90 border-border/50 hover:bg-white shadow-lg" />
-                          <CarouselNext className="right-2 md:right-4 bg-white/90 border-border/50 hover:bg-white shadow-lg" />
-                        </>
-                      )}
-                    </Carousel>
 
-                    {/* Indicador de página actual */}
-                    {pages.length > 1 && (
-                      <div className="flex justify-center mt-6">
-                        <div className="flex gap-2">
-                          {pages.map((_, index) => (
-                            <div 
-                              key={index} 
-                              className="w-2 h-2 rounded-full bg-muted"
-                            ></div>
+                                {/* Segunda fila - 4 productos (si hay más) */}
+                                {pageProducts.length > 4 && (
+                                  <div className="grid grid-cols-4 gap-6">
+                                    {pageProducts.slice(4, 8).map((product) => (
+                                      <Card 
+                                        key={product.id} 
+                                        className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden"
+                                      >
+                                        <CardHeader className="p-0 relative">
+                                          <div className="relative overflow-hidden">
+                                            <img
+                                              src={product.image}
+                                              alt={product.name}
+                                              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                            
+                                            {/* Stock Status */}
+                                            <Badge 
+                                              className={`absolute top-3 left-3 ${
+                                                product.inStock 
+                                                  ? "bg-green-100 text-green-800 border-green-200" 
+                                                  : "bg-red-100 text-red-800 border-red-200"
+                                              }`}
+                                            >
+                                              {product.inStock ? "En Stock" : "Agotado"}
+                                            </Badge>
+
+                                            {/* Quick Actions */}
+                                            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                              <Button 
+                                                size="icon" 
+                                                variant="secondary" 
+                                                className="w-8 h-8"
+                                                onClick={() => handleViewProduct(product)}
+                                              >
+                                                <EyeIcon className="w-4 h-4" />
+                                              </Button>
+                                            </div>
+                                          </div>
+                                        </CardHeader>
+
+                                        <CardContent className="p-4">
+                                          <div className="mb-2">
+                                            <Badge variant="outline" className="text-xs">
+                                              {product.category}
+                                            </Badge>
+                                            {product.finalidad && (
+                                              <Badge variant="outline" className="text-xs ml-2">
+                                                {product.finalidad}
+                                              </Badge>
+                                            )}
+                                          </div>
+                                          
+                                          <h3 className="font-semibold text-base text-foreground mb-2 line-clamp-2">
+                                            {product.name}
+                                          </h3>
+                                          
+                                          <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
+                                            {product.description}
+                                          </p>
+
+                                          {/* Rating */}
+                                          <div className="flex items-center gap-1 mb-3">
+                                            <div className="flex items-center">
+                                              {[...Array(5)].map((_, i) => (
+                                                <StarIcon
+                                                  key={i}
+                                                  className={`w-3 h-3 ${
+                                                    i < Math.floor(product.rating)
+                                                      ? "text-yellow-400 fill-current"
+                                                      : "text-gray-300"
+                                                  }`}
+                                                />
+                                              ))}
+                                            </div>
+                                            <span className="text-xs font-medium">{product.rating}</span>
+                                            <span className="text-xs text-muted-foreground">
+                                              ({product.reviews})
+                                            </span>
+                                          </div>
+
+                                          {/* Price */}
+                                          <div className="flex items-center gap-2">
+                                            <span className="text-lg font-bold text-primary">
+                                              ${product.price.toLocaleString('es-CL')}
+                                            </span>
+                                            {product.originalPrice && (
+                                              <span className="text-xs text-muted-foreground line-through">
+                                                ${product.originalPrice.toLocaleString('es-CL')}
+                                              </span>
+                                            )}
+                                          </div>
+                                        </CardContent>
+
+                                        <CardFooter className="p-4 pt-0">
+                                          <div className="flex gap-2 w-full">
+                                            <Button 
+                                              className="flex-1 bg-primary hover:bg-primary/90"
+                                              disabled={!product.inStock}
+                                              onClick={() => handleAddToCart(product)}
+                                            >
+                                              <ShoppingCartIcon className="w-4 h-4 mr-1" />
+                                              Agregar
+                                            </Button>
+                                            <Button 
+                                              variant="outline" 
+                                              className="px-3"
+                                              onClick={() => handleViewProduct(product)}
+                                            >
+                                              Ver
+                                            </Button>
+                                          </div>
+                                        </CardFooter>
+                                      </Card>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </CarouselItem>
                           ))}
+                        </CarouselContent>
+                        
+                        {desktopPages.length > 1 && (
+                          <>
+                            <CarouselPrevious className="left-4 bg-white/90 border-border/50 hover:bg-white shadow-lg" />
+                            <CarouselNext className="right-4 bg-white/90 border-border/50 hover:bg-white shadow-lg" />
+                          </>
+                        )}
+                      </Carousel>
+
+                      {/* Desktop Pagination Indicators */}
+                      {desktopPages.length > 1 && (
+                        <div className="flex justify-center mt-6">
+                          <div className="flex gap-2">
+                            {desktopPages.map((_, index) => (
+                              <div 
+                                key={index} 
+                                className="w-2 h-2 rounded-full bg-muted"
+                              ></div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 );
               })()
