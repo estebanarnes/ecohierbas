@@ -177,7 +177,7 @@ const Footer = () => {
         <div className="u-container py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-white/80">
-              © {currentYear} EcoHierbas Chile (JAFER SPA). Todos los derechos reservados.
+              © {currentYear} EcoHierbas Chile. Todos los derechos reservados.
             </div>
             
             <div className="flex items-center gap-6 text-sm">
