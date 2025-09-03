@@ -2,126 +2,128 @@
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<?php echo esc_attr(get_bloginfo('description')); ?>">
     
+    <!-- Preconnect para performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fuentes (idénticas al React) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?php echo esc_url(home_url('/')); ?>">
+    <meta property="og:title" content="<?php wp_title('|', true, 'right'); ?>">
+    <meta property="og:description" content="<?php echo esc_attr(get_bloginfo('description')); ?>">
+    <meta property="og:image" content="<?php echo esc_url(ECOHIERBAS_THEME_URL . '/assets/img/ecohierbas-logo.png'); ?>">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<?php echo esc_url(home_url('/')); ?>">
+    <meta property="twitter:title" content="<?php wp_title('|', true, 'right'); ?>">
+    <meta property="twitter:description" content="<?php echo esc_attr(get_bloginfo('description')); ?>">
+    <meta property="twitter:image" content="<?php echo esc_url(ECOHIERBAS_THEME_URL . '/assets/img/ecohierbas-logo.png'); ?>">
+
     <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-
-<div id="page" class="site min-h-screen bg-background">
-    <header id="masthead" class="site-header bg-white/10 backdrop-blur-lg border-b border-white/20 sticky top-0 z-50 shadow-lg shadow-black/5">
+    <?php wp_body_open(); ?>
+    
+    <!-- Header Principal -->
+    <header class="site-header" role="banner">
         <div class="u-container">
-            <div class="flex items-center justify-between h-16">
+            <nav class="header-nav" role="navigation" aria-label="<?php esc_attr_e('Navegación principal', 'ecohierbas'); ?>">
                 <!-- Logo -->
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center space-x-2" rel="home">
-                    <?php
-                    $custom_logo_id = get_theme_mod('custom_logo');
-                    if ($custom_logo_id) {
-                        echo wp_get_attachment_image($custom_logo_id, 'full', false, array('class' => 'w-16 h-16 object-contain'));
-                    } else {
-                        ?>
-                        <img src="<?php echo esc_url(ECOHIERBAS_THEME_URL . '/assets/img/ecohierbas-logo.png'); ?>" 
-                             alt="<?php bloginfo('name'); ?>" 
-                             class="w-16 h-16 object-contain">
-                        <?php
-                    }
-                    ?>
-                    <div class="flex flex-col">
-                        <span class="text-lg font-serif font-semibold text-primary"><?php bloginfo('name'); ?></span>
-                        <span class="text-xs text-muted-foreground -mt-1">Chile</span>
-                    </div>
-                </a>
+                <div class="site-logo">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('Ir al inicio', 'ecohierbas'); ?>">
+                        <?php if (has_custom_logo()) : ?>
+                            <?php the_custom_logo(); ?>
+                        <?php else : ?>
+                            <img src="<?php echo esc_url(ECOHIERBAS_THEME_URL . '/assets/img/ecohierbas-logo.png'); ?>" 
+                                 alt="<?php esc_attr_e('EcoHierbas Chile', 'ecohierbas'); ?>" 
+                                 width="48" 
+                                 height="48">
+                        <?php endif; ?>
+                    </a>
+                </div>
 
-                <!-- Desktop Navigation -->
-                <nav class="u-hide-mobile" aria-label="<?php esc_attr_e('Menú principal', 'ecohierbas'); ?>">
+                <!-- Navegación Principal (Desktop) -->
+                <div class="main-navigation hidden-mobile" id="main-navigation">
                     <?php
                     wp_nav_menu(array(
                         'theme_location' => 'primary',
-                        'menu_class' => 'flex items-center space-x-8',
-                        'container' => false,
-                        'fallback_cb' => 'ecohierbas_fallback_menu',
-                        'link_class' => 'text-foreground hover:text-primary transition-colors font-medium',
+                        'menu_class'     => 'nav-menu',
+                        'container'      => false,
+                        'fallback_cb'    => 'ecohierbas_fallback_menu',
                     ));
                     ?>
-                </nav>
+                </div>
 
-                <!-- Desktop Actions -->
-                <div class="u-hide-mobile flex items-center space-x-4">
-                    <!-- Cart Button -->
-                    <button class="relative p-2 text-foreground hover:text-primary transition-colors" 
+                <!-- Botones de acción -->
+                <div class="header-actions">
+                    <div class="flex items-center gap-4">
+                        <!-- Botón B2B Quote -->
+                        <button 
+                            class="u-btn u-btn--outline hidden-mobile" 
+                            id="b2b-quote-btn"
+                            aria-label="<?php esc_attr_e('Solicitar cotización B2B', 'ecohierbas'); ?>">
+                            <?php esc_html_e('Cotización B2B', 'ecohierbas'); ?>
+                        </button>
+
+                        <!-- Carrito (solo si WooCommerce está activo) -->
+                        <?php if (class_exists('WooCommerce')) : ?>
+                        <button 
+                            class="u-btn u-btn--primary cart-toggle" 
                             id="cart-toggle"
-                            aria-label="<?php esc_attr_e('Abrir carrito', 'ecohierbas'); ?>">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M7 13h10m-10 6h10"></path>
-                        </svg>
-                        <?php if (class_exists('WooCommerce') && WC()->cart->get_cart_contents_count() > 0): ?>
-                            <span class="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                <?php echo WC()->cart->get_cart_contents_count(); ?>
-                            </span>
+                            aria-label="<?php esc_attr_e('Abrir carrito de compras', 'ecohierbas'); ?>">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 4V2a1 1 0 0 1 2 0v2h6V2a1 1 0 1 1 2 0v2h1a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1zM6 6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H6z"/>
+                                <path d="M7 12h10M7 16h10"/>
+                            </svg>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </button>
                         <?php endif; ?>
-                    </button>
-                    
-                    <!-- B2B Quote Button -->
-                    <button class="u-btn u-btn--primary" id="b2b-quote-btn">
-                        <?php esc_html_e('Cotizar B2B', 'ecohierbas'); ?>
-                    </button>
-                </div>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button class="u-btn u-btn--ghost" 
+                        <!-- Toggle Menú Móvil -->
+                        <button 
+                            class="mobile-menu-toggle block-mobile" 
                             id="mobile-menu-toggle"
+                            aria-label="<?php esc_attr_e('Abrir menú de navegación', 'ecohierbas'); ?>"
                             aria-expanded="false"
-                            aria-label="<?php esc_attr_e('Abrir menú', 'ecohierbas'); ?>">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
+                            aria-controls="mobile-navigation">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M4 6h16v2H4V6zM4 11h16v2H4v-2zM4 16h16v2H4v-2z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </nav>
 
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-lg border-t border-white/20">
-            <div class="u-container py-4">
+            <!-- Navegación Móvil -->
+            <div class="main-navigation block-mobile" id="mobile-navigation" style="display: none;">
                 <?php
                 wp_nav_menu(array(
                     'theme_location' => 'primary',
-                    'menu_class' => 'flex flex-col space-y-4',
-                    'container' => false,
-                    'fallback_cb' => 'ecohierbas_fallback_menu',
-                    'link_class' => 'text-lg font-medium text-foreground hover:text-primary transition-colors',
+                    'menu_class'     => 'mobile-nav-menu',
+                    'container'      => false,
+                    'fallback_cb'    => 'ecohierbas_fallback_menu',
                 ));
                 ?>
-                <div class="pt-4 border-t border-border space-y-4">
-                    <button class="u-btn u-btn--primary w-full" id="mobile-b2b-quote-btn">
-                        <?php esc_html_e('Cotizar B2B', 'ecohierbas'); ?>
+                
+                <!-- Botón B2B en móvil -->
+                <div class="mobile-nav-actions" style="padding: 1rem 0; border-top: 1px solid hsl(var(--border));">
+                    <button class="u-btn u-btn--outline w-full" id="mobile-b2b-quote-btn">
+                        <?php esc_html_e('Cotización B2B', 'ecohierbas'); ?>
                     </button>
                 </div>
             </div>
         </div>
     </header>
 
-    <div id="content" class="site-content">
+    <!-- Overlay para menú móvil -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" style="display: none;"></div>
 
-<?php
-// Función fallback para el menú
-function ecohierbas_fallback_menu() {
-    $menu_items = array(
-        array('title' => 'Inicio', 'url' => home_url('/')),
-        array('title' => 'Nosotros', 'url' => home_url('/nosotros')),
-        array('title' => 'Productos', 'url' => home_url('/productos')),
-        array('title' => 'Contacto', 'url' => home_url('/contacto')),
-    );
-
-    echo '<ul class="flex items-center space-x-8">';
-    foreach ($menu_items as $item) {
-        $current = (trailingslashit(home_url(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) === trailingslashit($item['url'])) ? ' current' : '';
-        echo '<li><a href="' . esc_url($item['url']) . '" class="text-foreground hover:text-primary transition-colors font-medium' . $current . '">' . esc_html($item['title']) . '</a></li>';
-    }
-    echo '</ul>';
-}
-?>
+    <!-- Main Content Start -->
