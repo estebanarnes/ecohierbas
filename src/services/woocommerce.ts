@@ -1,10 +1,10 @@
 // WooCommerce REST API Service
-const WORDPRESS_BASE_URL = process.env.REACT_APP_WORDPRESS_URL || 'https://tu-sitio-wordpress.com';
+const WORDPRESS_BASE_URL = import.meta.env.VITE_WORDPRESS_URL || 'https://tu-sitio-wordpress.com';
 const WC_API_BASE = `${WORDPRESS_BASE_URL}/wp-json/wc/v3`;
 
 // WooCommerce API credentials
-const WC_CONSUMER_KEY = process.env.REACT_APP_WC_CONSUMER_KEY || '';
-const WC_CONSUMER_SECRET = process.env.REACT_APP_WC_CONSUMER_SECRET || '';
+const WC_CONSUMER_KEY = import.meta.env.VITE_WC_CONSUMER_KEY || '';
+const WC_CONSUMER_SECRET = import.meta.env.VITE_WC_CONSUMER_SECRET || '';
 
 // Helper para autenticación WooCommerce
 const getWCAuthParams = () => {
