@@ -280,7 +280,7 @@ const Contacto = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 bg-muted/20">
+        <section className="py-16 relative z-10">
           <div className="u-container">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-serif font-bold text-foreground mb-4">
