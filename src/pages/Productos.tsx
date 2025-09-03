@@ -257,23 +257,23 @@ const Productos = () => {
       }}
     >
         {/* Hero */}
-        <section className="py-16 bg-gradient-to-r from-primary/10 to-accent/10">
+        <section className="py-8 md:py-16 bg-gradient-to-r from-primary/10 to-accent/10">
           <div className="u-container">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-3 bg-primary/10 text-primary px-6 py-3 rounded-full text-base font-medium mb-4">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="inline-flex items-center gap-2 md:gap-3 bg-primary/10 text-primary px-4 md:px-6 py-2 md:py-3 rounded-full text-sm md:text-base font-medium mb-4">
+                <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Envíos a todo Chile
               </div>
-              <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-foreground mb-4">
                 Nuestros Productos
               </h1>
-              <p className="text-lg text-muted-foreground mb-6">
+              <p className="text-base md:text-lg text-muted-foreground mb-6">
                 Descubre nuestra completa gama de productos orgánicos: hierbas medicinales, 
                 sistemas de vermicompostaje y maceteros ecológicos.
               </p>
-              <Badge className="bg-primary/10 text-primary border-primary/20">
+              <Badge className="bg-primary/10 text-primary border-primary/20 text-sm">
                 {productos.length} productos disponibles
               </Badge>
             </div>
@@ -281,11 +281,11 @@ const Productos = () => {
         </section>
 
         {/* Filters */}
-        <section className="py-8 bg-white border-b border-border">
+        <section className="py-4 md:py-8 bg-white border-b border-border">
           <div className="u-container">
-            <div className="flex flex-col lg:flex-row gap-4 items-center">
+            <div className="flex flex-col gap-4">
               {/* Search */}
-              <div className="relative flex-1 max-w-md">
+              <div className="relative w-full">
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   placeholder="Buscar productos..."
@@ -296,64 +296,66 @@ const Productos = () => {
               </div>
 
               {/* Filters */}
-              <div className="flex gap-4 items-center">
-                <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="hidden sm:flex items-center gap-2 mb-2 sm:mb-0">
                   <AdjustmentsHorizontalIcon className="w-4 h-4 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">Filtros:</span>
                 </div>
                 
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-40">
-                    <SelectValue placeholder="Categoría" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas</SelectItem>
-                    <SelectItem value="Infusiones">Infusiones</SelectItem>
-                    <SelectItem value="Vermicompostaje">Vermicompostaje</SelectItem>
-                    <SelectItem value="Maceteros">Maceteros</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1">
+                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Categoría" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todas</SelectItem>
+                      <SelectItem value="Infusiones">Infusiones</SelectItem>
+                      <SelectItem value="Vermicompostaje">Vermicompostaje</SelectItem>
+                      <SelectItem value="Maceteros">Maceteros</SelectItem>
+                    </SelectContent>
+                  </Select>
 
-                <Select value={selectedFinalidad} onValueChange={setSelectedFinalidad}>
-                  <SelectTrigger className="w-40">
-                    <SelectValue placeholder="Finalidad" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas</SelectItem>
-                    <SelectItem value="Relajación">Relajación</SelectItem>
-                    <SelectItem value="Digestivo">Digestivo</SelectItem>
-                    <SelectItem value="Piel">Piel</SelectItem>
-                    <SelectItem value="Masculina">Masculina</SelectItem>
-                  </SelectContent>
-                </Select>
+                  <Select value={selectedFinalidad} onValueChange={setSelectedFinalidad}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Finalidad" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todas</SelectItem>
+                      <SelectItem value="Relajación">Relajación</SelectItem>
+                      <SelectItem value="Digestivo">Digestivo</SelectItem>
+                      <SelectItem value="Piel">Piel</SelectItem>
+                      <SelectItem value="Masculina">Masculina</SelectItem>
+                    </SelectContent>
+                  </Select>
 
-                <Select value={priceFilter} onValueChange={setPriceFilter}>
-                  <SelectTrigger className="w-40">
-                    <SelectValue placeholder="Precio" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todos</SelectItem>
-                    <SelectItem value="low">Hasta $25.000</SelectItem>
-                    <SelectItem value="medium">$25.000 - $50.000</SelectItem>
-                    <SelectItem value="high">Más de $50.000</SelectItem>
-                  </SelectContent>
-                </Select>
+                  <Select value={priceFilter} onValueChange={setPriceFilter}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Precio" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todos</SelectItem>
+                      <SelectItem value="low">Hasta $25.000</SelectItem>
+                      <SelectItem value="medium">$25.000 - $50.000</SelectItem>
+                      <SelectItem value="high">Más de $50.000</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Products Carousel 4x2 */}
-        <section className="py-16">
+        {/* Products Carousel */}
+        <section className="py-8 md:py-16">
           <div className="u-container">
             {productsLoading ? (
               // Loading skeleton
-              <div className="space-y-8">
-                <div className="grid grid-cols-4 gap-6">
+              <div className="space-y-4 md:space-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                   {Array.from({ length: 8 }).map((_, index) => (
                     <Card key={index} className="animate-pulse">
-                      <div className="h-48 bg-muted"></div>
-                      <CardContent className="p-4">
+                      <div className="h-40 md:h-48 bg-muted"></div>
+                      <CardContent className="p-3 md:p-4">
                         <div className="h-3 bg-muted rounded mb-2"></div>
                         <div className="h-4 bg-muted rounded mb-2"></div>
                         <div className="h-3 bg-muted rounded mb-3"></div>
@@ -401,7 +403,7 @@ const Productos = () => {
                   );
                 }
 
-                // Crear páginas de 8 productos (4x2)
+                // Crear páginas de productos (4x2 en desktop, 1x4 en mobile)
                 const productsPerPage = 8;
                 const pages = [];
                 for (let i = 0; i < filtered.length; i += productsPerPage) {
@@ -410,13 +412,13 @@ const Productos = () => {
 
                 return (
                   <div className="relative">
-                    <div className="mb-6 flex justify-between items-center">
-                      <h2 className="text-2xl font-semibold text-foreground">
-                        Productos Disponibles ({filtered.length})
+                    <div className="mb-4 md:mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                      <h2 className="text-xl md:text-2xl font-semibold text-foreground">
+                        Productos ({filtered.length})
                       </h2>
                       {pages.length > 1 && (
-                        <div className="text-sm text-muted-foreground">
-                          Páginas: {pages.length} ({productsPerPage} productos por página)
+                        <div className="text-xs md:text-sm text-muted-foreground">
+                          {pages.length} página{pages.length > 1 ? 's' : ''} • {productsPerPage} productos/página
                         </div>
                       )}
                     </div>
@@ -424,10 +426,10 @@ const Productos = () => {
                     <Carousel className="w-full" opts={{ align: "start", loop: true }}>
                       <CarouselContent>
                         {pages.map((pageProducts, pageIndex) => (
-                          <CarouselItem key={pageIndex} className="pl-4">
-                            <div className="space-y-6">
-                              {/* Primera fila - 4 productos */}
-                              <div className="grid grid-cols-4 gap-6">
+                          <CarouselItem key={pageIndex} className="pl-2 md:pl-4">
+                            <div className="space-y-4 md:space-y-6">
+                              {/* Primera fila - 4 productos en desktop, 1 en mobile */}
+                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
                                 {pageProducts.slice(0, 4).map((product) => (
                                   <Card 
                                     key={product.id} 
@@ -438,7 +440,7 @@ const Productos = () => {
                                         <img
                                           src={product.image}
                                           alt={product.name}
-                                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                                          className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                         
@@ -467,19 +469,19 @@ const Productos = () => {
                                       </div>
                                     </CardHeader>
 
-                                    <CardContent className="p-4">
+                                    <CardContent className="p-3 md:p-4">
                                       <div className="mb-2">
                                         <Badge variant="outline" className="text-xs">
                                           {product.category}
                                         </Badge>
                                         {product.finalidad && (
-                                          <Badge variant="outline" className="text-xs ml-2">
+                                          <Badge variant="outline" className="text-xs ml-1 md:ml-2">
                                             {product.finalidad}
                                           </Badge>
                                         )}
                                       </div>
                                       
-                                      <h3 className="font-semibold text-base text-foreground mb-2 line-clamp-2">
+                                      <h3 className="font-semibold text-sm md:text-base text-foreground mb-2 line-clamp-2">
                                         {product.name}
                                       </h3>
                                       
@@ -509,7 +511,7 @@ const Productos = () => {
 
                                       {/* Price */}
                                       <div className="flex items-center gap-2">
-                                        <span className="text-lg font-bold text-primary">
+                                        <span className="text-base md:text-lg font-bold text-primary">
                                           ${product.price.toLocaleString('es-CL')}
                                         </span>
                                         {product.originalPrice && (
@@ -520,19 +522,22 @@ const Productos = () => {
                                       </div>
                                     </CardContent>
 
-                                    <CardFooter className="p-4 pt-0">
+                                    <CardFooter className="p-3 md:p-4 pt-0">
                                       <div className="flex gap-2 w-full">
                                         <Button 
-                                          className="flex-1 bg-primary hover:bg-primary/90"
+                                          size="sm"
+                                          className="flex-1 bg-primary hover:bg-primary/90 text-xs md:text-sm"
                                           disabled={!product.inStock}
                                           onClick={() => handleAddToCart(product)}
                                         >
-                                          <ShoppingCartIcon className="w-4 h-4 mr-1" />
-                                          Agregar
+                                          <ShoppingCartIcon className="w-3 h-3 md:w-4 md:h-4 mr-1" />
+                                          <span className="hidden sm:inline">Agregar</span>
+                                          <span className="sm:hidden">+</span>
                                         </Button>
                                         <Button 
+                                          size="sm"
                                           variant="outline" 
-                                          className="px-3"
+                                          className="px-2 md:px-3 text-xs md:text-sm"
                                           onClick={() => handleViewProduct(product)}
                                         >
                                           Ver
@@ -545,7 +550,7 @@ const Productos = () => {
 
                               {/* Segunda fila - 4 productos (si hay más) */}
                               {pageProducts.length > 4 && (
-                                <div className="grid grid-cols-4 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
                                   {pageProducts.slice(4, 8).map((product) => (
                                     <Card 
                                       key={product.id} 
@@ -668,8 +673,8 @@ const Productos = () => {
                       
                       {pages.length > 1 && (
                         <>
-                          <CarouselPrevious className="left-4 bg-white/90 border-border/50 hover:bg-white shadow-lg" />
-                          <CarouselNext className="right-4 bg-white/90 border-border/50 hover:bg-white shadow-lg" />
+                          <CarouselPrevious className="left-2 md:left-4 bg-white/90 border-border/50 hover:bg-white shadow-lg" />
+                          <CarouselNext className="right-2 md:right-4 bg-white/90 border-border/50 hover:bg-white shadow-lg" />
                         </>
                       )}
                     </Carousel>
@@ -695,7 +700,7 @@ const Productos = () => {
         </section>
 
         {/* Lokal Wholesale Section */}
-        <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+        <section className="py-8 md:py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
           <div className="u-container">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
