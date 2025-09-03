@@ -15,6 +15,22 @@ import {
 } from "@heroicons/react/24/outline";
 
 const Contacto = () => {
+  const parallaxRef = useRef<HTMLDivElement>(null); // FIXED: Added parallax ref
+
+  // FIXED: Parallax scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      if (parallaxRef.current) {
+        const scrolled = window.pageYOffset;
+        const speed = 0.5;
+        parallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
