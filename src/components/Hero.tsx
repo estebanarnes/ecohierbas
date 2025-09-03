@@ -1,33 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useEffect, useRef } from "react";
 import heroImage from "@/assets/hero-ecohierbas.jpg";
 
 const Hero = () => {
-  const isMobile = useIsMobile();
+  const parallaxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (parallaxRef.current) {
+        const scrolled = window.pageYOffset;
+        const speed = 0.5;
+        parallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   return (
     <section className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px]">
-      {/* Background Image - Conditional for mobile */}
-      {!isMobile ? (
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`,
-            backgroundSize: '120% auto',
-            backgroundPosition: '-30px -40px',
-            backgroundAttachment: 'fixed'
-          }}
-        ></div>
-      ) : (
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`
-          }}
-        ></div>
-      )}
+      {/* Parallax Background */}
+      <div 
+        ref={parallaxRef}
+        className="absolute inset-0 bg-cover bg-center transform scale-110"
+        style={{
+          backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`,
+          willChange: 'transform'
+        }}
+      ></div>
       
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>

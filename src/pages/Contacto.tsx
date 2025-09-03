@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react"; // FIXED: React hooks import for parallax functionality
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,12 +17,9 @@ import {
 const Contacto = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const faqParallaxRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
 
-  // Parallax scroll effect for both hero and FAQ sections (disabled on mobile)
+  // Parallax scroll effect for both hero and FAQ sections
   useEffect(() => {
-    if (isMobile) return; // Disable parallax on mobile devices
-    
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
       const speed = 0.5;
@@ -41,7 +37,7 @@ const Contacto = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -49,24 +45,15 @@ const Contacto = () => {
       <main>
         {/* Hero */}
         <section className="relative py-16 overflow-hidden">
-          {/* Hero Background - Conditional rendering for mobile */}
-          {!isMobile ? (
-            <div 
-              ref={parallaxRef}
-              className="absolute inset-0 bg-cover bg-center transform scale-110"
-              style={{
-                backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-                willChange: 'transform'
-              }}
-            ></div>
-          ) : (
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`
-              }}
-            ></div>
-          )}
+          {/* Parallax Background */}
+          <div 
+            ref={parallaxRef}
+            className="absolute inset-0 bg-cover bg-center transform scale-110"
+            style={{
+              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              willChange: 'transform'
+            }}
+          ></div>
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/40"></div>
           
@@ -302,24 +289,15 @@ const Contacto = () => {
 
         {/* FAQ Section */}
         <section className="py-16 relative overflow-hidden">
-          {/* FAQ Background - Conditional rendering for mobile */}
-          {!isMobile ? (
-            <div 
-              ref={faqParallaxRef}
-              className="absolute inset-0 bg-cover bg-center transform scale-110"
-              style={{
-                backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-                willChange: 'transform'
-              }}
-            ></div>
-          ) : (
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`
-              }}
-            ></div>
-          )}
+          {/* FAQ Parallax Background */}
+          <div 
+            ref={faqParallaxRef}
+            className="absolute inset-0 bg-cover bg-center transform scale-110"
+            style={{
+              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              willChange: 'transform'
+            }}
+          ></div>
           {/* FAQ Overlay */}
           <div className="absolute inset-0 bg-black/70"></div>
           <div className="u-container relative z-10">
