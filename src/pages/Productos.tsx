@@ -25,6 +25,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import productosHierbas from "@/assets/productos-hierbas.jpg";
+import heroProductosHierbas from "@/assets/hero-productos-hierbas.jpg";
 import vermicompostaje from "@/assets/vermicompostaje.jpg";
 import maceterosKits from "@/assets/maceteros-kits.jpg";
 
