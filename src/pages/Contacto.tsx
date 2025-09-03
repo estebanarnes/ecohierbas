@@ -295,7 +295,7 @@ const Contacto = () => {
             ref={faqParallaxRef}
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105"
             style={{
-              backgroundImage: `url(/lovable-uploads/62e97ad3-752c-480f-8ab6-1cdda9102893.png)`,
+              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
               willChange: 'transform',
               backgroundSize: 'cover',
               backgroundPosition: 'center center'
