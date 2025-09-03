@@ -349,8 +349,8 @@ const Nosotros = () => {
               </div>
               
               <div className="text-center group">
-                <div className="w-20 h-20 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
-                  <span className="text-lg font-bold text-purple-600">F</span>
+                <div className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <img src="/lovable-uploads/62b0a2e1-c6c9-4741-b664-cd8421e6135e.png" alt="Falabella.com" className="w-full h-full object-contain" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">Falabella.com</h3>
                 <p className="text-xs text-muted-foreground">Marketplace líder</p>
