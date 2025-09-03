@@ -165,7 +165,25 @@ const Productos = () => {
   const [selectedProduct, setSelectedProduct] = useState<ModalProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentMobilePage, setCurrentMobilePage] = useState(0); // Mobile page state
+  
+  // PARALLAX FIX: Add useRef for parallax background effect
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  
   const { addItem, openCart } = useCart();
+
+  // PARALLAX FIX: Add useEffect for scroll handling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (parallaxRef.current) {
+        const scrolled = window.pageYOffset;
+        const speed = 0.5;
+        parallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   // WordPress integration
   const { data: page, template } = useWordPressTemplate('productos');
