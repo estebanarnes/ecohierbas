@@ -37,17 +37,18 @@ const Contacto = () => {
       <main>
         {/* Hero */}
         <section className="relative py-16 overflow-hidden">
-          {/* Parallax Background */}
+          {/* Parallax Background - Extended to cover next section */}
           <div 
             ref={parallaxRef}
             className="absolute inset-0 bg-cover bg-center transform scale-110"
             style={{
               backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-              willChange: 'transform'
+              willChange: 'transform',
+              height: '200vh'
             }}
           ></div>
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black/40"></div>
+          {/* Overlay - Extended to cover next section */}
+          <div className="absolute inset-0 bg-black/40" style={{height: '200vh'}}></div>
           
           <div className="u-container relative z-10">
             <div className="max-w-3xl">
