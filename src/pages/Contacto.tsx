@@ -136,10 +136,10 @@ const Contacto = () => {
                       <MapPinIcon className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-foreground">Dirección</p>
-                        <p className="text-muted-foreground text-sm">
-                          Camino El tambo, San Vicente Tagua Tagua<br />
-                          VI Región, Chile
-                        </p>
+                         <p className="text-muted-foreground text-sm">
+                           Camino El tambo, San Vicente Tagua Tagua<br />
+                           VI Región, Chile
+                         </p>
                       </div>
                     </div>
 
