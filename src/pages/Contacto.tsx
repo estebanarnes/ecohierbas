@@ -293,14 +293,15 @@ const Contacto = () => {
           {/* FAQ Parallax Background */}
           <div 
             ref={faqParallaxRef}
-            className="absolute inset-0 bg-cover bg-center transform scale-110 z-0"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110"
             style={{
               backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-              willChange: 'transform'
+              willChange: 'transform',
+              zIndex: 1
             }}
           ></div>
           {/* FAQ Overlay */}
-          <div className="absolute inset-0 bg-black/50 z-10"></div>
+          <div className="absolute inset-0 bg-black/30" style={{ zIndex: 2 }}></div>
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-serif font-bold text-white mb-4 drop-shadow-lg">
