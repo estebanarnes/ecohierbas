@@ -188,8 +188,15 @@ const Contacto = () => {
                     <Button 
                       className="w-full bg-accent hover:bg-accent/90"
                       size="lg"
+                      asChild
                     >
-                      Escribir por WhatsApp
+                      <a 
+                        href="https://wa.me/56912345678?text=Hola%20EcoHierbas%20Chile,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20naturales%20y%20sustentables"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Escribir por WhatsApp
+                      </a>
                     </Button>
                   </CardContent>
                 </Card>
