@@ -19,14 +19,16 @@ class EcoHierbasCart {
     }
 
     initElements() {
-        this.sidebar = document.querySelector('[data-cart-sidebar]');
+        this.sidebar = document.getElementById('cart-sidebar');
         this.trigger = document.querySelector('[data-cart-trigger]');
-        this.closeBtn = document.querySelector('[data-cart-close]');
-        this.cartItems = document.querySelector('[data-cart-items]');
-        this.cartTotal = document.querySelector('[data-cart-total]');
+        this.closeBtn = document.getElementById('close-cart');
+        this.cartItems = document.getElementById('cart-items-list');
+        this.cartTotal = document.getElementById('cart-total');
         this.cartCount = document.querySelector('[data-cart-count]');
-        this.clearCartBtn = document.querySelector('[data-cart-clear]');
-        this.checkoutBtn = document.querySelector('[data-cart-checkout]');
+        this.clearCartBtn = document.getElementById('clear-cart');
+        this.checkoutBtn = document.querySelector('a[href*="checkout"]');
+        this.emptyCart = document.getElementById('empty-cart');
+        this.cartFooter = document.getElementById('cart-footer');
     }
 
     bindEvents() {

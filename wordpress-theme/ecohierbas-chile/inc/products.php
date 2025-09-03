@@ -234,6 +234,37 @@ class EcoHierbas_Product_Adapter {
 }
 
 /**
+ * Helper para estrellas de rating
+ */
+function ecohierbas_get_rating_stars($rating, $total_reviews = 0) {
+    $stars_html = '<div class="flex items-center gap-1">';
+    
+    for ($i = 1; $i <= 5; $i++) {
+        if ($i <= floor($rating)) {
+            $stars_html .= '<svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+        } elseif ($i <= $rating) {
+            $stars_html .= '<svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><defs><linearGradient id="half"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="transparent"/></linearGradient></defs><path fill="url(#half)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+        } else {
+            $stars_html .= '<svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+        }
+    }
+    
+    if ($total_reviews > 0) {
+        $stars_html .= '<span class="text-sm text-muted-foreground ml-1">(' . $total_reviews . ')</span>';
+    }
+    
+    $stars_html .= '</div>';
+    return $stars_html;
+}
+
+/**
+ * Helper para formatear precio
+ */
+function ecohierbas_format_price($price) {
+    return '$' . number_format($price, 0, ',', '.');
+}
+
+/**
  * Funciones helper para templates
  */
 function ecohierbas_get_products($args = array()) {
@@ -505,6 +536,71 @@ function ecohierbas_ajax_filter_products() {
 }
 add_action('wp_ajax_ecohierbas_filter_products', 'ecohierbas_ajax_filter_products');
 add_action('wp_ajax_nopriv_ecohierbas_filter_products', 'ecohierbas_ajax_filter_products');
+
+/**
+ * AJAX endpoint para solicitud de cotización B2B
+ */
+function ecohierbas_ajax_b2b_quote() {
+    check_ajax_referer('ecohierbas_nonce', 'nonce');
+
+    $company_name = sanitize_text_field($_POST['company_name']);
+    $contact_name = sanitize_text_field($_POST['contact_name']);
+    $email = sanitize_email($_POST['email']);
+    $phone = sanitize_text_field($_POST['phone']);
+    $industry = sanitize_text_field($_POST['industry']);
+    $position = sanitize_text_field($_POST['position']);
+    $products = isset($_POST['products']) ? array_map('sanitize_text_field', $_POST['products']) : array();
+    $volume = sanitize_text_field($_POST['volume']);
+    $frequency = sanitize_text_field($_POST['frequency']);
+    $budget = sanitize_text_field($_POST['budget']);
+    $requirements = sanitize_textarea_field($_POST['requirements']);
+
+    if (empty($company_name) || empty($contact_name) || empty($email)) {
+        wp_send_json_error(array('message' => 'Faltan campos obligatorios'));
+        return;
+    }
+
+    // Preparar email
+    $to = get_option('ecohierbas_contact_email', 'contacto@ecohierbaschile.cl');
+    $subject = 'Nueva Solicitud de Cotización B2B - ' . $company_name;
+    
+    $message = "Nueva solicitud de cotización B2B:\n\n";
+    $message .= "EMPRESA:\n";
+    $message .= "Nombre: " . $company_name . "\n";
+    $message .= "Rubro: " . $industry . "\n\n";
+    $message .= "CONTACTO:\n";
+    $message .= "Nombre: " . $contact_name . "\n";
+    $message .= "Cargo: " . $position . "\n";
+    $message .= "Email: " . $email . "\n";
+    $message .= "Teléfono: " . $phone . "\n\n";
+    $message .= "PRODUCTOS DE INTERÉS:\n";
+    $message .= implode(', ', $products) . "\n\n";
+    $message .= "DETALLES:\n";
+    $message .= "Volumen estimado: " . $volume . "\n";
+    $message .= "Frecuencia: " . $frequency . "\n";
+    $message .= "Presupuesto: " . $budget . "\n\n";
+    $message .= "REQUERIMIENTOS ESPECIALES:\n";
+    $message .= $requirements . "\n\n";
+    $message .= "---\n";
+    $message .= "Enviado desde: " . home_url() . "\n";
+    $message .= "Fecha: " . current_time('mysql');
+
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'From: ' . get_bloginfo('name') . ' <' . get_option('admin_email') . '>',
+        'Reply-To: ' . $contact_name . ' <' . $email . '>'
+    );
+
+    $sent = wp_mail($to, $subject, $message, $headers);
+
+    if ($sent) {
+        wp_send_json_success(array('message' => 'Cotización enviada exitosamente'));
+    } else {
+        wp_send_json_error(array('message' => 'Error al enviar la cotización'));
+    }
+}
+add_action('wp_ajax_ecohierbas_b2b_quote', 'ecohierbas_ajax_b2b_quote');
+add_action('wp_ajax_nopriv_ecohierbas_b2b_quote', 'ecohierbas_ajax_b2b_quote');
 
 /**
  * Funciones helper

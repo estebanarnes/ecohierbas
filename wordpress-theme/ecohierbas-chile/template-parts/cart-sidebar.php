@@ -94,7 +94,8 @@
 
                 <!-- Action Buttons -->
                 <div class="space-y-3">
-                    <a href="<?php echo esc_url(wc_get_cart_url()); ?>" 
+                     <?php $cart_url = class_exists('WooCommerce') ? wc_get_cart_url() : '/carrito'; ?>
+                     <a href="<?php echo esc_url($cart_url); ?>" 
                        class="u-btn u-btn--outline w-full">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -102,7 +103,8 @@
                         </svg>
                         <?php esc_html_e('Ver carrito', 'ecohierbas'); ?>
                     </a>
-                    <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" 
+                     <?php $checkout_url = class_exists('WooCommerce') ? wc_get_checkout_url() : '/checkout'; ?>
+                     <a href="<?php echo esc_url($checkout_url); ?>" 
                        class="u-btn u-btn--primary w-full">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>

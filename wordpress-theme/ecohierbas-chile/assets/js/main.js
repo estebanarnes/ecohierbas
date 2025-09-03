@@ -192,9 +192,9 @@ function initLazyLoading() {
  */
 function initCartFunctionality() {
     // Cart sidebar toggle
-    const cartTrigger = document.getElementById('cart-toggle');
+    const cartTrigger = document.querySelector('[data-cart-trigger]');
     const cartSidebar = document.getElementById('cart-sidebar');
-    const cartClose = document.querySelector('[data-cart-close]');
+    const cartClose = document.getElementById('close-cart');
     
     if (cartTrigger && cartSidebar) {
         cartTrigger.addEventListener('click', function(e) {
