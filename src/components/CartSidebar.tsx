@@ -194,8 +194,8 @@ const CartSidebar = () => {
           </div>
 
           <div className="space-y-2">
-            <Button className="w-full bg-primary hover:bg-primary/90">
-              Finalizar Compra
+            <Button asChild className="w-full bg-primary hover:bg-primary/90">
+              <Link to="/checkout">Finalizar Compra</Link>
             </Button>
             <Button 
               asChild

@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Nosotros from "./pages/Nosotros";
 import Productos from "./pages/Productos";
 import Contacto from "./pages/Contacto";
+import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 import CartSidebar from "@/components/CartSidebar";
 import OffersPopup from "@/components/OffersPopup";
@@ -28,6 +29,7 @@ const App = () => (
               <Route path="/nosotros" element={<Nosotros />} />
               <Route path="/productos" element={<Productos />} />
               <Route path="/contacto" element={<Contacto />} />
+              <Route path="/checkout" element={<Checkout />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
