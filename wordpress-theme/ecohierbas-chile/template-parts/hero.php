@@ -48,7 +48,8 @@ if (!$hero_subtitle) {
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>" 
+                <?php $shop_url = class_exists('WooCommerce') ? get_permalink(wc_get_page_id('shop')) : '#'; ?>
+                <a href="<?php echo esc_url($shop_url); ?>" 
                    class="u-btn u-btn--primary text-lg px-8 py-4">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>

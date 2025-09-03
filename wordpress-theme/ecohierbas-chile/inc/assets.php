@@ -25,6 +25,15 @@ function ecohierbas_enqueue_assets() {
         ECOHIERBAS_THEME_VERSION
     );
 
+    // JavaScript principal primero
+    wp_enqueue_script(
+        'ecohierbas-main',
+        ECOHIERBAS_THEME_URL . '/assets/js/main.js',
+        array(),
+        ECOHIERBAS_THEME_VERSION,
+        true
+    );
+
     // JavaScript utilities (debe cargarse primero)
     wp_enqueue_script(
         'ecohierbas-utils',
@@ -34,7 +43,7 @@ function ecohierbas_enqueue_assets() {
         true
     );
     
-    // JavaScript modales
+    // JavaScript modales (depende de utils)
     wp_enqueue_script(
         'ecohierbas-modals',
         ECOHIERBAS_THEME_URL . '/assets/js/modals.js',
@@ -43,7 +52,7 @@ function ecohierbas_enqueue_assets() {
         true
     );
     
-    // JavaScript carrito
+    // JavaScript carrito (depende de utils)
     wp_enqueue_script(
         'ecohierbas-cart',
         ECOHIERBAS_THEME_URL . '/assets/js/cart.js',
@@ -94,12 +103,17 @@ function ecohierbas_enqueue_assets() {
         );
     }
     
-    // CSS crítico para evitar FOUC
-    wp_add_inline_style('ecohierbas-style', '
-        body { visibility: visible; }
-        .site-header { display: block; }
-        .u-container { display: block; }
-    ');
+    // CSS crítico inline para evitar FOUC
+    $critical_css = '
+        :root{--background:48 33% 96%;--foreground:215 25% 27%;--primary:142 69% 40%;--radius:0.5rem}
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:"Inter",system-ui,sans-serif;background:hsl(var(--background));color:hsl(var(--foreground));line-height:1.6}
+        .u-container{max-width:1200px;margin:0 auto;padding:0 1rem}
+        .site-header{position:sticky;top:0;z-index:40;background:hsla(var(--background),0.8);backdrop-filter:blur(8px);border-bottom:1px solid hsl(var(--border))}
+        .u-btn{display:inline-flex;align-items:center;padding:0.75rem 1.5rem;border-radius:var(--radius);font-weight:500;transition:all 0.2s}
+        .u-btn--primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+    ';
+    wp_add_inline_style('ecohierbas-style', $critical_css);
 
     // Comentarios threaded
     if (is_singular() && comments_open() && get_option('thread_comments')) {

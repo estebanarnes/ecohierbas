@@ -1,154 +1,139 @@
-/*!
- * EcoHierbas Chile - Admin JavaScript
+/**
+ * EcoHierbas Admin Scripts
  * Scripts para el panel de administración
  */
 
-(function($) {
-    'use strict';
+const EcoHierbasAdmin = {
+    init() {
+        this.bindEvents();
+        this.initThemeOptions();
+    },
 
-    $(document).ready(function() {
-        // Inicializar funcionalidades del admin
-        EcoHierbasAdmin.init();
-    });
-
-    const EcoHierbasAdmin = {
-        init: function() {
-            this.bindEvents();
-            this.initComponents();
-        },
-
-        bindEvents: function() {
-            // Guardar configuraciones con AJAX
-            $('#ecohierbas-settings-form').on('submit', this.saveSettings);
-            
-            // Tabs de navegación
-            $('.ecohierbas-nav-tab').on('click', this.switchTab);
-            
-            // Media uploader para imágenes
-            $('.ecohierbas-upload-button').on('click', this.openMediaUploader);
-        },
-
-        initComponents: function() {
-            // Inicializar tooltips
-            $('.ecohierbas-tooltip').tooltip();
-            
-            // Inicializar sortable para elementos arrastrables
-            $('.ecohierbas-sortable').sortable({
-                handle: '.sort-handle',
-                update: function(event, ui) {
-                    EcoHierbasAdmin.updateOrder();
-                }
-            });
-        },
-
-        saveSettings: function(e) {
-            e.preventDefault();
-            
-            const $form = $(this);
-            const $submitButton = $form.find('input[type="submit"]');
-            const originalText = $submitButton.val();
-            
-            // Mostrar estado de carga
-            $submitButton.val('Guardando...').prop('disabled', true);
-            
-            // Enviar datos via AJAX
-            $.ajax({
-                url: ECOHIERBAS_ADMIN.ajaxUrl,
-                type: 'POST',
-                data: {
-                    action: 'ecohierbas_save_settings',
-                    nonce: ECOHIERBAS_ADMIN.nonce,
-                    form_data: $form.serialize()
-                },
-                success: function(response) {
-                    if (response.success) {
-                        EcoHierbasAdmin.showNotice('Configuración guardada correctamente', 'success');
-                    } else {
-                        EcoHierbasAdmin.showNotice('Error al guardar la configuración', 'error');
-                    }
-                },
-                error: function() {
-                    EcoHierbasAdmin.showNotice('Error de conexión', 'error');
-                },
-                complete: function() {
-                    $submitButton.val(originalText).prop('disabled', false);
-                }
-            });
-        },
-
-        switchTab: function(e) {
-            e.preventDefault();
-            
-            const $tab = $(this);
-            const targetTab = $tab.data('tab');
-            
-            // Actualizar navegación
-            $('.ecohierbas-nav-tab').removeClass('nav-tab-active');
-            $tab.addClass('nav-tab-active');
-            
-            // Mostrar contenido correspondiente
-            $('.ecohierbas-tab-content').hide();
-            $('#ecohierbas-tab-' + targetTab).show();
-        },
-
-        openMediaUploader: function(e) {
-            e.preventDefault();
-            
-            const $button = $(this);
-            const targetInput = $button.data('target');
-            
-            // Crear media uploader
-            const mediaUploader = wp.media({
-                title: 'Seleccionar imagen',
-                button: {
-                    text: 'Usar esta imagen'
-                },
-                multiple: false
-            });
-            
-            mediaUploader.on('select', function() {
-                const attachment = mediaUploader.state().get('selection').first().toJSON();
-                $(targetInput).val(attachment.url);
-                $button.siblings('.image-preview').html('<img src="' + attachment.url + '" style="max-width: 150px; height: auto;">');
-            });
-            
-            mediaUploader.open();
-        },
-
-        updateOrder: function() {
-            const order = $('.ecohierbas-sortable').sortable('toArray', {
-                attribute: 'data-id'
-            });
-            
-            $.ajax({
-                url: ECOHIERBAS_ADMIN.ajaxUrl,
-                type: 'POST',
-                data: {
-                    action: 'ecohierbas_update_order',
-                    nonce: ECOHIERBAS_ADMIN.nonce,
-                    order: order
-                },
-                success: function(response) {
-                    if (response.success) {
-                        EcoHierbasAdmin.showNotice('Orden actualizado', 'success');
-                    }
-                }
-            });
-        },
-
-        showNotice: function(message, type) {
-            const noticeClass = type === 'success' ? 'notice-success' : 'notice-error';
-            const $notice = $('<div class="notice ' + noticeClass + ' is-dismissible"><p>' + message + '</p></div>');
-            
-            $('.ecohierbas-admin-wrap').prepend($notice);
-            
-            // Auto-remover después de 3 segundos
-            setTimeout(function() {
-                $notice.fadeOut(function() {
-                    $(this).remove();
-                });
-            }, 3000);
+    bindEvents() {
+        // Guardar opciones del tema
+        const saveButton = document.querySelector('#submit');
+        if (saveButton) {
+            saveButton.addEventListener('click', this.saveThemeOptions.bind(this));
         }
-    };
 
-})(jQuery);
+        // Preview logo
+        const logoInput = document.querySelector('#custom_logo');
+        if (logoInput) {
+            logoInput.addEventListener('change', this.previewLogo.bind(this));
+        }
+    },
+
+    initThemeOptions() {
+        // Verificar configuración inicial
+        this.checkThemeSetup();
+    },
+
+    saveThemeOptions(e) {
+        e.preventDefault();
+        
+        const form = e.target.closest('form');
+        const formData = new FormData(form);
+        
+        // Mostrar loading
+        this.showLoading(e.target);
+        
+        fetch(ECOHIERBAS_ADMIN.ajaxUrl, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                this.showNotice('Configuración guardada correctamente', 'success');
+            } else {
+                this.showNotice('Error al guardar la configuración', 'error');
+            }
+        })
+        .catch(() => {
+            this.showNotice('Error de conexión', 'error');
+        })
+        .finally(() => {
+            this.hideLoading(e.target);
+        });
+    },
+
+    previewLogo(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.querySelector('#logo-preview');
+                if (preview) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    },
+
+    checkThemeSetup() {
+        // Verificar que WooCommerce esté instalado
+        if (typeof woocommerce_admin_meta_boxes === 'undefined') {
+            this.showNotice('Recomendamos instalar WooCommerce para funcionalidad completa', 'warning');
+        }
+        
+        // Verificar que las páginas necesarias existan
+        this.checkRequiredPages();
+    },
+
+    checkRequiredPages() {
+        const requiredPages = ['shop', 'cart', 'checkout', 'my-account'];
+        
+        fetch(ECOHIERBAS_ADMIN.ajaxUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                action: 'check_required_pages',
+                nonce: ECOHIERBAS_ADMIN.nonce
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                this.showNotice('Algunas páginas requeridas no están configuradas', 'warning');
+            }
+        });
+    },
+
+    showLoading(button) {
+        button.disabled = true;
+        button.innerHTML = 'Guardando...';
+        button.classList.add('loading');
+    },
+
+    hideLoading(button) {
+        button.disabled = false;
+        button.innerHTML = 'Guardar cambios';
+        button.classList.remove('loading');
+    },
+
+    showNotice(message, type = 'info') {
+        const noticesContainer = document.querySelector('.wrap h1');
+        if (!noticesContainer) return;
+
+        const notice = document.createElement('div');
+        const noticeClass = type === 'success' ? 'notice-success' : 'notice-error';
+        notice.className = `notice ${noticeClass} is-dismissible`;
+        notice.innerHTML = `<p>${message}</p>`;
+
+        noticesContainer.after(notice);
+
+        // Auto dismiss after 5 seconds
+        setTimeout(() => {
+            notice.remove();
+        }, 5000);
+    }
+};
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    EcoHierbasAdmin.init();
+});
