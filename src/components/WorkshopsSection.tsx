@@ -48,7 +48,7 @@ const WorkshopsSection = () => {
       
       <div className="relative z-10 u-container">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16 bg-black/40 backdrop-blur-sm rounded-2xl p-8">
           <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">
             Educación Ambiental
           </Badge>
