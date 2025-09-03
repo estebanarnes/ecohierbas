@@ -3,16 +3,12 @@ import { ArrowRightIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-ecohierbas.jpg";
 const Hero = () => {
-  return (
-    <section 
-      className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px]"
-      style={{
-        backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`,
-        backgroundSize: '120% auto',
-        backgroundPosition: '-30px -40px',
-        backgroundAttachment: 'fixed'
-      }}
-    >
+  return <section className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px]" style={{
+    backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`,
+    backgroundSize: '120% auto',
+    backgroundPosition: '-30px -40px',
+    backgroundAttachment: 'fixed'
+  }}>
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
 
@@ -74,11 +70,8 @@ const Hero = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/60 rounded-full mt-2"></div>
-        </div>
+        
       </div>
-    </section>
-  );
+    </section>;
 };
 export default Hero;
