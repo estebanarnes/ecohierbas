@@ -295,7 +295,7 @@ const Contacto = () => {
             ref={faqParallaxRef}
             className="absolute inset-0 bg-cover bg-center transform scale-110"
             style={{
-              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              backgroundImage: `url(/src/assets/vermicompostaje.jpg)`,
               willChange: 'transform'
             }}
           ></div>
