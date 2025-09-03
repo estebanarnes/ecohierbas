@@ -21,7 +21,7 @@ const Hero = () => {
   }, []);
   
   return (
-    <section className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px] pb-[15px]">
+    <section className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px] pb-[15px] lg:pb-[25px]">
       {/* Parallax Background */}
       <div 
         ref={parallaxRef}
