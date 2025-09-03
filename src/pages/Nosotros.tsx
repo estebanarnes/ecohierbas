@@ -47,7 +47,7 @@ const Nosotros = () => {
         </section>
 
         {/* Descripción */}
-        <section className="py-16 bg-transparent relative">
+        <section className="py-16 relative">
           <div className="u-container">
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-xl text-muted-foreground leading-relaxed">Somos una microempresa chilena fundada en 2015 con la misión de promover la salud natural y la sostenibilidad ambiental a través de productos orgánicos de la más alta calidad.</p>
