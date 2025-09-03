@@ -304,42 +304,51 @@ const Productos = () => {
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1">
-                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Categoría" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Todas</SelectItem>
-                      <SelectItem value="Infusiones">Infusiones</SelectItem>
-                      <SelectItem value="Vermicompostaje">Vermicompostaje</SelectItem>
-                      <SelectItem value="Maceteros">Maceteros</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-muted-foreground">Categoría:</label>
+                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Seleccionar categoría" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todas las categorías</SelectItem>
+                        <SelectItem value="Infusiones">Infusiones</SelectItem>
+                        <SelectItem value="Vermicompostaje">Vermicompostaje</SelectItem>
+                        <SelectItem value="Maceteros">Maceteros</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-                  <Select value={selectedFinalidad} onValueChange={setSelectedFinalidad}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Finalidad" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Todas</SelectItem>
-                      <SelectItem value="Relajación">Relajación</SelectItem>
-                      <SelectItem value="Digestivo">Digestivo</SelectItem>
-                      <SelectItem value="Piel">Piel</SelectItem>
-                      <SelectItem value="Masculina">Masculina</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-muted-foreground">Finalidad:</label>
+                    <Select value={selectedFinalidad} onValueChange={setSelectedFinalidad}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Seleccionar finalidad" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todas las finalidades</SelectItem>
+                        <SelectItem value="Relajación">Relajación</SelectItem>
+                        <SelectItem value="Digestivo">Digestivo</SelectItem>
+                        <SelectItem value="Piel">Piel</SelectItem>
+                        <SelectItem value="Masculina">Masculina</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-                  <Select value={priceFilter} onValueChange={setPriceFilter}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Precio" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Todos</SelectItem>
-                      <SelectItem value="low">Hasta $25.000</SelectItem>
-                      <SelectItem value="medium">$25.000 - $50.000</SelectItem>
-                      <SelectItem value="high">Más de $50.000</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-muted-foreground">Rango de precio:</label>
+                    <Select value={priceFilter} onValueChange={setPriceFilter}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Seleccionar precio" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todos los precios</SelectItem>
+                        <SelectItem value="low">Hasta $25.000</SelectItem>
+                        <SelectItem value="medium">$25.000 - $50.000</SelectItem>
+                        <SelectItem value="high">Más de $50.000</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
             </div>
