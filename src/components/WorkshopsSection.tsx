@@ -134,8 +134,15 @@ const WorkshopsSection = () => {
                 <Button 
                   className="w-full bg-primary hover:bg-primary/90"
                   size="lg"
+                  asChild
                 >
-                  Inscribirse Ahora
+                  <a 
+                    href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(workshop.title)}&details=${encodeURIComponent(`Taller: ${workshop.title}\n\nDescripción: ${workshop.description}\n\nHorario: ${workshop.time}\nPrecio: ${workshop.price}\n\nMás información: contacto@ecohierbaschile.cl`)}&location=${encodeURIComponent('EcoHierbas Chile, Camino El tambo, San Vicente Tagua Tagua, VI Región')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Coordinar en Google Calendar
+                  </a>
                 </Button>
               </CardFooter>
             </Card>
