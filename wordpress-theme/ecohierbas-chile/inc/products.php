@@ -249,8 +249,10 @@ function ecohierbas_normalize_product($product) {
 }
 
 /**
- * AJAX handler para agregar al carrito
+ * AJAX Endpoints para carrito - EcoHierbas Chile
  */
+
+// Agregar al carrito
 function ecohierbas_ajax_add_to_cart() {
     check_ajax_referer('ecohierbas_nonce', 'nonce');
 
@@ -270,13 +272,15 @@ function ecohierbas_ajax_add_to_cart() {
     $added = WC()->cart->add_to_cart($product_id, $quantity);
 
     if ($added) {
+        $product = wc_get_product($product_id);
         $cart_count = WC()->cart->get_cart_contents_count();
         $cart_total = WC()->cart->get_cart_total();
 
         wp_send_json_success(array(
             'message' => 'Producto agregado al carrito',
+            'product' => ecohierbas_normalize_product($product),
             'cart_count' => $cart_count,
-            'cart_total' => $cart_total,
+            'cart_total' => strip_tags($cart_total),
             'fragments' => apply_filters('woocommerce_add_to_cart_fragments', array())
         ));
     } else {
@@ -286,114 +290,224 @@ function ecohierbas_ajax_add_to_cart() {
 add_action('wp_ajax_ecohierbas_add_to_cart', 'ecohierbas_ajax_add_to_cart');
 add_action('wp_ajax_nopriv_ecohierbas_add_to_cart', 'ecohierbas_ajax_add_to_cart');
 
-/**
- * AJAX handler para filtrar productos
- */
+// Remover del carrito
+function ecohierbas_ajax_remove_from_cart() {
+    check_ajax_referer('ecohierbas_nonce', 'nonce');
+
+    if (!class_exists('WooCommerce')) {
+        wp_send_json_error(array('message' => 'WooCommerce no está activado'));
+        return;
+    }
+
+    $cart_item_key = sanitize_text_field($_POST['cart_item_key']);
+    $product_id = intval($_POST['product_id']);
+
+    if (!$cart_item_key && !$product_id) {
+        wp_send_json_error(array('message' => 'Parámetros inválidos'));
+        return;
+    }
+
+    // Si no tenemos cart_item_key, buscar por product_id
+    if (!$cart_item_key && $product_id) {
+        foreach (WC()->cart->get_cart() as $key => $cart_item) {
+            if ($cart_item['product_id'] == $product_id) {
+                $cart_item_key = $key;
+                break;
+            }
+        }
+    }
+
+    if ($cart_item_key) {
+        WC()->cart->remove_cart_item($cart_item_key);
+        $cart_count = WC()->cart->get_cart_contents_count();
+        $cart_total = WC()->cart->get_cart_total();
+
+        wp_send_json_success(array(
+            'message' => 'Producto eliminado del carrito',
+            'cart_count' => $cart_count,
+            'cart_total' => strip_tags($cart_total),
+            'fragments' => apply_filters('woocommerce_add_to_cart_fragments', array())
+        ));
+    } else {
+        wp_send_json_error(array('message' => 'Producto no encontrado en el carrito'));
+    }
+}
+add_action('wp_ajax_ecohierbas_remove_from_cart', 'ecohierbas_ajax_remove_from_cart');
+add_action('wp_ajax_nopriv_ecohierbas_remove_from_cart', 'ecohierbas_ajax_remove_from_cart');
+
+// Actualizar cantidad
+function ecohierbas_ajax_update_cart_quantity() {
+    check_ajax_referer('ecohierbas_nonce', 'nonce');
+
+    if (!class_exists('WooCommerce')) {
+        wp_send_json_error(array('message' => 'WooCommerce no está activado'));
+        return;
+    }
+
+    $cart_item_key = sanitize_text_field($_POST['cart_item_key']);
+    $product_id = intval($_POST['product_id']);
+    $quantity = intval($_POST['quantity']);
+
+    if ((!$cart_item_key && !$product_id) || $quantity < 0) {
+        wp_send_json_error(array('message' => 'Parámetros inválidos'));
+        return;
+    }
+
+    // Si no tenemos cart_item_key, buscar por product_id
+    if (!$cart_item_key && $product_id) {
+        foreach (WC()->cart->get_cart() as $key => $cart_item) {
+            if ($cart_item['product_id'] == $product_id) {
+                $cart_item_key = $key;
+                break;
+            }
+        }
+    }
+
+    if ($cart_item_key) {
+        if ($quantity == 0) {
+            WC()->cart->remove_cart_item($cart_item_key);
+        } else {
+            WC()->cart->set_quantity($cart_item_key, $quantity);
+        }
+        
+        $cart_count = WC()->cart->get_cart_contents_count();
+        $cart_total = WC()->cart->get_cart_total();
+
+        wp_send_json_success(array(
+            'message' => 'Carrito actualizado',
+            'cart_count' => $cart_count,
+            'cart_total' => strip_tags($cart_total),
+            'fragments' => apply_filters('woocommerce_add_to_cart_fragments', array())
+        ));
+    } else {
+        wp_send_json_error(array('message' => 'Producto no encontrado en el carrito'));
+    }
+}
+add_action('wp_ajax_ecohierbas_update_cart_quantity', 'ecohierbas_ajax_update_cart_quantity');
+add_action('wp_ajax_nopriv_ecohierbas_update_cart_quantity', 'ecohierbas_ajax_update_cart_quantity');
+
+// Vaciar carrito
+function ecohierbas_ajax_clear_cart() {
+    check_ajax_referer('ecohierbas_nonce', 'nonce');
+
+    if (!class_exists('WooCommerce')) {
+        wp_send_json_error(array('message' => 'WooCommerce no está activado'));
+        return;
+    }
+
+    WC()->cart->empty_cart();
+
+    wp_send_json_success(array(
+        'message' => 'Carrito vaciado',
+        'cart_count' => 0,
+        'cart_total' => '',
+        'fragments' => apply_filters('woocommerce_add_to_cart_fragments', array())
+    ));
+}
+add_action('wp_ajax_ecohierbas_clear_cart', 'ecohierbas_ajax_clear_cart');
+add_action('wp_ajax_nopriv_ecohierbas_clear_cart', 'ecohierbas_ajax_clear_cart');
+
+// Filtrar productos
 function ecohierbas_ajax_filter_products() {
     check_ajax_referer('ecohierbas_nonce', 'nonce');
 
-    $search = sanitize_text_field($_POST['search'] ?? '');
-    $category = sanitize_text_field($_POST['category'] ?? '');
-    $finalidad = sanitize_text_field($_POST['finalidad'] ?? '');
-    $price_range = sanitize_text_field($_POST['price_range'] ?? '');
+    $filters = json_decode(stripslashes($_POST['filters']), true);
+    $page = intval($_POST['page']) ?: 1;
+    $per_page = 8;
 
-    $args = array();
+    $args = array(
+        'status' => 'publish',
+        'limit' => $per_page,
+        'offset' => ($page - 1) * $per_page,
+        'orderby' => $filters['orderby'] ?: 'menu_order',
+        'order' => 'ASC'
+    );
 
     // Filtro por búsqueda
-    if ($search) {
-        $args['s'] = $search;
+    if (!empty($filters['search'])) {
+        $args['s'] = sanitize_text_field($filters['search']);
     }
 
     // Filtro por categoría
-    if ($category && $category !== 'all') {
-        $args['product_cat'] = $category;
+    if (!empty($filters['category']) && $filters['category'] !== 'all') {
+        $args['category'] = array(sanitize_text_field($filters['category']));
     }
 
     // Filtro por precio
-    if ($price_range && $price_range !== 'all') {
-        switch ($price_range) {
+    if (!empty($filters['price_range']) && $filters['price_range'] !== 'all') {
+        switch ($filters['price_range']) {
             case 'low':
                 $args['meta_query'][] = array(
                     'key' => '_price',
                     'value' => 25000,
-                    'compare' => '<='
+                    'compare' => '<=',
+                    'type' => 'NUMERIC'
                 );
                 break;
             case 'medium':
                 $args['meta_query'][] = array(
                     'key' => '_price',
                     'value' => array(25000, 50000),
-                    'compare' => 'BETWEEN'
+                    'compare' => 'BETWEEN',
+                    'type' => 'NUMERIC'
                 );
                 break;
             case 'high':
                 $args['meta_query'][] = array(
                     'key' => '_price',
                     'value' => 50000,
-                    'compare' => '>'
+                    'compare' => '>',
+                    'type' => 'NUMERIC'
                 );
                 break;
         }
     }
 
-    $products = ecohierbas_get_products($args);
+    $products = EcoHierbas_Product_Adapter::get_products($args);
 
-    // Filtrar por finalidad en PHP (si no es un atributo WC indexado)
-    if ($finalidad && $finalidad !== 'all') {
-        $products = array_filter($products, function($product) use ($finalidad) {
-            return $product['finalidad'] === $finalidad;
+    // Filtrar por finalidad después (si no es un atributo WC indexado)
+    if (!empty($filters['finalidad']) && $filters['finalidad'] !== 'all') {
+        $products = array_filter($products, function($product) use ($filters) {
+            return $product['finalidad'] === $filters['finalidad'];
         });
     }
 
+    // Generar HTML para productos
+    ob_start();
+    if (!empty($products)) {
+        foreach ($products as $product) {
+            get_template_part('template-parts/product-card', null, array('product' => $product));
+        }
+    } else {
+        echo '<div class="col-span-full text-center py-12">
+                <svg class="w-16 h-16 text-muted-foreground mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                </svg>
+                <h3 class="text-lg font-semibold mb-2">No se encontraron productos</h3>
+                <p class="text-muted-foreground">Intenta cambiar los filtros o buscar otros términos.</p>
+              </div>';
+    }
+    $html = ob_get_clean();
+
+    // Calcular paginación
+    $total_products = count($products);
+    $total_pages = ceil($total_products / $per_page);
+
     wp_send_json_success(array(
-        'products' => array_values($products),
-        'count' => count($products)
+        'html' => $html,
+        'total' => $total_products,
+        'pagination' => array(
+            'current_page' => $page,
+            'total_pages' => $total_pages,
+            'html' => '' // Generar HTML de paginación si es necesario
+        )
     ));
 }
 add_action('wp_ajax_ecohierbas_filter_products', 'ecohierbas_ajax_filter_products');
 add_action('wp_ajax_nopriv_ecohierbas_filter_products', 'ecohierbas_ajax_filter_products');
 
 /**
- * Configurar atributos personalizados de producto
- */
-function ecohierbas_register_product_attributes() {
-    if (!class_exists('WooCommerce')) {
-        return;
-    }
-
-    // Registrar atributo "finalidad"
-    if (!wc_attribute_taxonomy_name_by_id(wc_attribute_taxonomy_id_by_name('finalidad'))) {
-        wc_create_attribute(array(
-            'name' => 'Finalidad',
-            'slug' => 'finalidad',
-            'type' => 'select',
-            'order_by' => 'menu_order',
-            'has_archives' => true,
-        ));
-    }
-}
-add_action('init', 'ecohierbas_register_product_attributes');
-
-/**
- * Agregar términos por defecto para finalidad
- */
-function ecohierbas_add_default_finalidad_terms() {
-    if (!class_exists('WooCommerce')) {
-        return;
-    }
-
-    $finalidades = array('Piel', 'Masculina', 'Relajación', 'Digestivo', 'Energético', 'Inmunidad');
-    
-    foreach ($finalidades as $finalidad) {
-        if (!term_exists($finalidad, 'pa_finalidad')) {
-            wp_insert_term($finalidad, 'pa_finalidad');
-        }
-    }
-}
-add_action('init', 'ecohierbas_add_default_finalidad_terms');
-
-/**
- * Función para mostrar estrellas de rating
+ * Funciones helper
  */
 function ecohierbas_get_rating_stars($rating, $reviews = 0) {
     $rating = (float) $rating;
@@ -401,47 +515,40 @@ function ecohierbas_get_rating_stars($rating, $reviews = 0) {
     $half_star = ($rating - $full_stars) >= 0.5;
     $empty_stars = 5 - $full_stars - ($half_star ? 1 : 0);
 
-    $output = '<div class="rating-stars" title="' . sprintf(__('%s de 5 estrellas', 'ecohierbas'), $rating) . '">';
+    $output = '<div class="flex items-center gap-1" title="' . sprintf(__('%s de 5 estrellas', 'ecohierbas'), $rating) . '">';
     
     // Estrellas llenas
     for ($i = 0; $i < $full_stars; $i++) {
-        $output .= '<span class="star star-full">★</span>';
+        $output .= '<svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
     }
     
     // Media estrella
     if ($half_star) {
-        $output .= '<span class="star star-half">☆</span>';
+        $output .= '<svg class="w-4 h-4 text-yellow-400" viewBox="0 0 20 20"><defs><linearGradient id="half"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="transparent"/></linearGradient></defs><path fill="url(#half)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
     }
     
     // Estrellas vacías
     for ($i = 0; $i < $empty_stars; $i++) {
-        $output .= '<span class="star star-empty">☆</span>';
+        $output .= '<svg class="w-4 h-4 text-gray-300" viewBox="0 0 20 20"><path fill="currentColor" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
     }
     
     if ($reviews > 0) {
-        $output .= ' <span class="rating-count">(' . $reviews . ')</span>';
+        $output .= '<span class="text-sm text-muted-foreground ml-2">(' . $reviews . ')</span>';
     }
     
     $output .= '</div>';
-    
     return $output;
 }
 
-/**
- * Formatear precio chileno
- */
 function ecohierbas_format_price($price) {
     return '$' . number_format($price, 0, ',', '.') . ' CLP';
 }
 
-/**
- * Función para mostrar badge de descuento
- */
 function ecohierbas_get_discount_badge($price, $original_price) {
     if (!$original_price || $original_price <= $price) {
         return '';
     }
 
     $discount_percent = round((($original_price - $price) / $original_price) * 100);
-    return '<span class="u-badge u-badge--secondary discount-badge">-' . $discount_percent . '%</span>';
+    return '<span class="u-badge bg-destructive text-destructive-foreground">-' . $discount_percent . '%</span>';
 }

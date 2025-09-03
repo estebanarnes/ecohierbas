@@ -8,111 +8,81 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Enqueue styles y scripts
- */
 function ecohierbas_enqueue_assets() {
-    // CSS principal del tema (compilado desde Tailwind/React)
+    // CSS principal
     wp_enqueue_style(
         'ecohierbas-style',
         get_stylesheet_uri(),
         array(),
-        ECOHIERBAS_THEME_VERSION
+        ECOHIERBAS_VERSION
     );
-
-    // CSS adicional compilado desde el proyecto React
+    
+    // CSS compilado
     wp_enqueue_style(
-        'ecohierbas-main',
-        ECOHIERBAS_THEME_URL . '/assets/css/main.css',
-        array('ecohierbas-style'),
-        ECOHIERBAS_THEME_VERSION
+        'ecohierbas-app',
+        ECOHIERBAS_THEME_URL . '/assets/css/app.css',
+        array(),
+        ECOHIERBAS_VERSION
     );
 
-    // JavaScript principal - replica funcionalidad React
+    // JavaScript utilities (debe cargarse primero)
     wp_enqueue_script(
-        'ecohierbas-main',
-        ECOHIERBAS_THEME_URL . '/assets/js/main.js',
-        array('jquery'),
-        ECOHIERBAS_THEME_VERSION,
+        'ecohierbas-utils',
+        ECOHIERBAS_THEME_URL . '/assets/js/utils.js',
+        array(),
+        ECOHIERBAS_VERSION,
         true
     );
-
-    // JavaScript para carrito (replica CartContext de React)
-    wp_enqueue_script(
-        'ecohierbas-cart',
-        ECOHIERBAS_THEME_URL . '/assets/js/cart.js',
-        array('ecohierbas-main'),
-        ECOHIERBAS_THEME_VERSION,
-        true
-    );
-
-    // JavaScript para modales (replica modales React)
+    
+    // JavaScript modales
     wp_enqueue_script(
         'ecohierbas-modals',
         ECOHIERBAS_THEME_URL . '/assets/js/modals.js',
-        array('ecohierbas-main'),
-        ECOHIERBAS_THEME_VERSION,
+        array('ecohierbas-utils'),
+        ECOHIERBAS_VERSION,
         true
     );
-
-    // JavaScript para filtros de productos
-    if (is_shop() || is_product_category() || is_product_tag()) {
+    
+    // JavaScript carrito
+    wp_enqueue_script(
+        'ecohierbas-cart',
+        ECOHIERBAS_THEME_URL . '/assets/js/cart.js',
+        array('ecohierbas-utils'),
+        ECOHIERBAS_VERSION,
+        true
+    );
+    
+    // JavaScript filtros (solo en páginas de productos)
+    if (is_shop() || is_product_category() || is_product_tag() || is_post_type_archive('product')) {
         wp_enqueue_script(
-            'ecohierbas-product-filters',
-            ECOHIERBAS_THEME_URL . '/assets/js/product-filters.js',
-            array('ecohierbas-main'),
-            ECOHIERBAS_THEME_VERSION,
-            true
-        );
-    }
-
-    // JavaScript para formularios
-    if (is_page('contacto') || is_checkout()) {
-        wp_enqueue_script(
-            'ecohierbas-forms',
-            ECOHIERBAS_THEME_URL . '/assets/js/forms.js',
-            array('ecohierbas-main'),
-            ECOHIERBAS_THEME_VERSION,
+            'ecohierbas-filters',
+            ECOHIERBAS_THEME_URL . '/assets/js/filters.js',
+            array('ecohierbas-utils'),
+            ECOHIERBAS_VERSION,
             true
         );
     }
 
     // Configuración JavaScript global
-    $js_config = array(
-        'ajaxUrl' => admin_url('admin-ajax.php'),
+    wp_localize_script('ecohierbas-utils', 'ecohierbas_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('ecohierbas_nonce'),
-        'homeUrl' => home_url(),
-        'themeUrl' => ECOHIERBAS_THEME_URL,
-        'isLoggedIn' => is_user_logged_in(),
+        'home_url' => home_url(),
+        'theme_url' => ECOHIERBAS_THEME_URL,
+        'is_logged_in' => is_user_logged_in(),
+        'wc_enabled' => class_exists('WooCommerce'),
+        'cart_url' => class_exists('WooCommerce') ? wc_get_cart_url() : '',
+        'checkout_url' => class_exists('WooCommerce') ? wc_get_checkout_url() : '',
+        'currency_symbol' => class_exists('WooCommerce') ? get_woocommerce_currency_symbol() : '$',
         'strings' => array(
-            'addedToCart' => __('Producto agregado al carrito', 'ecohierbas'),
-            'removedFromCart' => __('Producto eliminado del carrito', 'ecohierbas'),
-            'cartUpdated' => __('Carrito actualizado', 'ecohierbas'),
+            'added_to_cart' => __('Producto agregado al carrito', 'ecohierbas'),
+            'removed_from_cart' => __('Producto eliminado del carrito', 'ecohierbas'),
+            'cart_updated' => __('Carrito actualizado', 'ecohierbas'),
             'error' => __('Ha ocurrido un error', 'ecohierbas'),
             'loading' => __('Cargando...', 'ecohierbas'),
             'close' => __('Cerrar', 'ecohierbas'),
-            'addToCart' => __('Agregar al carrito', 'ecohierbas'),
-            'viewCart' => __('Ver carrito', 'ecohierbas'),
-            'checkout' => __('Finalizar compra', 'ecohierbas'),
-            'continueShoppping' => __('Seguir comprando', 'ecohierbas'),
-            'clearCart' => __('Vaciar carrito', 'ecohierbas'),
-            'confirmClearCart' => __('¿Estás seguro de que quieres vaciar el carrito?', 'ecohierbas'),
-        ),
-        'woocommerce' => array(
-            'enabled' => class_exists('WooCommerce'),
-            'cartUrl' => class_exists('WooCommerce') ? wc_get_cart_url() : '',
-            'checkoutUrl' => class_exists('WooCommerce') ? wc_get_checkout_url() : '',
-            'currency' => class_exists('WooCommerce') ? get_woocommerce_currency_symbol() : '$',
-        ),
-        'breakpoints' => array(
-            'sm' => 640,
-            'md' => 768,
-            'lg' => 1024,
-            'xl' => 1280,
-        ),
-    );
-
-    wp_localize_script('ecohierbas-main', 'ECOHIERBAS', $js_config);
+        )
+    ));
 
     // Cargar CSS específico para WooCommerce si está activo
     if (class_exists('WooCommerce')) {
