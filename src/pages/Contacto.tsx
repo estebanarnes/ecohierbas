@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react"; // FIXED: React hooks import for parallax functionality
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,9 +18,12 @@ import {
 const Contacto = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const faqParallaxRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
-  // Parallax scroll effect for both hero and FAQ sections
+  // Parallax scroll effect for both hero and FAQ sections (disabled on mobile)
   useEffect(() => {
+    if (isMobile) return; // Disable parallax on mobile devices
+    
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
       const speed = 0.5;
@@ -37,7 +41,7 @@ const Contacto = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -288,15 +292,16 @@ const Contacto = () => {
         </section>
 
         {/* FAQ Section */}
-        <section 
-          className="py-16 relative overflow-hidden"
-          style={{
-            backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed'
-          }}
-        >
+        <section className="py-16 relative overflow-hidden">
+          {/* FAQ Parallax Background */}
+          <div 
+            ref={faqParallaxRef}
+            className="absolute inset-0 bg-cover bg-center transform scale-110"
+            style={{
+              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              willChange: isMobile ? 'auto' : 'transform'
+            }}
+          ></div>
           {/* FAQ Overlay */}
           <div className="absolute inset-0 bg-black/70"></div>
           <div className="u-container relative z-10">
