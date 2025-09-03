@@ -42,9 +42,6 @@ const Nosotros = () => {
           </div>
           <div className="u-container relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
-                Nuestra Historia
-              </Badge>
               <p className="text-xl text-muted-foreground leading-relaxed">Somos una microempresa chilena fundada en 2015 con la misión de promover la salud natural y la sostenibilidad ambiental a través de productos orgánicos de la más alta calidad.</p>
             </div>
           </div>
