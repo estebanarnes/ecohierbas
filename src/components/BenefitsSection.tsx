@@ -13,32 +13,38 @@ const benefits = [
   {
     icon: HeartIcon,
     title: "Salud y Bienestar",
-    description: "Productos naturales que cuidan tu salud con ingredientes 100% orgánicos"
+    description: "Productos naturales que cuidan tu salud con ingredientes 100% orgánicos",
+    image: "/src/assets/productos-hierbas.jpg"
   },
   {
     icon: GlobeAltIcon,
     title: "Sostenibilidad",
-    description: "Comprometidos con el medio ambiente y prácticas sustentables"
+    description: "Comprometidos con el medio ambiente y prácticas sustentables",
+    image: "/src/assets/hero-ecohierbas.jpg"
   },
   {
     icon: ArrowPathIcon,
     title: "Economía Circular",
-    description: "Transformamos residuos en recursos valiosos a través del compostaje"
+    description: "Transformamos residuos en recursos valiosos a través del compostaje",
+    image: "/src/assets/vermicompostaje.jpg"
   },
   {
     icon: TruckIcon,
     title: "Producción Local",
-    description: "Cultivado y producido en Pudahuel, apoyando la economía local"
+    description: "Cultivado y producido en Pudahuel, apoyando la economía local",
+    image: "/src/assets/maceteros-kits.jpg"
   },
   {
     icon: AcademicCapIcon,
     title: "Educación Ambiental",
-    description: "Talleres y capacitaciones para promover hábitos sustentables"
+    description: "Talleres y capacitaciones para promover hábitos sustentables",
+    image: "/src/assets/productos-hierbas.jpg"
   },
   {
     icon: ShieldCheckIcon,
     title: "Calidad Certificada",
-    description: "Productos con estándares de calidad y certificaciones orgánicas"
+    description: "Productos con estándares de calidad y certificaciones orgánicas",
+    image: "/src/assets/hero-ecohierbas.jpg"
   },
 ];
 
@@ -68,18 +74,41 @@ const BenefitsSection = () => {
             return (
               <div 
                 key={index}
-                className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-border/50 hover:border-primary/20"
+                className="group h-64 [perspective:1000px]"
               >
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <IconComponent className="w-6 h-6 text-primary" />
+                <div className="relative w-full h-full [transform-style:preserve-3d] transition-all duration-700 group-hover:[transform:rotateY(180deg)]">
+                  {/* Front Face - Original Card */}
+                  <div className="absolute inset-0 w-full h-full bg-white rounded-xl p-6 shadow-sm border border-border/50 [backface-visibility:hidden] flex flex-col items-center text-center justify-center">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                      <IconComponent className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {benefit.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {benefit.description}
-                  </p>
+
+                  {/* Back Face - Image */}
+                  <div className="absolute inset-0 w-full h-full bg-white rounded-xl shadow-sm border border-border/50 [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden">
+                    <div className="relative w-full h-full">
+                      <img 
+                        src={benefit.image} 
+                        alt={benefit.title}
+                        className="w-full h-full object-cover rounded-xl"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl" />
+                      <div className="absolute bottom-4 left-4 right-4 text-white">
+                        <h3 className="text-lg font-semibold mb-1">
+                          {benefit.title}
+                        </h3>
+                        <p className="text-sm opacity-90">
+                          Ver más detalles
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             );
