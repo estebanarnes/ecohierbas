@@ -10,8 +10,9 @@ import { MapPinIcon, PhoneIcon, EnvelopeIcon, ClockIcon, ChatBubbleLeftRightIcon
 const Contacto = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const faqParallaxRef = useRef<HTMLDivElement>(null);
+  const overlayParallaxRef = useRef<HTMLDivElement>(null);
 
-  // Parallax scroll effect for both hero and FAQ sections
+  // Parallax scroll effect for hero, FAQ and overlay sections
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
@@ -25,7 +26,11 @@ const Contacto = () => {
       // FAQ parallax
       if (faqParallaxRef.current) {
         faqParallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
-        console.log('FAQ parallax applied:', scrolled * speed);
+      }
+
+      // Overlay parallax (different speed for layering effect)
+      if (overlayParallaxRef.current) {
+        overlayParallaxRef.current.style.transform = `translateY(${scrolled * 0.3}px)`;
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -259,10 +264,13 @@ const Contacto = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center center'
         }}></div>
-          {/* Background image overlay */}
-          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0" style={{
-            backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`
+          {/* Background image overlay with parallax */}
+          <div ref={overlayParallaxRef} className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0" style={{
+            backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+            willChange: 'transform'
           }}></div>
+          {/* Subtle dark overlay */}
+          <div className="absolute inset-0 bg-black/20 z-1"></div>
           
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
