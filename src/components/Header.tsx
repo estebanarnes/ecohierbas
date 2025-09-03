@@ -27,7 +27,7 @@ const Header = () => {
             <img 
               src="/lovable-uploads/9ea5ebd8-40a7-4c66-a3bc-1777813399af.png" 
               alt="EcoHierbas Chile" 
-              className="w-12 h-12 object-contain"
+              className="w-16 h-16 object-contain"
             />
             <div className="flex flex-col">
               <span className="text-lg font-serif font-semibold text-primary">EcoHierbas</span>
