@@ -102,7 +102,7 @@ const FeaturedProducts = () => {
       }
     });
   };
-  return <section className="py-20 bg-background">
+  return <section className="pt-10 pb-20 bg-background">
       <div className="u-container">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
