@@ -622,6 +622,22 @@ const Productos = () => {
 
                     {/* Desktop Carousel (8 products per page in 4x2 grid) */}
                     <div className="hidden md:block">
+                      {/* Desktop Pagination Dots */}
+                      {desktopPages.length > 1 && (
+                        <div className="flex justify-center items-center mb-6 w-full">
+                          <div className="flex gap-2 items-center justify-center">
+                            {desktopPages.map((_, index) => (
+                              <div 
+                                key={index} 
+                                className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium shadow-lg"
+                              >
+                                {index + 1}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      
                       <Carousel className="w-full" opts={{ align: "start", loop: true }}>
                         <CarouselContent>
                           {desktopPages.map((pageProducts, pageIndex) => (
