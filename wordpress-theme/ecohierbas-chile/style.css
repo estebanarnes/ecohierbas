@@ -479,12 +479,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .woocommerce .button {
-  @extend .u-btn;
-  @extend .u-btn--primary;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  line-height: 1;
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.woocommerce .button:hover {
+  background-color: hsl(var(--primary) / 0.9);
 }
 
 .woocommerce .button.alt {
-  @extend .u-btn--secondary;
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+
+.woocommerce .button.alt:hover {
+  background-color: hsl(var(--secondary) / 0.8);
 }
 
 /* Product grid styles */

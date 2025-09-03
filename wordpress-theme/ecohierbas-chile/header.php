@@ -51,7 +51,7 @@
                 <!-- Desktop Actions -->
                 <div class="u-hide-mobile flex items-center space-x-4">
                     <!-- Cart Button -->
-                    <button class="u-btn u-btn--ghost relative" 
+                    <button class="relative p-2 text-foreground hover:text-primary transition-colors" 
                             id="cart-toggle"
                             aria-label="<?php esc_attr_e('Abrir carrito', 'ecohierbas'); ?>">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

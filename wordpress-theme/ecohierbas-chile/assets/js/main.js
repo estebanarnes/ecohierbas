@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
  * Menú móvil
  */
 function initMobileMenu() {
-    const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
-    const mobileMenu = document.querySelector('[data-mobile-menu]');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
     const mobileMenuClose = document.querySelector('[data-mobile-menu-close]');
     
     if (!mobileMenuToggle || !mobileMenu) return;
@@ -32,13 +32,13 @@ function initMobileMenu() {
     // Abrir menú móvil
     mobileMenuToggle.addEventListener('click', function(e) {
         e.preventDefault();
-        mobileMenu.classList.add('active');
+        mobileMenu.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
     });
     
     // Cerrar menú móvil
     function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
+        mobileMenu.classList.add('hidden');
         document.body.style.overflow = '';
     }
     
@@ -55,7 +55,7 @@ function initMobileMenu() {
     
     // Cerrar con ESC
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
             closeMobileMenu();
         }
     });
@@ -192,8 +192,8 @@ function initLazyLoading() {
  */
 function initCartFunctionality() {
     // Cart sidebar toggle
-    const cartTrigger = document.querySelector('[data-cart-trigger]');
-    const cartSidebar = document.querySelector('[data-cart-sidebar]');
+    const cartTrigger = document.getElementById('cart-toggle');
+    const cartSidebar = document.getElementById('cart-sidebar');
     const cartClose = document.querySelector('[data-cart-close]');
     
     if (cartTrigger && cartSidebar) {
