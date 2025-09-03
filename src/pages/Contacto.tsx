@@ -36,17 +36,28 @@ const Contacto = () => {
       <Header />
       <main>
         {/* Hero */}
-        <section className="py-16 bg-gradient-to-r from-primary/10 to-accent/10">
-          <div className="u-container">
+        <section className="relative py-16 overflow-hidden">
+          {/* Parallax Background */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center transform scale-110"
+            style={{
+              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              willChange: 'transform'
+            }}
+          ></div>
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
+          
+          <div className="u-container relative z-10">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
+              <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 drop-shadow-lg">
                 Contáctanos
               </h1>
-              <p className="text-lg text-muted-foreground mb-6">
+              <p className="text-lg text-white/90 mb-6 drop-shadow-md">
                 Estamos aquí para ayudarte. Contáctanos para cotizaciones, consultas 
                 o para conocer más sobre nuestros productos y talleres.
               </p>
-              <Badge className="bg-accent/20 text-accent border-accent/30">
+              <Badge className="bg-white/90 text-primary border-white/20 backdrop-blur-sm">
                 Respuesta en menos de 24 horas
               </Badge>
             </div>
