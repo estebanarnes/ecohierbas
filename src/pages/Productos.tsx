@@ -28,120 +28,7 @@ import productosHierbas from "@/assets/productos-hierbas.jpg";
 import vermicompostaje from "@/assets/vermicompostaje.jpg";
 import maceterosKits from "@/assets/maceteros-kits.jpg";
 
-const productos = [
-  {
-    id: 1,
-    name: "Box Especial Mujer - Refresca tu Piel",
-    slug: "box-especial-mujer-refresca-tu-piel",
-    category: "Infusiones",
-    finalidad: "Piel",
-    price: 24990,
-    originalPrice: 29990,
-    image: productosHierbas,
-    rating: 4.8,
-    reviews: 156,
-    inStock: true,
-    description: "Mezcla especial de hierbas para el cuidado y regeneración de la piel femenina"
-  },
-  {
-    id: 2,
-    name: "Especial Hombres - Sana tu Próstata y Piel",
-    slug: "especial-hombres-sana-tu-prostata-y-piel",
-    category: "Infusiones",
-    finalidad: "Masculina",
-    price: 26990,
-    originalPrice: null,
-    image: productosHierbas,
-    rating: 4.7,
-    reviews: 89,
-    inStock: true,
-    description: "Fórmula natural para la salud masculina integral"
-  },
-  {
-    id: 3,
-    name: "Infusión Relajante Nocturna",
-    slug: "infusion-relajante-nocturna",
-    category: "Infusiones",
-    finalidad: "Relajación",
-    price: 18990,
-    originalPrice: 22990,
-    image: productosHierbas,
-    rating: 4.9,
-    reviews: 203,
-    inStock: true,
-    description: "Mezcla de hierbas para promover un sueño reparador"
-  },
-  {
-    id: 4,
-    name: "Digestivo Natural Premium",
-    slug: "digestivo-natural-premium",
-    category: "Infusiones",
-    finalidad: "Digestivo",
-    price: 21990,
-    originalPrice: null,
-    image: productosHierbas,
-    rating: 4.6,
-    reviews: 134,
-    inStock: true,
-    description: "Hierbas seleccionadas para mejorar la digestión naturalmente"
-  },
-  {
-    id: 5,
-    name: "Vermicompostera 5 Niveles",
-    slug: "vermicompostera-5-niveles",
-    category: "Vermicompostaje",
-    finalidad: null,
-    price: 89990,
-    originalPrice: null,
-    image: vermicompostaje,
-    rating: 4.9,
-    reviews: 89,
-    inStock: true,
-    description: "Sistema completo de vermicompostaje para empresas y hogares"
-  },
-  {
-    id: 6,
-    name: "Kit Vermicompostaje Familiar",
-    slug: "kit-vermicompostaje-familiar",
-    category: "Vermicompostaje",
-    finalidad: null,
-    price: 45990,
-    originalPrice: 54990,
-    image: vermicompostaje,
-    rating: 4.8,
-    reviews: 167,
-    inStock: true,
-    description: "Kit inicial perfecto para familias conscientes"
-  },
-  {
-    id: 7,
-    name: "Eco Macetero Alerce",
-    slug: "eco-macetero-alerce",
-    category: "Maceteros",
-    finalidad: null,
-    price: 15990,
-    originalPrice: 19990,
-    image: maceterosKits,
-    rating: 4.7,
-    reviews: 203,
-    inStock: true,
-    description: "Macetero ecológico de madera alerce sustentable"
-  },
-  {
-    id: 8,
-    name: "Kit Cultivo Hierbas Aromáticas",
-    slug: "kit-cultivo-hierbas-aromaticas",
-    category: "Maceteros",
-    finalidad: null,
-    price: 32990,
-    originalPrice: null,
-    image: maceterosKits,
-    rating: 4.8,
-    reviews: 145,
-    inStock: true,
-    description: "Kit completo para cultivar hierbas aromáticas en casa"
-  }
-];
+// Removed hardcoded products - now using only WordPress/WooCommerce products
 
 interface ModalProduct {
   id: number;
@@ -177,7 +64,7 @@ const Productos = () => {
   });
   const { data: wcCategories } = useCategories();
 
-  const handleAddToCart = (product: typeof productos[0]) => {
+  const handleAddToCart = (product: any) => {
     if (!product.inStock) return;
     
     addItem({
@@ -199,7 +86,7 @@ const Productos = () => {
     });
   };
 
-  const handleViewProduct = (product: typeof productos[0]) => {
+  const handleViewProduct = (product: any) => {
     setSelectedProduct({
       id: product.id,
       name: product.name,
@@ -215,20 +102,7 @@ const Productos = () => {
     setIsModalOpen(true);
   };
 
-  const filteredProducts = productos.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
-    const matchesFinalidad = selectedFinalidad === "all" || product.finalidad === selectedFinalidad;
-    
-    let matchesPrice = true;
-    if (priceFilter === "low") matchesPrice = product.price <= 25000;
-    else if (priceFilter === "medium") matchesPrice = product.price > 25000 && product.price <= 50000;
-    else if (priceFilter === "high") matchesPrice = product.price > 50000;
-
-    return matchesSearch && matchesCategory && matchesFinalidad && matchesPrice;
-  });
-
-  // Usar productos WooCommerce o fallback
+  // Usar solo productos WooCommerce
   const allProducts = wcProducts 
     ? wcProducts.map(wcProduct => ({
         id: wcProduct.id,
@@ -244,7 +118,7 @@ const Productos = () => {
         inStock: wcProduct.stock_status === 'instock',
         description: wcProduct.short_description?.replace(/<[^>]*>/g, '') || wcProduct.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...' || ''
       }))
-    : productos;
+    : [];
 
   return (
     <PageTemplate 
@@ -274,7 +148,7 @@ const Productos = () => {
                 sistemas de vermicompostaje y maceteros ecológicos.
               </p>
               <Badge className="bg-primary/10 text-primary border-primary/20">
-                {productos.length} productos disponibles
+                {allProducts.length} productos disponibles
               </Badge>
             </div>
           </div>
@@ -361,6 +235,35 @@ const Productos = () => {
                       </CardContent>
                     </Card>
                   ))}
+                </div>
+              </div>
+            ) : !wcProducts || allProducts.length === 0 ? (
+              <div className="text-center py-16">
+                <div className="max-w-md mx-auto">
+                  <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    {!wcProducts ? 'Conectando con WordPress' : 'No hay productos disponibles'}
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    {!wcProducts 
+                      ? 'Estamos cargando los productos desde WordPress/WooCommerce. Por favor, asegúrate de que la conexión esté configurada correctamente.'
+                      : 'Actualmente no hay productos disponibles en la tienda.'
+                    }
+                  </p>
+                  {!wcProducts && (
+                    <div className="text-sm text-muted-foreground bg-muted/50 p-4 rounded-lg">
+                      <p className="font-medium mb-2">Para configurar la conexión:</p>
+                      <ul className="text-left space-y-1">
+                        <li>• Verifica la URL de WordPress en los servicios</li>
+                        <li>• Confirma las credenciales de WooCommerce</li>
+                        <li>• Asegúrate de que los productos estén publicados</li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
