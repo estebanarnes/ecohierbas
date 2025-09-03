@@ -544,11 +544,41 @@ function ecohierbas_format_price($price) {
     return '$' . number_format($price, 0, ',', '.') . ' CLP';
 }
 
-function ecohierbas_get_discount_badge($price, $original_price) {
-    if (!$original_price || $original_price <= $price) {
-        return '';
+/**
+ * AJAX handler para cotización B2B
+ */
+function ecohierbas_ajax_b2b_quote() {
+    check_ajax_referer('ecohierbas_nonce', 'nonce');
+
+    $company_name = sanitize_text_field($_POST['company_name'] ?? '');
+    $contact_name = sanitize_text_field($_POST['contact_name'] ?? '');
+    $email = sanitize_email($_POST['email'] ?? '');
+    $phone = sanitize_text_field($_POST['phone'] ?? '');
+    $industry = sanitize_text_field($_POST['industry'] ?? '');
+    $products = array_map('sanitize_text_field', $_POST['products'] ?? []);
+    $volume = sanitize_text_field($_POST['volume'] ?? '');
+    $budget = sanitize_text_field($_POST['budget'] ?? '');
+    $requirements = sanitize_textarea_field($_POST['requirements'] ?? '');
+
+    if (!$company_name || !$contact_name || !$email) {
+        wp_send_json_error(__('Faltan campos obligatorios', 'ecohierbas'));
+        return;
     }
 
-    $discount_percent = round((($original_price - $price) / $original_price) * 100);
-    return '<span class="u-badge bg-destructive text-destructive-foreground">-' . $discount_percent . '%</span>';
+    // Enviar email
+    $subject = sprintf(__('Nueva Cotización B2B de %s', 'ecohierbas'), $company_name);
+    $message = sprintf(__("Nueva cotización B2B:\n\nEmpresa: %s\nContacto: %s\nEmail: %s\nTeléfono: %s\nRubro: %s\nProductos: %s\nVolumen: %s\nPresupuesto: %s\nRequerimientos: %s", 'ecohierbas'),
+        $company_name, $contact_name, $email, $phone, $industry, 
+        implode(', ', $products), $volume, $budget, $requirements
+    );
+
+    $sent = wp_mail(get_option('admin_email'), $subject, $message);
+
+    if ($sent) {
+        wp_send_json_success(__('Cotización enviada exitosamente', 'ecohierbas'));
+    } else {
+        wp_send_json_error(__('Error al enviar cotización', 'ecohierbas'));
+    }
 }
+add_action('wp_ajax_ecohierbas_b2b_quote', 'ecohierbas_ajax_b2b_quote');
+add_action('wp_ajax_nopriv_ecohierbas_b2b_quote', 'ecohierbas_ajax_b2b_quote');
