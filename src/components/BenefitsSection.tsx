@@ -26,9 +26,9 @@ const BenefitsSection = () => {
             <TruckIcon className="w-5 h-5" />
             Envíos a todo Chile
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
-            ¿Por qué elegir EcoHierbas Chile?
-          </h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+              ¿Por qué elegir <span className="text-yellow-500">EcoHierbas</span> Chile?
+            </h2>
           <p className="text-lg text-muted-foreground">
             Más que productos naturales, somos una empresa comprometida con tu bienestar 
             y el cuidado del planeta. Conoce los valores que nos impulsan.
