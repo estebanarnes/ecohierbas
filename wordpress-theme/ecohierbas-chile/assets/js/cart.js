@@ -1,484 +1,394 @@
 /**
- * Funcionalidad del carrito - EcoHierbas Chile
- * Maneja añadir/quitar productos, actualizar cantidades, persistencia
+ * EcoHierbas Cart Functionality
+ * Migración desde CartContext.tsx para mantener funcionalidad idéntica
  */
 
 class EcoHierbasCart {
-  constructor() {
-    this.items = [];
-    this.isOpen = false;
-    this.sidebar = null;
-    this.overlay = null;
-    this.toast = null;
-    
-    this.init();
-  }
-
-  init() {
-    this.sidebar = EcoHierbas.DOM.$('#cart-sidebar');
-    this.overlay = EcoHierbas.DOM.$('#cart-overlay');
-    this.toast = EcoHierbas.DOM.$('#cart-toast');
-    
-    if (!this.sidebar) {
-      console.warn('Cart sidebar not found');
-      return;
+    constructor() {
+        this.cart = this.getCartFromStorage();
+        this.sidebar = null;
+        this.cartCount = 0;
+        this.init();
     }
 
-    this.loadCart();
-    this.bindEvents();
-    this.updateUI();
-  }
-
-  bindEvents() {
-    // Toggle carrito desde header
-    EcoHierbas.DOM.$$('[data-cart-toggle]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.toggle();
-      });
-    });
-
-    // Cerrar carrito
-    const closeBtn = EcoHierbas.DOM.$('#close-cart');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => this.close());
+    init() {
+        this.initElements();
+        this.bindEvents();
+        this.updateCartDisplay();
+        this.initWooCommerceIntegration();
     }
 
-    // Cerrar con overlay
-    if (this.overlay) {
-      this.overlay.addEventListener('click', () => this.close());
+    initElements() {
+        this.sidebar = document.querySelector('[data-cart-sidebar]');
+        this.trigger = document.querySelector('[data-cart-trigger]');
+        this.closeBtn = document.querySelector('[data-cart-close]');
+        this.cartItems = document.querySelector('[data-cart-items]');
+        this.cartTotal = document.querySelector('[data-cart-total]');
+        this.cartCount = document.querySelector('[data-cart-count]');
+        this.clearCartBtn = document.querySelector('[data-cart-clear]');
+        this.checkoutBtn = document.querySelector('[data-cart-checkout]');
     }
 
-    // Cerrar con ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.isOpen) {
-        this.close();
-      }
-    });
-
-    // Continuar comprando
-    EcoHierbas.DOM.$$('#continue-shopping, #continue-shopping-footer').forEach(btn => {
-      btn.addEventListener('click', () => this.close());
-    });
-
-    // Vaciar carrito
-    const clearBtn = EcoHierbas.DOM.$('#clear-cart');
-    if (clearBtn) {
-      clearBtn.addEventListener('click', () => this.clear());
-    }
-
-    // Botones añadir al carrito
-    document.addEventListener('click', (e) => {
-      if (e.target.matches('.add-to-cart-btn') || e.target.closest('.add-to-cart-btn')) {
-        e.preventDefault();
-        const btn = e.target.closest('.add-to-cart-btn');
-        const productId = btn.dataset.productId;
-        const productName = btn.dataset.productName;
-        
-        if (productId) {
-          this.addItem(productId, 1, { name: productName });
+    bindEvents() {
+        // Abrir/cerrar sidebar
+        if (this.trigger) {
+            this.trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openCart();
+            });
         }
-      }
-    });
 
-    // Toast actions
-    if (this.toast) {
-      const toastAction = EcoHierbas.DOM.$('#cart-toast-action', this.toast);
-      const toastClose = EcoHierbas.DOM.$('#cart-toast-close', this.toast);
-      
-      toastAction?.addEventListener('click', () => {
-        this.hideToast();
-        this.open();
-      });
-      
-      toastClose?.addEventListener('click', () => this.hideToast());
+        if (this.closeBtn) {
+            this.closeBtn.addEventListener('click', () => {
+                this.closeCart();
+            });
+        }
+
+        // Cerrar con ESC o click fuera
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isCartOpen()) {
+                this.closeCart();
+            }
+        });
+
+        if (this.sidebar) {
+            this.sidebar.addEventListener('click', (e) => {
+                if (e.target === this.sidebar) {
+                    this.closeCart();
+                }
+            });
+        }
+
+        // Limpiar carrito
+        if (this.clearCartBtn) {
+            this.clearCartBtn.addEventListener('click', () => {
+                this.clearCart();
+            });
+        }
+
+        // Checkout
+        if (this.checkoutBtn) {
+            this.checkoutBtn.addEventListener('click', () => {
+                this.goToCheckout();
+            });
+        }
+
+        // Escuchar eventos de WooCommerce
+        document.addEventListener('added_to_cart', (e) => {
+            this.handleWooCommerceAdd(e.detail);
+        });
+
+        document.addEventListener('removed_from_cart', (e) => {
+            this.handleWooCommerceRemove(e.detail);
+        });
     }
 
-    // Eventos del carrito
-    EcoHierbas.EventBus.on('cart:updated', () => this.updateUI());
-  }
-
-  async addItem(productId, quantity = 1, productData = {}) {
-    try {
-      // Mostrar loading en el botón
-      const btn = EcoHierbas.DOM.$(`[data-product-id="${productId}"]`);
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<svg class="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Agregando...';
-      }
-
-      // Llamada AJAX a WooCommerce
-      const response = await fetch(ecohierbas_ajax.ajax_url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          action: 'ecohierbas_add_to_cart',
-          product_id: productId,
-          quantity: quantity,
-          nonce: ecohierbas_ajax.nonce
-        })
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        // Actualizar items locales
-        const existingItem = this.items.find(item => item.id === productId);
+    // Gestión del carrito
+    addItem(product) {
+        const existingItem = this.cart.find(item => item.id === product.id);
         
         if (existingItem) {
-          existingItem.quantity += quantity;
+            existingItem.quantity += 1;
         } else {
-          this.items.push({
-            id: productId,
-            quantity: quantity,
-            ...productData,
-            ...result.data.product
-          });
+            this.cart.push({
+                ...product,
+                quantity: 1
+            });
         }
 
-        this.saveCart();
-        this.updateUI();
-        
-        // Mostrar toast
-        this.showToast(`${productData.name || 'Producto'} agregado al carrito`);
-        
-        // Emitir evento
-        EcoHierbas.EventBus.emit('cart:add', { productId, quantity });
-        
-        // Anunciar a lectores de pantalla
-        EcoHierbas.A11y.announce(`${productData.name || 'Producto'} agregado al carrito`);
-        
-      } else {
-        throw new Error(result.data || 'Error al agregar producto');
-      }
-
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      this.showToast('Error al agregar producto', 'error');
-    } finally {
-      // Restaurar botón
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M7 13h10m-10 6h10"></path></svg>Agregar';
-      }
-    }
-  }
-
-  async removeItem(productId) {
-    try {
-      const response = await fetch(ecohierbas_ajax.ajax_url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          action: 'ecohierbas_remove_from_cart',
-          product_id: productId,
-          nonce: ecohierbas_ajax.nonce
-        })
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        this.items = this.items.filter(item => item.id !== productId);
-        this.saveCart();
-        this.updateUI();
-        
-        EcoHierbas.EventBus.emit('cart:remove', { productId });
-        EcoHierbas.A11y.announce('Producto eliminado del carrito');
-      }
-
-    } catch (error) {
-      console.error('Error removing from cart:', error);
-    }
-  }
-
-  async updateQuantity(productId, quantity) {
-    if (quantity <= 0) {
-      return this.removeItem(productId);
+        this.saveCartToStorage();
+        this.updateCartDisplay();
+        this.showAddedNotification(product);
     }
 
-    try {
-      const response = await fetch(ecohierbas_ajax.ajax_url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          action: 'ecohierbas_update_cart_quantity',
-          product_id: productId,
-          quantity: quantity,
-          nonce: ecohierbas_ajax.nonce
-        })
-      });
+    removeItem(productId) {
+        this.cart = this.cart.filter(item => item.id !== productId);
+        this.saveCartToStorage();
+        this.updateCartDisplay();
+    }
 
-      const result = await response.json();
-
-      if (result.success) {
-        const item = this.items.find(item => item.id === productId);
+    updateQuantity(productId, quantity) {
+        const item = this.cart.find(item => item.id === productId);
+        
         if (item) {
-          item.quantity = quantity;
-          this.saveCart();
-          this.updateUI();
-          
-          EcoHierbas.EventBus.emit('cart:update', { productId, quantity });
+            if (quantity <= 0) {
+                this.removeItem(productId);
+            } else {
+                item.quantity = quantity;
+                this.saveCartToStorage();
+                this.updateCartDisplay();
+            }
         }
-      }
-
-    } catch (error) {
-      console.error('Error updating quantity:', error);
-    }
-  }
-
-  async clear() {
-    if (!confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
-      return;
     }
 
-    try {
-      const response = await fetch(ecohierbas_ajax.ajax_url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          action: 'ecohierbas_clear_cart',
-          nonce: ecohierbas_ajax.nonce
-        })
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        this.items = [];
-        this.saveCart();
-        this.updateUI();
+    clearCart() {
+        this.cart = [];
+        this.saveCartToStorage();
+        this.updateCartDisplay();
         
-        EcoHierbas.EventBus.emit('cart:clear');
-        EcoHierbas.A11y.announce('Carrito vaciado');
-      }
-
-    } catch (error) {
-      console.error('Error clearing cart:', error);
-    }
-  }
-
-  updateUI() {
-    this.updateCartCount();
-    this.updateCartItems();
-    this.updateCartTotals();
-    this.toggleEmptyState();
-  }
-
-  updateCartCount() {
-    const count = this.items.reduce((total, item) => total + item.quantity, 0);
-    
-    // Actualizar badges del carrito
-    EcoHierbas.DOM.$$('[data-cart-count]').forEach(badge => {
-      badge.textContent = count;
-      badge.style.display = count > 0 ? 'inline-flex' : 'none';
-    });
-
-    // Badge específico del sidebar
-    const sidebarBadge = EcoHierbas.DOM.$('#cart-items-badge');
-    if (sidebarBadge) {
-      sidebarBadge.textContent = count;
-    }
-  }
-
-  updateCartItems() {
-    const container = EcoHierbas.DOM.$('#cart-items-list');
-    if (!container) return;
-
-    container.innerHTML = '';
-
-    this.items.forEach(item => {
-      const itemElement = this.createCartItemElement(item);
-      container.appendChild(itemElement);
-    });
-  }
-
-  createCartItemElement(item) {
-    const template = EcoHierbas.DOM.$('#cart-item-template');
-    if (!template) return EcoHierbas.DOM.createElement('div');
-
-    const clone = template.content.cloneNode(true);
-    const element = clone.querySelector('div');
-
-    // Imagen
-    const img = clone.querySelector('img');
-    if (img && item.image) {
-      img.src = item.image;
-      img.alt = item.name;
+        if (window.EcoHierbas && window.EcoHierbas.showNotification) {
+            window.EcoHierbas.showNotification('Carrito vaciado');
+        }
     }
 
-    // Nombre y precio
-    const title = clone.querySelector('h4');
-    if (title) title.textContent = item.name;
-
-    const description = clone.querySelector('p');
-    if (description) description.textContent = EcoHierbas.Currency.format(item.price);
-
-    // Cantidad
-    const quantityDisplay = clone.querySelector('.quantity-display');
-    if (quantityDisplay) quantityDisplay.textContent = item.quantity;
-
-    // Precio total
-    const priceDisplay = clone.querySelector('.price-display');
-    if (priceDisplay) {
-      priceDisplay.textContent = EcoHierbas.Currency.format(item.price * item.quantity);
+    // Gestión de la UI
+    openCart() {
+        if (this.sidebar) {
+            this.sidebar.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
     }
 
-    // Botones de cantidad
-    const minusBtn = clone.querySelector('.quantity-minus');
-    const plusBtn = clone.querySelector('.quantity-plus');
-    const removeBtn = clone.querySelector('.remove-item');
-
-    if (minusBtn) {
-      minusBtn.addEventListener('click', () => {
-        this.updateQuantity(item.id, item.quantity - 1);
-      });
+    closeCart() {
+        if (this.sidebar) {
+            this.sidebar.classList.remove('open');
+            document.body.style.overflow = '';
+        }
     }
 
-    if (plusBtn) {
-      plusBtn.addEventListener('click', () => {
-        this.updateQuantity(item.id, item.quantity + 1);
-      });
+    isCartOpen() {
+        return this.sidebar && this.sidebar.classList.contains('open');
     }
 
-    if (removeBtn) {
-      removeBtn.addEventListener('click', () => {
-        this.removeItem(item.id);
-      });
+    updateCartDisplay() {
+        this.updateCartCount();
+        this.updateCartItems();
+        this.updateCartTotal();
     }
 
-    return element;
-  }
-
-  updateCartTotals() {
-    const subtotal = this.items.reduce((total, item) => {
-      return total + (item.price * item.quantity);
-    }, 0);
-
-    const subtotalElement = EcoHierbas.DOM.$('#cart-subtotal');
-    const totalElement = EcoHierbas.DOM.$('#cart-total');
-
-    if (subtotalElement) {
-      subtotalElement.textContent = EcoHierbas.Currency.format(subtotal);
+    updateCartCount() {
+        const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+        
+        if (this.cartCount) {
+            this.cartCount.textContent = totalItems;
+            this.cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
     }
 
-    if (totalElement) {
-      totalElement.textContent = EcoHierbas.Currency.format(subtotal); // Sin envío por ahora
-    }
-  }
+    updateCartItems() {
+        if (!this.cartItems) return;
 
-  toggleEmptyState() {
-    const isEmpty = this.items.length === 0;
-    
-    const emptyCart = EcoHierbas.DOM.$('#empty-cart');
-    const cartItems = EcoHierbas.DOM.$('#cart-items');
-    const cartFooter = EcoHierbas.DOM.$('#cart-footer');
+        if (this.cart.length === 0) {
+            this.cartItems.innerHTML = this.getEmptyCartHTML();
+            return;
+        }
 
-    if (emptyCart) emptyCart.style.display = isEmpty ? 'flex' : 'none';
-    if (cartItems) cartItems.style.display = isEmpty ? 'none' : 'block';
-    if (cartFooter) cartFooter.style.display = isEmpty ? 'none' : 'block';
-  }
+        const itemsHTML = this.cart.map(item => this.getCartItemHTML(item)).join('');
+        this.cartItems.innerHTML = itemsHTML;
 
-  open() {
-    if (!this.sidebar) return;
-
-    this.isOpen = true;
-    
-    // Mostrar overlay y sidebar
-    if (this.overlay) {
-      this.overlay.classList.remove('hidden');
-      this.overlay.style.opacity = '1';
-    }
-    
-    this.sidebar.classList.remove('translate-x-full');
-    this.sidebar.setAttribute('aria-hidden', 'false');
-    
-    // Focus trap
-    this.focusTrap = EcoHierbas.A11y.createFocusTrap(this.sidebar);
-    this.focusTrap.activate();
-    
-    // Bloquear scroll del body
-    document.body.style.overflow = 'hidden';
-    
-    EcoHierbas.EventBus.emit('cart:open');
-  }
-
-  close() {
-    if (!this.sidebar) return;
-
-    this.isOpen = false;
-    
-    // Ocultar sidebar y overlay
-    this.sidebar.classList.add('translate-x-full');
-    this.sidebar.setAttribute('aria-hidden', 'true');
-    
-    if (this.overlay) {
-      this.overlay.style.opacity = '0';
-      setTimeout(() => {
-        this.overlay.classList.add('hidden');
-      }, 300);
-    }
-    
-    // Restaurar scroll del body
-    document.body.style.overflow = '';
-    
-    // Limpiar focus trap
-    if (this.focusTrap) {
-      this.focusTrap.deactivate();
-      this.focusTrap = null;
-    }
-    
-    EcoHierbas.EventBus.emit('cart:close');
-  }
-
-  toggle() {
-    if (this.isOpen) {
-      this.close();
-    } else {
-      this.open();
-    }
-  }
-
-  showToast(message, type = 'success') {
-    if (!this.toast) return;
-
-    const messageEl = EcoHierbas.DOM.$('#cart-toast-message', this.toast);
-    if (messageEl) {
-      messageEl.textContent = message;
+        // Bind events para los controles de cantidad
+        this.bindQuantityControls();
     }
 
-    // Mostrar toast
-    this.toast.classList.remove('translate-x-full');
-    
-    // Auto-ocultar después de 3 segundos
-    setTimeout(() => {
-      this.hideToast();
-    }, 3000);
-  }
+    updateCartTotal() {
+        if (!this.cartTotal) return;
 
-  hideToast() {
-    if (!this.toast) return;
-    this.toast.classList.add('translate-x-full');
-  }
+        const total = this.cart.reduce((sum, item) => {
+            return sum + (item.price * item.quantity);
+        }, 0);
 
-  saveCart() {
-    EcoHierbas.Storage.set('ecohierbas_cart', this.items);
-  }
+        this.cartTotal.textContent = this.formatPrice(total);
+    }
 
-  loadCart() {
-    this.items = EcoHierbas.Storage.get('ecohierbas_cart', []);
-  }
+    bindQuantityControls() {
+        // Botones de aumentar cantidad
+        const increaseButtons = this.cartItems.querySelectorAll('[data-quantity-increase]');
+        increaseButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = parseInt(button.dataset.productId);
+                const currentItem = this.cart.find(item => item.id === productId);
+                if (currentItem) {
+                    this.updateQuantity(productId, currentItem.quantity + 1);
+                }
+            });
+        });
+
+        // Botones de disminuir cantidad
+        const decreaseButtons = this.cartItems.querySelectorAll('[data-quantity-decrease]');
+        decreaseButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = parseInt(button.dataset.productId);
+                const currentItem = this.cart.find(item => item.id === productId);
+                if (currentItem) {
+                    this.updateQuantity(productId, currentItem.quantity - 1);
+                }
+            });
+        });
+
+        // Botones de eliminar
+        const removeButtons = this.cartItems.querySelectorAll('[data-remove-item]');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = parseInt(button.dataset.productId);
+                this.removeItem(productId);
+            });
+        });
+    }
+
+    // HTML Templates
+    getEmptyCartHTML() {
+        return `
+            <div class="text-center py-8">
+                <svg class="w-16 h-16 mx-auto mb-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"/>
+                </svg>
+                <h3 class="text-lg font-semibold text-foreground mb-2">Tu carrito está vacío</h3>
+                <p class="text-muted-foreground mb-4">Agrega algunos productos para comenzar</p>
+                <a href="/productos" class="u-btn u-btn--primary">Ver Productos</a>
+            </div>
+        `;
+    }
+
+    getCartItemHTML(item) {
+        return `
+            <div class="flex items-center gap-4 p-4 border-b border-border">
+                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                <div class="flex-1">
+                    <h4 class="font-medium text-foreground">${item.name}</h4>
+                    <p class="text-sm text-muted-foreground">${item.category}</p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <button 
+                            data-quantity-decrease 
+                            data-product-id="${item.id}"
+                            class="w-8 h-8 rounded border border-border flex items-center justify-center hover:bg-muted">
+                            -
+                        </button>
+                        <span class="px-2 py-1 bg-muted rounded text-sm">${item.quantity}</span>
+                        <button 
+                            data-quantity-increase 
+                            data-product-id="${item.id}"
+                            class="w-8 h-8 rounded border border-border flex items-center justify-center hover:bg-muted">
+                            +
+                        </button>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="font-semibold text-foreground">${this.formatPrice(item.price * item.quantity)}</p>
+                    <button 
+                        data-remove-item 
+                        data-product-id="${item.id}"
+                        class="text-xs text-destructive hover:underline mt-1">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    // Integración con WooCommerce
+    initWooCommerceIntegration() {
+        // Agregar productos desde botones WooCommerce
+        const addToCartButtons = document.querySelectorAll('.add_to_cart_button');
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                // WooCommerce manejará la funcionalidad AJAX
+                // Nosotros solo actualizamos la UI
+                this.showLoadingState(button);
+            });
+        });
+    }
+
+    handleWooCommerceAdd(data) {
+        if (data && data.product) {
+            this.addItem({
+                id: data.product.id,
+                name: data.product.name,
+                price: data.product.price,
+                image: data.product.image,
+                category: data.product.category,
+                slug: data.product.slug
+            });
+        }
+    }
+
+    handleWooCommerceRemove(data) {
+        if (data && data.product_id) {
+            this.removeItem(data.product_id);
+        }
+    }
+
+    showLoadingState(button) {
+        button.classList.add('loading');
+        button.disabled = true;
+        
+        setTimeout(() => {
+            button.classList.remove('loading');
+            button.disabled = false;
+        }, 1000);
+    }
+
+    // Funciones auxiliares
+    showAddedNotification(product) {
+        if (window.EcoHierbas && window.EcoHierbas.showNotification) {
+            window.EcoHierbas.showNotification(
+                `${product.name} agregado al carrito`,
+                'success'
+            );
+        }
+    }
+
+    formatPrice(price) {
+        return new Intl.NumberFormat('es-CL', {
+            style: 'currency',
+            currency: 'CLP',
+            minimumFractionDigits: 0
+        }).format(price);
+    }
+
+    goToCheckout() {
+        if (this.cart.length > 0) {
+            window.location.href = '/checkout';
+        }
+    }
+
+    // Storage
+    getCartFromStorage() {
+        try {
+            const stored = localStorage.getItem('ecohierbas-cart');
+            return stored ? JSON.parse(stored) : [];
+        } catch (error) {
+            console.error('Error loading cart from storage:', error);
+            return [];
+        }
+    }
+
+    saveCartToStorage() {
+        try {
+            localStorage.setItem('ecohierbas-cart', JSON.stringify(this.cart));
+        } catch (error) {
+            console.error('Error saving cart to storage:', error);
+        }
+    }
+
+    // API pública
+    getCart() {
+        return [...this.cart];
+    }
+
+    getTotalPrice() {
+        return this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    }
+
+    getTotalItems() {
+        return this.cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
 }
 
-// Inicializar carrito cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-  window.EcoHierbasCartInstance = new EcoHierbasCart();
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    window.EcoHierbasCart = new EcoHierbasCart();
 });
+
+// Exponer métodos globalmente para compatibilidad
+window.addToCart = function(product) {
+    if (window.EcoHierbasCart) {
+        window.EcoHierbasCart.addItem(product);
+    }
+};
+
+window.openCart = function() {
+    if (window.EcoHierbasCart) {
+        window.EcoHierbasCart.openCart();
+    }
+};
