@@ -35,7 +35,13 @@ const Nosotros = () => {
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-b from-primary/5 to-background">
+        <section className="py-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
+          {/* Logo transparente de fondo */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+            <div className="text-8xl md:text-9xl font-serif font-bold text-primary/20 select-none">
+              EcoHierbas
+            </div>
+          </div>
           <div className="u-container">
             <div className="max-w-4xl mx-auto text-center">
               <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
