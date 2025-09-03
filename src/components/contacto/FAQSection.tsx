@@ -1,23 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const FAQSection = () => {
-  const parallaxRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.pageYOffset;
-      const speed = 0.5; // Misma velocidad que el hero para sincronizar
-
-      if (parallaxRef.current) {
-        parallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const faqs = [
     {
       question: "¿Hacen envíos a todo Chile?",
@@ -39,13 +23,11 @@ const FAQSection = () => {
 
   return (
     <section className="py-16 relative overflow-hidden min-h-[600px]">
-      {/* Background Image - Misma imagen del hero */}
+      {/* Background Image Estática */}
       <div 
-        ref={parallaxRef}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
         style={{
-          backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-          willChange: 'transform'
+          backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`
         }}
       />
       
