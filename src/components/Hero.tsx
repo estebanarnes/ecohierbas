@@ -5,13 +5,16 @@ import heroImage from "@/assets/hero-ecohierbas.jpg";
 const Hero = () => {
   return (
     <>
-      {/* Fixed Background Image */}
-      <div className="fixed inset-0 -z-10">
-        <img 
-          src={heroImage} 
-          alt="Hierbas medicinales y aromáticas orgánicas EcoHierbas Chile" 
-          className="w-full h-full object-cover" 
-        />
+      {/* Fixed Parallax Background */}
+      <div 
+        className="fixed inset-0 -z-10"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
       </div>
 
