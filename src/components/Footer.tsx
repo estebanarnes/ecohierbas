@@ -44,8 +44,8 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <MapPinIcon className="w-5 h-5 text-white/80" />
                 <span className="text-sm">
-                  El Crepúsculo 19745, Pudahuel<br />
-                  Región Metropolitana, Chile
+                  Camino El tambo, San Vicente Tagua Tagua<br />
+                  VI Región, Chile
                 </span>
               </div>
               <div className="flex items-center gap-3">
