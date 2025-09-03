@@ -5,7 +5,7 @@ const benefits = [{
   icon: TruckIcon,
   title: "Producción Local",
   description: "Cultivado y producido en Pudahuel, apoyando la economía local",
-  image: "/src/assets/maceteros-kits.jpg"
+  image: "/lovable-uploads/d04d69ec-2b69-4250-9508-f7a53e69bca8.png"
 }, {
   icon: GlobeAltIcon,
   title: "Sostenibilidad",
