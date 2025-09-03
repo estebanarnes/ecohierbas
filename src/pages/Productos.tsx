@@ -435,23 +435,23 @@ const Productos = () => {
                     </div>
 
                     {/* Mobile Carousel (3 products per page) */}
-                    <div className="md:hidden">
-                      <Carousel className="w-full" opts={{ align: "start", loop: true }}>
-                        <CarouselContent>
+                    <div className="md:hidden -mx-4">
+                      <Carousel className="w-full px-4" opts={{ align: "start", loop: true }}>
+                        <CarouselContent className="-ml-2">
                           {mobilePages.map((pageProducts, pageIndex) => (
-                            <CarouselItem key={pageIndex} className="pl-2">
-                              <div className="grid grid-cols-1 gap-3">
+                            <CarouselItem key={pageIndex} className="pl-2 basis-full">
+                              <div className="grid grid-cols-1 gap-4 px-2">
                                 {pageProducts.map((product) => (
                                   <Card 
                                     key={product.id} 
-                                    className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden"
+                                    className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden w-full max-w-sm mx-auto"
                                   >
                                     <CardHeader className="p-0 relative">
                                       <div className="relative overflow-hidden">
                                         <img
                                           src={product.image}
                                           alt={product.name}
-                                          className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                         
@@ -480,23 +480,23 @@ const Productos = () => {
                                       </div>
                                     </CardHeader>
 
-                                    <CardContent className="p-3">
-                                      <div className="mb-2">
+                                    <CardContent className="p-4">
+                                      <div className="mb-3">
                                         <Badge variant="outline" className="text-xs">
                                           {product.category}
                                         </Badge>
                                         {product.finalidad && (
-                                          <Badge variant="outline" className="text-xs ml-1">
+                                          <Badge variant="outline" className="text-xs ml-2">
                                             {product.finalidad}
                                           </Badge>
                                         )}
                                       </div>
                                       
-                                      <h3 className="font-semibold text-sm text-foreground mb-2 line-clamp-2">
+                                      <h3 className="font-semibold text-base text-foreground mb-2 line-clamp-2 leading-snug">
                                         {product.name}
                                       </h3>
                                       
-                                      <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
+                                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2 leading-relaxed">
                                         {product.description}
                                       </p>
 
@@ -514,40 +514,38 @@ const Productos = () => {
                                             />
                                           ))}
                                         </div>
-                                        <span className="text-xs font-medium">{product.rating}</span>
-                                        <span className="text-xs text-muted-foreground">
+                                        <span className="text-sm font-medium">{product.rating}</span>
+                                        <span className="text-sm text-muted-foreground">
                                           ({product.reviews})
                                         </span>
                                       </div>
 
                                       {/* Price */}
                                       <div className="flex items-center gap-2">
-                                        <span className="text-base font-bold text-primary">
+                                        <span className="text-xl font-bold text-primary">
                                           ${product.price.toLocaleString('es-CL')}
                                         </span>
                                         {product.originalPrice && (
-                                          <span className="text-xs text-muted-foreground line-through">
+                                          <span className="text-sm text-muted-foreground line-through">
                                             ${product.originalPrice.toLocaleString('es-CL')}
                                           </span>
                                         )}
                                       </div>
                                     </CardContent>
 
-                                    <CardFooter className="p-3 pt-0">
-                                      <div className="flex gap-2 w-full">
+                                    <CardFooter className="p-4 pt-0">
+                                      <div className="flex gap-3 w-full">
                                         <Button 
-                                          size="sm"
-                                          className="flex-1 bg-primary hover:bg-primary/90 text-xs"
+                                          className="flex-1 bg-primary hover:bg-primary/90"
                                           disabled={!product.inStock}
                                           onClick={() => handleAddToCart(product)}
                                         >
-                                          <ShoppingCartIcon className="w-3 h-3 mr-1" />
+                                          <ShoppingCartIcon className="w-4 h-4 mr-2" />
                                           Agregar
                                         </Button>
                                         <Button 
-                                          size="sm"
                                           variant="outline" 
-                                          className="px-2 text-xs"
+                                          className="px-4"
                                           onClick={() => handleViewProduct(product)}
                                         >
                                           Ver
