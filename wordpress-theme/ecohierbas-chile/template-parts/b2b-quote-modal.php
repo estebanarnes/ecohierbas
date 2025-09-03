@@ -1,281 +1,310 @@
 <?php
 /**
- * B2B Quote Modal
- * Modal para cotizaciones corporativas
+ * Template Part: B2B Quote Modal
+ * Modal para cotizaciones B2B empresariales
  */
 ?>
 
 <!-- B2B Quote Modal -->
-<div id="b2b-quote-modal" class="u-modal-overlay hidden" aria-hidden="true">
-    <div class="u-modal-content max-w-4xl" role="dialog" aria-labelledby="b2b-modal-title" aria-describedby="b2b-modal-description">
-        <div class="relative bg-white rounded-2xl shadow-2xl overflow-hidden">
-            <!-- Modal Header -->
-            <div class="bg-gradient-to-r from-primary to-primary/80 text-white p-8 text-center relative">
-                <button class="modal-close absolute top-4 right-4 text-white hover:text-white/80 transition-colors" 
-                        aria-label="<?php esc_attr_e('Cerrar modal', 'ecohierbas'); ?>">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-                
-                <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-medium mb-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <?php esc_html_e('Cotización Corporativa', 'ecohierbas'); ?>
-                </div>
-                
-                <h2 id="b2b-modal-title" class="text-3xl font-serif font-bold mb-2">
-                    <?php esc_html_e('Solicita tu Cotización B2B', 'ecohierbas'); ?>
-                </h2>
-                <p id="b2b-modal-description" class="text-lg text-white/90">
-                    <?php esc_html_e('Precios especiales para empresas y compras al por mayor', 'ecohierbas'); ?>
-                </p>
-            </div>
+<div id="b2b-quote-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden" aria-hidden="true">
+    <div class="bg-background rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="b2b-modal-title">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between p-6 border-b border-border">
+            <h2 id="b2b-modal-title" class="text-2xl font-serif font-bold text-foreground">
+                <?php esc_html_e('Cotización B2B Empresarial', 'ecohierbas'); ?>
+            </h2>
+            <button class="modal-close w-8 h-8 flex items-center justify-center rounded-full hover:bg-muted transition-colors" aria-label="<?php esc_attr_e('Cerrar modal', 'ecohierbas'); ?>">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
 
-            <!-- Modal Content -->
-            <div class="p-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    
-                    <!-- Form -->
+        <!-- Modal Content -->
+        <div class="p-6">
+            <p class="text-muted-foreground mb-6">
+                <?php esc_html_e('Solicita una cotización personalizada para tu empresa. Ofrecemos descuentos especiales por volumen y planes de entrega adaptados a tus necesidades.', 'ecohierbas'); ?>
+            </p>
+
+            <!-- B2B Form -->
+            <form id="b2b-quote-form" class="space-y-6">
+                <!-- Company Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <form id="b2b-quote-form" class="space-y-6" method="post" action="<?php echo esc_url(admin_url('admin-ajax.php')); ?>">
-                            <?php wp_nonce_field('ecohierbas_b2b_quote_nonce', 'b2b_quote_nonce'); ?>
-                            <input type="hidden" name="action" value="ecohierbas_b2b_quote_form">
-                            
-                            <!-- Company Info -->
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-semibold text-foreground mb-4">
-                                    <?php esc_html_e('Información de la Empresa', 'ecohierbas'); ?>
-                                </h3>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label for="b2b-company-name" class="block text-sm font-medium text-foreground mb-2">
-                                            <?php esc_html_e('Nombre de la Empresa *', 'ecohierbas'); ?>
-                                        </label>
-                                        <input type="text" 
-                                               id="b2b-company-name" 
-                                               name="company_name" 
-                                               class="u-input w-full" 
-                                               required>
-                                    </div>
-                                    <div>
-                                        <label for="b2b-industry" class="block text-sm font-medium text-foreground mb-2">
-                                            <?php esc_html_e('Sector/Industria *', 'ecohierbas'); ?>
-                                        </label>
-                                        <select id="b2b-industry" name="industry" class="u-input w-full" required>
-                                            <option value=""><?php esc_html_e('Seleccionar sector', 'ecohierbas'); ?></option>
-                                            <option value="retail"><?php esc_html_e('Retail/Comercio', 'ecohierbas'); ?></option>
-                                            <option value="horeca"><?php esc_html_e('Hoteles/Restaurantes', 'ecohierbas'); ?></option>
-                                            <option value="farmacia"><?php esc_html_e('Farmacias/Salud', 'ecohierbas'); ?></option>
-                                            <option value="distribuidor"><?php esc_html_e('Distribuidor', 'ecohierbas'); ?></option>
-                                            <option value="agricultura"><?php esc_html_e('Agricultura/Agroindustria', 'ecohierbas'); ?></option>
-                                            <option value="otros"><?php esc_html_e('Otros', 'ecohierbas'); ?></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <label for="b2b-company-size" class="block text-sm font-medium text-foreground mb-2">
-                                        <?php esc_html_e('Tamaño de la Empresa', 'ecohierbas'); ?>
-                                    </label>
-                                    <select id="b2b-company-size" name="company_size" class="u-input w-full">
-                                        <option value=""><?php esc_html_e('Seleccionar tamaño', 'ecohierbas'); ?></option>
-                                        <option value="1-10"><?php esc_html_e('1-10 empleados', 'ecohierbas'); ?></option>
-                                        <option value="11-50"><?php esc_html_e('11-50 empleados', 'ecohierbas'); ?></option>
-                                        <option value="51-200"><?php esc_html_e('51-200 empleados', 'ecohierbas'); ?></option>
-                                        <option value="201+"><?php esc_html_e('Más de 200 empleados', 'ecohierbas'); ?></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Contact Person -->
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-semibold text-foreground mb-4 pt-4 border-t border-border">
-                                    <?php esc_html_e('Persona de Contacto', 'ecohierbas'); ?>
-                                </h3>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label for="b2b-contact-name" class="block text-sm font-medium text-foreground mb-2">
-                                            <?php esc_html_e('Nombre Completo *', 'ecohierbas'); ?>
-                                        </label>
-                                        <input type="text" 
-                                               id="b2b-contact-name" 
-                                               name="contact_name" 
-                                               class="u-input w-full" 
-                                               required>
-                                    </div>
-                                    <div>
-                                        <label for="b2b-position" class="block text-sm font-medium text-foreground mb-2">
-                                            <?php esc_html_e('Cargo', 'ecohierbas'); ?>
-                                        </label>
-                                        <input type="text" 
-                                               id="b2b-position" 
-                                               name="position" 
-                                               class="u-input w-full">
-                                    </div>
-                                </div>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label for="b2b-email" class="block text-sm font-medium text-foreground mb-2">
-                                            <?php esc_html_e('Email Corporativo *', 'ecohierbas'); ?>
-                                        </label>
-                                        <input type="email" 
-                                               id="b2b-email" 
-                                               name="email" 
-                                               class="u-input w-full" 
-                                               required>
-                                    </div>
-                                    <div>
-                                        <label for="b2b-phone" class="block text-sm font-medium text-foreground mb-2">
-                                            <?php esc_html_e('Teléfono *', 'ecohierbas'); ?>
-                                        </label>
-                                        <input type="tel" 
-                                               id="b2b-phone" 
-                                               name="phone" 
-                                               class="u-input w-full" 
-                                               required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Requirements -->
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-semibold text-foreground mb-4 pt-4 border-t border-border">
-                                    <?php esc_html_e('Requerimientos', 'ecohierbas'); ?>
-                                </h3>
-                                
-                                <div>
-                                    <label for="b2b-products" class="block text-sm font-medium text-foreground mb-2">
-                                        <?php esc_html_e('Productos de Interés *', 'ecohierbas'); ?>
-                                    </label>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <label class="flex items-center gap-2">
-                                            <input type="checkbox" name="products[]" value="hierbas-medicinales" class="rounded">
-                                            <span class="text-sm"><?php esc_html_e('Hierbas Medicinales', 'ecohierbas'); ?></span>
-                                        </label>
-                                        <label class="flex items-center gap-2">
-                                            <input type="checkbox" name="products[]" value="infusiones" class="rounded">
-                                            <span class="text-sm"><?php esc_html_e('Infusiones', 'ecohierbas'); ?></span>
-                                        </label>
-                                        <label class="flex items-center gap-2">
-                                            <input type="checkbox" name="products[]" value="vermicompostaje" class="rounded">
-                                            <span class="text-sm"><?php esc_html_e('Vermicompostaje', 'ecohierbas'); ?></span>
-                                        </label>
-                                        <label class="flex items-center gap-2">
-                                            <input type="checkbox" name="products[]" value="kits-cultivo" class="rounded">
-                                            <span class="text-sm"><?php esc_html_e('Kits de Cultivo', 'ecohierbas'); ?></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <label for="b2b-volume" class="block text-sm font-medium text-foreground mb-2">
-                                        <?php esc_html_e('Volumen Estimado Mensual', 'ecohierbas'); ?>
-                                    </label>
-                                    <select id="b2b-volume" name="volume" class="u-input w-full">
-                                        <option value=""><?php esc_html_e('Seleccionar volumen', 'ecohierbas'); ?></option>
-                                        <option value="100-500"><?php esc_html_e('100-500 unidades', 'ecohierbas'); ?></option>
-                                        <option value="500-1000"><?php esc_html_e('500-1,000 unidades', 'ecohierbas'); ?></option>
-                                        <option value="1000-5000"><?php esc_html_e('1,000-5,000 unidades', 'ecohierbas'); ?></option>
-                                        <option value="5000+"><?php esc_html_e('Más de 5,000 unidades', 'ecohierbas'); ?></option>
-                                    </select>
-                                </div>
-                                
-                                <div>
-                                    <label for="b2b-message" class="block text-sm font-medium text-foreground mb-2">
-                                        <?php esc_html_e('Detalles Adicionales', 'ecohierbas'); ?>
-                                    </label>
-                                    <textarea id="b2b-message" 
-                                              name="message" 
-                                              rows="4" 
-                                              class="u-input w-full" 
-                                              placeholder="<?php esc_attr_e('Especifica productos específicos, cantidades, plazos de entrega, etc.', 'ecohierbas'); ?>"></textarea>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="u-btn u-btn--primary w-full">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                                </svg>
-                                <?php esc_html_e('Solicitar Cotización', 'ecohierbas'); ?>
-                            </button>
-                        </form>
+                        <label for="b2b-company-name" class="block text-sm font-medium text-foreground mb-2">
+                            <?php esc_html_e('Nombre de la Empresa', 'ecohierbas'); ?> *
+                        </label>
+                        <input type="text" 
+                               id="b2b-company-name" 
+                               name="company_name"
+                               class="u-input w-full" 
+                               required>
                     </div>
-
-                    <!-- Benefits -->
-                    <div class="space-y-6">
-                        <h3 class="text-lg font-semibold text-foreground">
-                            <?php esc_html_e('Beneficios Corporativos', 'ecohierbas'); ?>
-                        </h3>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3 p-4 bg-primary/5 rounded-lg">
-                                <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-foreground"><?php esc_html_e('Precios Preferenciales', 'ecohierbas'); ?></h4>
-                                    <p class="text-sm text-muted-foreground"><?php esc_html_e('Descuentos por volumen de hasta 30%', 'ecohierbas'); ?></p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start gap-3 p-4 bg-primary/5 rounded-lg">
-                                <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-foreground"><?php esc_html_e('Logística Especializada', 'ecohierbas'); ?></h4>
-                                    <p class="text-sm text-muted-foreground"><?php esc_html_e('Entregas programadas y envío gratis desde $50.000', 'ecohierbas'); ?></p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start gap-3 p-4 bg-primary/5 rounded-lg">
-                                <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-foreground"><?php esc_html_e('Soporte Dedicado', 'ecohierbas'); ?></h4>
-                                    <p class="text-sm text-muted-foreground"><?php esc_html_e('Ejecutivo de cuenta exclusivo y soporte técnico', 'ecohierbas'); ?></p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start gap-3 p-4 bg-primary/5 rounded-lg">
-                                <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-foreground"><?php esc_html_e('Certificaciones', 'ecohierbas'); ?></h4>
-                                    <p class="text-sm text-muted-foreground"><?php esc_html_e('Documentación completa y certificados orgánicos', 'ecohierbas'); ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                            <div class="flex items-center gap-2 text-yellow-800 mb-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                                </svg>
-                                <span class="font-medium"><?php esc_html_e('Respuesta Rápida', 'ecohierbas'); ?></span>
-                            </div>
-                            <p class="text-sm text-yellow-700">
-                                <?php esc_html_e('Te responderemos en menos de 24 horas con una cotización personalizada.', 'ecohierbas'); ?>
-                            </p>
-                        </div>
+                    <div>
+                        <label for="b2b-industry" class="block text-sm font-medium text-foreground mb-2">
+                            <?php esc_html_e('Rubro/Industria', 'ecohierbas'); ?>
+                        </label>
+                        <select id="b2b-industry" name="industry" class="u-input w-full">
+                            <option value=""><?php esc_html_e('Seleccionar rubro', 'ecohierbas'); ?></option>
+                            <option value="retail"><?php esc_html_e('Retail/Comercio', 'ecohierbas'); ?></option>
+                            <option value="hospitality"><?php esc_html_e('Hotelería/Restaurantes', 'ecohierbas'); ?></option>
+                            <option value="education"><?php esc_html_e('Educación', 'ecohierbas'); ?></option>
+                            <option value="healthcare"><?php esc_html_e('Salud/Bienestar', 'ecohierbas'); ?></option>
+                            <option value="agriculture"><?php esc_html_e('Agricultura', 'ecohierbas'); ?></option>
+                            <option value="corporate"><?php esc_html_e('Corporativo', 'ecohierbas'); ?></option>
+                            <option value="other"><?php esc_html_e('Otro', 'ecohierbas'); ?></option>
+                        </select>
                     </div>
                 </div>
-            </div>
+
+                <!-- Contact Person -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="b2b-contact-name" class="block text-sm font-medium text-foreground mb-2">
+                            <?php esc_html_e('Nombre del Contacto', 'ecohierbas'); ?> *
+                        </label>
+                        <input type="text" 
+                               id="b2b-contact-name" 
+                               name="contact_name"
+                               class="u-input w-full" 
+                               required>
+                    </div>
+                    <div>
+                        <label for="b2b-position" class="block text-sm font-medium text-foreground mb-2">
+                            <?php esc_html_e('Cargo/Posición', 'ecohierbas'); ?>
+                        </label>
+                        <input type="text" 
+                               id="b2b-position" 
+                               name="position"
+                               class="u-input w-full">
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="b2b-email" class="block text-sm font-medium text-foreground mb-2">
+                            <?php esc_html_e('Email Empresarial', 'ecohierbas'); ?> *
+                        </label>
+                        <input type="email" 
+                               id="b2b-email" 
+                               name="email"
+                               class="u-input w-full" 
+                               required>
+                    </div>
+                    <div>
+                        <label for="b2b-phone" class="block text-sm font-medium text-foreground mb-2">
+                            <?php esc_html_e('Teléfono', 'ecohierbas'); ?>
+                        </label>
+                        <input type="tel" 
+                               id="b2b-phone" 
+                               name="phone"
+                               class="u-input w-full" 
+                               placeholder="+56 9 xxxx xxxx">
+                    </div>
+                </div>
+
+                <!-- Products of Interest -->
+                <div>
+                    <label class="block text-sm font-medium text-foreground mb-3">
+                        <?php esc_html_e('Productos de Interés', 'ecohierbas'); ?> *
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="products[]" value="infusions" class="mr-2">
+                            <span class="text-sm"><?php esc_html_e('Infusiones y Hierbas Medicinales', 'ecohierbas'); ?></span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="products[]" value="vermicompost" class="mr-2">
+                            <span class="text-sm"><?php esc_html_e('Sistemas de Vermicompostaje', 'ecohierbas'); ?></span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="products[]" value="planters" class="mr-2">
+                            <span class="text-sm"><?php esc_html_e('Maceteros y Contenedores', 'ecohierbas'); ?></span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="products[]" value="kits" class="mr-2">
+                            <span class="text-sm"><?php esc_html_e('Kits de Cultivo', 'ecohierbas'); ?></span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="products[]" value="workshops" class="mr-2">
+                            <span class="text-sm"><?php esc_html_e('Talleres Corporativos', 'ecohierbas'); ?></span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="products[]" value="consulting" class="mr-2">
+                            <span class="text-sm"><?php esc_html_e('Consultoría Sustentable', 'ecohierbas'); ?></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Volume and Frequency -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="b2b-volume" class="block text-sm font-medium text-foreground mb-2">
+                            <?php esc_html_e('Volumen Estimado', 'ecohierbas'); ?>
+                        </label>
+                        <select id="b2b-volume" name="volume" class="u-input w-full">
+                            <option value=""><?php esc_html_e('Seleccionar volumen', 'ecohierbas'); ?></option>
+                            <option value="small"><?php esc_html_e('Pequeño (1-50 unidades)', 'ecohierbas'); ?></option>
+                            <option value="medium"><?php esc_html_e('Mediano (51-200 unidades)', 'ecohierbas'); ?></option>
+                            <option value="large"><?php esc_html_e('Grande (201-500 unidades)', 'ecohierbas'); ?></option>
+                            <option value="enterprise"><?php esc_html_e('Empresarial (500+ unidades)', 'ecohierbas'); ?></option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="b2b-frequency" class="block text-sm font-medium text-foreground mb-2">
+                            <?php esc_html_e('Frecuencia de Pedidos', 'ecohierbas'); ?>
+                        </label>
+                        <select id="b2b-frequency" name="frequency" class="u-input w-full">
+                            <option value=""><?php esc_html_e('Seleccionar frecuencia', 'ecohierbas'); ?></option>
+                            <option value="monthly"><?php esc_html_e('Mensual', 'ecohierbas'); ?></option>
+                            <option value="quarterly"><?php esc_html_e('Trimestral', 'ecohierbas'); ?></option>
+                            <option value="biannual"><?php esc_html_e('Semestral', 'ecohierbas'); ?></option>
+                            <option value="annual"><?php esc_html_e('Anual', 'ecohierbas'); ?></option>
+                            <option value="onetime"><?php esc_html_e('Una vez', 'ecohierbas'); ?></option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Budget Range -->
+                <div>
+                    <label for="b2b-budget" class="block text-sm font-medium text-foreground mb-2">
+                        <?php esc_html_e('Presupuesto Estimado (CLP)', 'ecohierbas'); ?>
+                    </label>
+                    <select id="b2b-budget" name="budget" class="u-input w-full">
+                        <option value=""><?php esc_html_e('Seleccionar rango', 'ecohierbas'); ?></option>
+                        <option value="low"><?php esc_html_e('Hasta $500.000', 'ecohierbas'); ?></option>
+                        <option value="medium"><?php esc_html_e('$500.000 - $2.000.000', 'ecohierbas'); ?></option>
+                        <option value="high"><?php esc_html_e('$2.000.000 - $5.000.000', 'ecohierbas'); ?></option>
+                        <option value="enterprise"><?php esc_html_e('Más de $5.000.000', 'ecohierbas'); ?></option>
+                    </select>
+                </div>
+
+                <!-- Special Requirements -->
+                <div>
+                    <label for="b2b-requirements" class="block text-sm font-medium text-foreground mb-2">
+                        <?php esc_html_e('Requerimientos Especiales', 'ecohierbas'); ?>
+                    </label>
+                    <textarea id="b2b-requirements" 
+                              name="requirements" 
+                              rows="4" 
+                              class="u-input w-full" 
+                              placeholder="<?php esc_attr_e('Describe cualquier requerimiento especial, fechas específicas, personalizaciones, etc.', 'ecohierbas'); ?>"></textarea>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                    <button type="button" class="modal-close u-btn u-btn--outline flex-1">
+                        <?php esc_html_e('Cancelar', 'ecohierbas'); ?>
+                    </button>
+                    <button type="submit" class="u-btn u-btn--primary flex-1">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <?php esc_html_e('Enviar Cotización', 'ecohierbas'); ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="bg-muted/20 px-6 py-4 text-center border-t border-border">
+            <p class="text-sm text-muted-foreground">
+                <?php esc_html_e('Te contactaremos dentro de 24 horas con una propuesta personalizada.', 'ecohierbas'); ?>
+            </p>
         </div>
     </div>
 </div>
+
+<script>
+// B2B Quote Modal Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('b2b-quote-modal');
+    const triggers = document.querySelectorAll('#b2b-quote-btn, #mobile-b2b-quote-btn, #hero-b2b-quote');
+    const closeBtns = modal.querySelectorAll('.modal-close');
+    const form = document.getElementById('b2b-quote-form');
+
+    // Open modal
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    });
+
+    // Close modal
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', closeModal);
+    });
+
+    // Close on overlay click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        // Focus first input
+        const firstInput = modal.querySelector('input');
+        if (firstInput) firstInput.focus();
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        form.reset();
+    }
+
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<svg class="w-5 h-5 mr-2 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><?php esc_html_e("Enviando...", "ecohierbas"); ?>';
+
+        try {
+            const formData = new FormData(form);
+            formData.append('action', 'ecohierbas_b2b_quote');
+            formData.append('nonce', ecohierbas_ajax.nonce);
+
+            const response = await fetch(ecohierbas_ajax.ajax_url, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('<?php esc_html_e("¡Cotización enviada exitosamente! Te contactaremos pronto.", "ecohierbas"); ?>');
+                closeModal();
+            } else {
+                throw new Error(result.data || '<?php esc_html_e("Error al enviar la cotización", "ecohierbas"); ?>');
+            }
+        } catch (error) {
+            alert('<?php esc_html_e("Error al enviar la cotización. Por favor, intenta de nuevo.", "ecohierbas"); ?>');
+            console.error('B2B Quote Error:', error);
+        } finally {
+            // Restore button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+    });
+});
+</script>
