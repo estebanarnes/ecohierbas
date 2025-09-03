@@ -10,9 +10,8 @@ import { MapPinIcon, PhoneIcon, EnvelopeIcon, ClockIcon, ChatBubbleLeftRightIcon
 const Contacto = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const faqParallaxRef = useRef<HTMLDivElement>(null);
-  const overlayParallaxRef = useRef<HTMLDivElement>(null);
 
-  // Parallax scroll effect for hero, FAQ and overlay sections
+  // Parallax scroll effect for hero and FAQ sections
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
@@ -27,12 +26,8 @@ const Contacto = () => {
       if (faqParallaxRef.current) {
         faqParallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
       }
-
-      // Overlay parallax (different speed for layering effect)
-      if (overlayParallaxRef.current) {
-        overlayParallaxRef.current.style.transform = `translateY(${scrolled * 0.3}px)`;
-      }
     };
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -262,7 +257,7 @@ const Contacto = () => {
             ref={faqParallaxRef} 
             className="absolute inset-0 transform scale-105" 
             style={{
-              backgroundImage: `url(/src/assets/hero-ecohierbas.jpg)`,
+              backgroundImage: `url(/assets/hero-ecohierbas.jpg)`,
               backgroundSize: 'cover',
               backgroundPosition: 'center center',
               backgroundRepeat: 'no-repeat',
@@ -270,7 +265,7 @@ const Contacto = () => {
             }}
           ></div>
           {/* Overlay for content readability */}
-          <div className="absolute inset-0 bg-black/50 z-1"></div>
+          <div className="absolute inset-0 bg-black/50 z-0"></div>
           
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
