@@ -7,9 +7,9 @@ const Hero = () => {
     <section 
       className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px]"
       style={{
-        backgroundImage: `url(${heroImage})`,
+        backgroundImage: `url(/lovable-uploads/fae423b2-b6dd-48e3-8c15-5a922ee96403.png)`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center top',
+        backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
       }}
     >
