@@ -424,6 +424,22 @@ const Productos = () => {
                       <h2 className="text-xl md:text-2xl font-semibold text-foreground">
                         Productos
                       </h2>
+                      
+                      {/* Mobile Pagination Dots - Top */}
+                      {mobilePages.length > 1 && (
+                        <div className="flex justify-center mt-6 md:hidden">
+                          <div className="flex gap-2">
+                            {mobilePages.map((_, index) => (
+                              <div 
+                                key={index} 
+                                className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium shadow-lg"
+                              >
+                                {index + 1}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                       <div className="text-xs md:text-sm text-muted-foreground">
                         <span className="hidden md:inline">
                           {desktopPages.length} página{desktopPages.length > 1 ? 's' : ''} • {productsPerPageDesktop} productos/página
