@@ -36,7 +36,7 @@ const BenefitsSection = () => {
   return <section className="relative -mt-20 py-20">
       <div className="max-w-6xl mx-auto px-8 bg-muted/20 rounded-t-3xl backdrop-blur-sm">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16 mt-5">
           <div className="inline-flex items-center gap-3 bg-primary/10 text-primary px-6 py-3 rounded-full text-base font-medium mb-4">
             <TruckIcon className="w-5 h-5" />
             Envíos a todo Chile
