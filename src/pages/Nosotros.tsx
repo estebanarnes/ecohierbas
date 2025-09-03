@@ -37,10 +37,8 @@ const Nosotros = () => {
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
           {/* Logo transparente de fondo */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-            <div className="text-8xl md:text-9xl font-serif font-bold text-primary/20 select-none">
-              EcoHierbas
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center opacity-50 pointer-events-none">
+            <img src="/src/assets/ecohierbas-logo.png" alt="EcoHierbas Logo" className="w-96 h-96 object-contain" />
           </div>
           <div className="u-container">
             <div className="max-w-4xl mx-auto text-center">
