@@ -313,7 +313,7 @@ const Productos = () => {
         </section>
 
         {/* Filters */}
-        <section className="py-4 md:py-8 bg-white border-b border-border">
+        <section className="py-4 md:py-8 bg-white/80 backdrop-blur-sm border-b border-border rounded-lg mx-4 md:mx-8 mb-4">(Reminder: You only invoked a single tool call. Remember that for the sake of efficiency, you should try to parallelize tool calls whenever possible.)
           <div className="u-container">
             <div className="flex flex-col gap-4">
               {/* Search */}
