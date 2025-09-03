@@ -224,11 +224,24 @@ const Contacto = () => {
                 {/* Map */}
                 <Card className="border-border/50">
                   <CardContent className="p-0">
-                    <div className="h-64 bg-muted/30 rounded-lg flex items-center justify-center">
-                      <div className="text-center text-muted-foreground">
-                        <MapPinIcon className="w-12 h-12 mx-auto mb-2" />
-                        <p className="text-sm">Mapa interactivo</p>
-                        <p className="text-xs">El Crepúsculo 19745, Pudahuel</p>
+                    <div className="h-64 rounded-lg overflow-hidden cursor-pointer group relative">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.123456789!2d-70.9876543!3d-34.4567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDI3JzI0LjQiUyA3MMKwNTknMTUuNiJX!5e0!3m2!1ses!2scl!4v1635789012345!5m2!1ses!2scl"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Ubicación EcoHierbas Chile"
+                      ></iframe>
+                      <div 
+                        className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+                        onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Camino El tambo, San Vicente Tagua Tagua, VI Región')}`, '_blank')}
+                      >
+                        <div className="text-white bg-primary/80 px-4 py-2 rounded-lg shadow-lg">
+                          <p className="text-sm font-medium">Abrir en Google Maps</p>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
