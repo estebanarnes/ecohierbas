@@ -15,15 +15,23 @@ import {
 } from "@heroicons/react/24/outline";
 
 const Contacto = () => {
-  const parallaxRef = useRef<HTMLDivElement>(null); // FIXED: Added parallax ref
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const faqParallaxRef = useRef<HTMLDivElement>(null);
 
-  // FIXED: Parallax scroll effect
+  // Parallax scroll effect for both hero and FAQ sections
   useEffect(() => {
     const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      const speed = 0.5;
+      
+      // Hero parallax
       if (parallaxRef.current) {
-        const scrolled = window.pageYOffset;
-        const speed = 0.5;
         parallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
+      }
+      
+      // FAQ parallax
+      if (faqParallaxRef.current) {
+        faqParallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
       }
     };
 
@@ -37,18 +45,17 @@ const Contacto = () => {
       <main>
         {/* Hero */}
         <section className="relative py-16 overflow-hidden">
-          {/* Parallax Background - Extended to cover all sections */}
+          {/* Parallax Background */}
           <div 
             ref={parallaxRef}
             className="absolute inset-0 bg-cover bg-center transform scale-110"
             style={{
               backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-              willChange: 'transform',
-              height: '300vh'
+              willChange: 'transform'
             }}
           ></div>
-          {/* Overlay - Extended to cover all sections */}
-          <div className="absolute inset-0 bg-black/40" style={{height: '300vh'}}></div>
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
           
           <div className="u-container relative z-10">
             <div className="max-w-3xl">
@@ -281,8 +288,19 @@ const Contacto = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 relative">
-          <div className="u-container">
+        <section className="py-16 relative overflow-hidden">
+          {/* FAQ Parallax Background */}
+          <div 
+            ref={faqParallaxRef}
+            className="absolute inset-0 bg-cover bg-center transform scale-110"
+            style={{
+              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              willChange: 'transform'
+            }}
+          ></div>
+          {/* FAQ Overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-serif font-bold text-white mb-4 drop-shadow-lg">
                 Preguntas Frecuentes
