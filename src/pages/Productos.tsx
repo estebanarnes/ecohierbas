@@ -1,7 +1,5 @@
 import { useState } from "react";
 import PageTemplate from "@/components/templates/PageTemplate";
-import { useWooCommerce, useWCProductAdapter } from "@/hooks/useWooCommerce";
-import { useWordPressTemplate } from "@/hooks/useWordPress";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
@@ -151,23 +149,12 @@ const Productos = () => {
   
   const { addItem, openCart } = useCart();
 
-  // WordPress integration
-  const { data: page, template } = useWordPressTemplate('productos');
-  const { useProducts } = useWooCommerce();
-  const { convertWCProductToCartItem } = useWCProductAdapter();
-  
-  // Obtener productos desde WooCommerce
-  const { data: wcProducts, isLoading: productsLoading } = useProducts({
-    per_page: 50,
-    status: 'publish'
-  });
-
   const handleAddToCart = (product: typeof productos[0]) => {
     if (!product.inStock) return;
     
     addItem({
       id: product.id,
-      name: product.name,
+      name: product.slug,
       slug: product.slug,
       price: product.price,
       originalPrice: product.originalPrice || undefined,
@@ -207,26 +194,8 @@ const Productos = () => {
     setPriceFilter("all");
   };
 
-  // Usar productos WooCommerce o fallback
-  const allProducts = wcProducts 
-    ? wcProducts.map(wcProduct => ({
-        id: wcProduct.id,
-        name: wcProduct.name,
-        slug: wcProduct.slug,
-        category: wcProduct.categories[0]?.name || 'Sin categoría',
-        finalidad: wcProduct.attributes.find(attr => attr.name === 'finalidad')?.options[0] || null,
-        price: parseFloat(wcProduct.price) || 0,
-        originalPrice: wcProduct.sale_price ? parseFloat(wcProduct.regular_price) : null,
-        image: wcProduct.images[0]?.src || '/placeholder.svg',
-        rating: parseFloat(wcProduct.average_rating) || 4.5,
-        reviews: wcProduct.rating_count || 0,
-        inStock: wcProduct.stock_status === 'instock',
-        description: wcProduct.short_description?.replace(/<[^>]*>/g, '') || wcProduct.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...' || ''
-      }))
-    : productos;
-
   // Filtrar productos basado en filtros seleccionados
-  const filteredProducts = allProducts.filter(product => {
+  const filteredProducts = productos.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
     const matchesFinalidad = selectedFinalidad === "all" || product.finalidad === selectedFinalidad;
@@ -241,8 +210,6 @@ const Productos = () => {
 
   return (
     <PageTemplate 
-      page={page} 
-      template={template}
       customSEO={{
         title: 'Productos Orgánicos y Sustentables - Ecohierbas Chile',
         description: 'Descubre nuestra amplia gama de productos orgánicos: hierbas medicinales, sistemas de vermicompostaje y maceteros ecológicos. Envíos a todo Chile.',
@@ -265,31 +232,12 @@ const Productos = () => {
       {/* Products Section */}
       <section className="py-8 md:py-16">
         <div className="u-container">
-          {productsLoading ? (
-            // Loading skeleton
-            <div className="space-y-4 md:space-y-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                {Array.from({ length: 8 }).map((_, index) => (
-                  <Card key={index} className="animate-pulse">
-                    <div className="h-40 md:h-48 bg-muted"></div>
-                    <CardContent className="p-3 md:p-4">
-                      <div className="h-3 bg-muted rounded mb-2"></div>
-                      <div className="h-4 bg-muted rounded mb-2"></div>
-                      <div className="h-3 bg-muted rounded mb-3"></div>
-                      <div className="h-4 bg-muted rounded"></div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <ProductGrid
-              products={filteredProducts}
-              onAddToCart={handleAddToCart}
-              onViewProduct={handleViewProduct}
-              onClearFilters={handleClearFilters}
-            />
-          )}
+          <ProductGrid
+            products={filteredProducts}
+            onAddToCart={handleAddToCart}
+            onViewProduct={handleViewProduct}
+            onClearFilters={handleClearFilters}
+          />
         </div>
       </section>
 

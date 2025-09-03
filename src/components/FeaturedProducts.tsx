@@ -8,28 +8,12 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductDetailModal from "@/components/ProductDetailModal";
-import { useWooCommerce, useWCProductAdapter } from "@/hooks/useWooCommerce";
+
 const FeaturedProducts = () => {
-  const {
-    addItem,
-    openCart
-  } = useCart();
+  const { addItem, openCart } = useCart();
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Usar WooCommerce para obtener productos destacados
-  const {
-    useFeaturedProducts
-  } = useWooCommerce();
-  const {
-    convertWCProductToCartItem
-  } = useWCProductAdapter();
-  const {
-    data: wcProducts,
-    isLoading,
-    error
-  } = useFeaturedProducts();
 
   // Fallback a productos estáticos si no hay conexión con WooCommerce
   const fallbackProducts = [{
@@ -67,19 +51,8 @@ const FeaturedProducts = () => {
     description: "Macetero ecológico de madera alerce con kit completo para cultivar hierbas"
   }];
 
-  // Convertir productos WooCommerce o usar fallback
-  const products = wcProducts ? wcProducts.slice(0, 3).map(wcProduct => ({
-    id: wcProduct.id,
-    name: wcProduct.name,
-    category: wcProduct.categories[0]?.name || 'Sin categoría',
-    price: parseFloat(wcProduct.price) || 0,
-    originalPrice: wcProduct.sale_price ? parseFloat(wcProduct.regular_price) : null,
-    image: wcProduct.images[0]?.src || '/placeholder.svg',
-    rating: parseFloat(wcProduct.average_rating) || 4.5,
-    reviews: wcProduct.rating_count || 0,
-    badge: wcProduct.featured ? "Destacado" : wcProduct.on_sale ? "Oferta" : "Disponible",
-    description: wcProduct.short_description?.replace(/<[^>]*>/g, '') || wcProduct.description?.replace(/<[^>]*>/g, '').substring(0, 100) + '...' || ''
-  })) : fallbackProducts;
+  // Usar productos estáticos directamente para carga rápida
+  const products = fallbackProducts;
   const handleViewProduct = (product: typeof products[0]) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
@@ -120,19 +93,8 @@ const FeaturedProducts = () => {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto justify-items-center">
-          {isLoading ?
-        // Loading skeleton
-        Array.from({
-          length: 3
-        }).map((_, index) => <Card key={index} className="animate-pulse">
-                <div className="h-64 bg-muted"></div>
-                <CardContent className="p-6">
-                  <div className="h-4 bg-muted rounded mb-2"></div>
-                  <div className="h-6 bg-muted rounded mb-2"></div>
-                  <div className="h-4 bg-muted rounded mb-4"></div>
-                  <div className="h-6 bg-muted rounded"></div>
-                </CardContent>
-              </Card>) : products.map(product => <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden">
+          {products.map(product => (
+            <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden">
               <CardHeader className="p-0 relative">
                 <div className="relative overflow-hidden">
                   <img src={product.image} alt={product.name} className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
@@ -200,7 +162,8 @@ const FeaturedProducts = () => {
                   </Button>
                 </div>
               </CardFooter>
-            </Card>)}
+            </Card>
+          ))}
         </div>
 
         {/* CTA */}
