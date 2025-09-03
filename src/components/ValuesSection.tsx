@@ -18,7 +18,7 @@ const valores = [
     icon: GlobeAltIcon,
     title: "Sostenibilidad",
     description: "Cada decisión que tomamos considera el impacto ambiental para las futuras generaciones.",
-    image: "/lovable-uploads/8adecc65-ccf3-4b16-baeb-71a26cb59adb.png"
+    image: "/lovable-uploads/a3b99036-3b8d-41c0-aff4-926a4f492193.png"
   },
   {
     icon: AcademicCapIcon,
