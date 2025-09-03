@@ -298,6 +298,8 @@ const Contacto = () => {
               backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
               willChange: 'transform'
             }}
+            onLoad={() => console.log('FAQ background image loaded')}
+            onError={() => console.log('FAQ background image failed to load')}
           ></div>
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/40"></div>
