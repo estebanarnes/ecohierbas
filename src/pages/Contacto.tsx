@@ -32,6 +32,7 @@ const Contacto = () => {
       // FAQ parallax
       if (faqParallaxRef.current) {
         faqParallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
+        console.log('FAQ parallax applied:', scrolled * speed);
       }
     };
 
