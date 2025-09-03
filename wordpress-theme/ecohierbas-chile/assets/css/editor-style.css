@@ -1,50 +1,35 @@
-/*!
- * EcoHierbas Chile - Editor Styles
- * Estilos para el editor de Gutenberg
- */
+/*
+Editor Styles - EcoHierbas Chile
+Estilos para el editor de WordPress
+*/
 
-/* Importar variables del tema */
-@import url('app.css');
-
-/* Estilos específicos del editor */
-.wp-block {
-    max-width: 800px;
+body#tinymce {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
 }
 
-.editor-styles-wrapper {
-    font-family: "Inter", system-ui, sans-serif;
-    color: hsl(var(--foreground));
-    background-color: hsl(var(--background));
+body#tinymce h1,
+body#tinymce h2,
+body#tinymce h3,
+body#tinymce h4,
+body#tinymce h5,
+body#tinymce h6 {
+    font-family: Georgia, serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 1em 0 0.5em;
 }
 
-.editor-styles-wrapper h1,
-.editor-styles-wrapper h2,
-.editor-styles-wrapper h3,
-.editor-styles-wrapper h4,
-.editor-styles-wrapper h5,
-.editor-styles-wrapper h6 {
-    font-family: "Playfair Display", serif;
-    color: hsl(var(--foreground));
+body#tinymce p {
+    margin: 0 0 1em;
 }
 
-.editor-styles-wrapper .wp-block-button__link {
-    background-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-    border-radius: var(--radius);
-    padding: 0.75rem 1.5rem;
+body#tinymce a {
+    color: #16a085;
     text-decoration: none;
 }
 
-.editor-styles-wrapper .wp-block-quote {
-    border-left: 4px solid hsl(var(--primary));
-    padding-left: 1rem;
-    margin: 1.5rem 0;
-    font-style: italic;
-}
-
-.editor-styles-wrapper .wp-block-code {
-    background-color: hsl(var(--muted));
-    padding: 0.5rem;
-    border-radius: var(--radius);
-    font-family: "Courier New", monospace;
+body#tinymce a:hover {
+    text-decoration: underline;
 }
