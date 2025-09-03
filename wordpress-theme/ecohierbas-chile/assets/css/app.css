@@ -7,40 +7,38 @@
 /* Importar fuentes de Google */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-/* Variables CSS - Design System Tokens */
+/* Variables CSS - Design System Tokens - EXACTOS AL REACT */
 :root {
-  /* Colores base */
-  --background: 0 0% 100%;
-  --foreground: 224 71.4% 4.1%;
+  /* Colores EcoHierbas - Sistema de tokens */
+  --eco-color-primary: 142 69% 40%;        /* Verde natural */
+  --eco-color-secondary: 29 44% 35%;       /* Tierra/marrón */
+  --eco-color-accent: 33 82% 55%;          /* Cálido/naranja */
+  --eco-color-bg: 48 33% 96%;              /* Beige suave */
+  --eco-color-text: 215 25% 27%;           /* Gris profundo */
+  --eco-color-success: 142 76% 36%;        /* Verde éxito */
+  --eco-color-warning: 43 96% 56%;         /* Amarillo alerta */
+  --eco-color-info: 199 89% 48%;           /* Azul información */
+  
+  /* Colores base del sistema */
+  --background: 48 33% 96%;
+  --foreground: 215 25% 27%;
   --card: 0 0% 100%;
-  --card-foreground: 224 71.4% 4.1%;
+  --card-foreground: 215 25% 27%;
   --popover: 0 0% 100%;
-  --popover-foreground: 224 71.4% 4.1%;
-  
-  /* Colores primarios */
-  --primary: 142 76% 36%;
-  --primary-foreground: 355.7 100% 97.3%;
-  --primary-glow: 142 76% 45%;
-  --primary-soft: 142 76% 92%;
-  
-  /* Colores secundarios */
-  --secondary: 220 14.3% 95.9%;
-  --secondary-foreground: 220.9 39.3% 11%;
-  
-  /* Colores de acento */
-  --accent: 220 14.3% 95.9%;
-  --accent-foreground: 220.9 39.3% 11%;
-  
-  /* Estados */
-  --muted: 220 14.3% 95.9%;
-  --muted-foreground: 220 8.9% 46.1%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 20% 98%;
-  
-  /* Bordes y input */
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --ring: 142 76% 36%;
+  --popover-foreground: 215 25% 27%;
+  --primary: 142 69% 40%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 48 15% 92%;
+  --secondary-foreground: 215 25% 27%;
+  --muted: 48 15% 92%;
+  --muted-foreground: 215 16% 46%;
+  --accent: 33 82% 55%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 48 15% 88%;
+  --input: 48 15% 88%;
+  --ring: 142 69% 40%;
   
   /* Radio y sombras */
   --radius: 0.5rem;

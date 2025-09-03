@@ -27,7 +27,7 @@ Tags: e-commerce, organic, sustainable, woocommerce, responsive, custom-colors
   --eco-color-warning: 43 96% 56%;         /* Amarillo alerta */
   --eco-color-info: 199 89% 48%;           /* Azul información */
   
-  /* Colores base del sistema */
+  /* Colores base del sistema - EXACTOS al React */
   --background: 48 33% 96%;
   --foreground: 215 25% 27%;
   --card: 0 0% 100%;
