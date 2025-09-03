@@ -293,10 +293,11 @@ const Contacto = () => {
           {/* FAQ Parallax Background */}
           <div 
             ref={faqParallaxRef}
-            className="absolute inset-0 bg-cover bg-center transform scale-110"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110 z-0"
             style={{
               backgroundImage: `url(/src/assets/hero-ecohierbas.jpg)`,
-              willChange: 'transform'
+              willChange: 'transform',
+              backgroundAttachment: 'fixed'
             }}
           ></div>
           {/* FAQ Overlay */}
