@@ -15,7 +15,7 @@ const benefits = [{
   icon: ShieldCheckIcon,
   title: "Calidad Certificada",
   description: "Productos con estándares de calidad y certificaciones orgánicas",
-  image: "/src/assets/hero-ecohierbas.jpg"
+  image: "/lovable-uploads/7ee901cd-bda5-401d-863b-9cf97f37445a.png"
 }];
 const BenefitsSection = () => {
   return <section className="relative z-10 bg-background rounded-t-3xl -mt-16">
