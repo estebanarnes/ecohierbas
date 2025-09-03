@@ -7,7 +7,7 @@ import {
   EnvelopeIcon,
   HeartIcon 
 } from "@heroicons/react/24/outline";
-import { Instagram, Facebook, Linkedin } from "lucide-react";
+import { Instagram, Facebook, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -164,10 +164,12 @@ const Footer = () => {
                     <Facebook className="w-8 h-8 text-white" />
                   </a>
                   <a 
-                    href="#" 
+                    href="https://api.whatsapp.com/send?phone=56920188260&text=%C2%A1Hola!%20como%20podemos%20ayudarte%3F%2C%20d%C3%A9janos%20tu%20nombre%2C%20si%20necesitas%20el%20cat%C3%A1logo%20comp%C3%A1rtenos%20tu%20correo%20electr%C3%B3nico%2C%20disponemos%20de%20precios%20al%20por%20mayor%20y%20detalle." 
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
-                    <Linkedin className="w-8 h-8 text-white" />
+                    <MessageCircle className="w-8 h-8 text-white" />
                   </a>
                 </div>
               </div>
