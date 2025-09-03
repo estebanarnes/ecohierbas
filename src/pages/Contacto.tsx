@@ -262,7 +262,7 @@ const Contacto = () => {
             ref={faqParallaxRef} 
             className="absolute inset-0 transform scale-105" 
             style={{
-              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              backgroundImage: `url(/src/assets/hero-ecohierbas.jpg)`,
               backgroundSize: 'cover',
               backgroundPosition: 'center center',
               backgroundRepeat: 'no-repeat',
@@ -270,7 +270,7 @@ const Contacto = () => {
             }}
           ></div>
           {/* Overlay for content readability */}
-          <div className="absolute inset-0 bg-black/40 z-1"></div>
+          <div className="absolute inset-0 bg-black/50 z-1"></div>
           
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
