@@ -49,8 +49,20 @@ const workshops = [
 
 const WorkshopsSection = () => {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary/5 to-accent/5" data-banner="talleres">
-      <div className="u-container">
+    <section 
+      className="relative py-20 overflow-hidden" 
+      data-banner="talleres"
+      style={{
+        backgroundImage: `url('/lovable-uploads/58896905-982b-4e46-a920-6a7420e44ea7.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Parallax Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-accent/80"></div>
+      
+      <div className="relative z-10 u-container">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">
