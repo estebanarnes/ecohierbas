@@ -404,19 +404,25 @@ const Productos = () => {
                   );
                 }
 
-                // Crear páginas de productos (3 en mobile, 8 en desktop)
+                // Configuración de productos por página
                 const productsPerPageMobile = 3;
                 const productsPerPageDesktop = 8;
                 
-                // Crear páginas separadas para mobile y desktop
+                // Crear páginas para mobile (3 productos por página en orden secuencial)
                 const mobilePages = [];
                 for (let i = 0; i < filtered.length; i += productsPerPageMobile) {
                   mobilePages.push(filtered.slice(i, i + productsPerPageMobile));
                 }
                 
+                // Crear páginas para desktop (8 productos por página en orden secuencial)
                 const desktopPages = [];
                 for (let i = 0; i < filtered.length; i += productsPerPageDesktop) {
                   desktopPages.push(filtered.slice(i, i + productsPerPageDesktop));
+                }
+
+                // Resetear página actual si es mayor al número de páginas disponibles
+                if (currentMobilePage >= mobilePages.length && mobilePages.length > 0) {
+                  setCurrentMobilePage(0);
                 }
 
                 return (
