@@ -295,10 +295,10 @@ const Contacto = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               <Card className="border-border/50">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="font-semibold text-white mb-2 drop-shadow-md">
                     ¿Hacen envíos a todo Chile?
                   </h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-white/80 text-sm drop-shadow-md">
                     Sí, realizamos envíos a todo Chile. Los tiempos de entrega varían 
                     según la región, entre 2-7 días hábiles.
                   </p>
