@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import PageTemplate from "@/components/templates/PageTemplate";
 import { useWooCommerce, useWCProductAdapter } from "@/hooks/useWooCommerce";
 import { useWordPressTemplate } from "@/hooks/useWordPress";
