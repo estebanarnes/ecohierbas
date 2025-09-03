@@ -163,7 +163,7 @@ const Productos = () => {
   const [priceFilter, setPriceFilter] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<ModalProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentMobilePage, setCurrentMobilePage] = useState(0);
+  const [currentMobilePage, setCurrentMobilePage] = useState(0); // Mobile page state
   const { addItem, openCart } = useCart();
   
   // WordPress integration
