@@ -5,7 +5,7 @@ import heroImage from "@/assets/hero-ecohierbas.jpg";
 const Hero = () => {
   return <section className="relative min-h-[95vh] flex items-center overflow-hidden">
       {/* Background Image with Overlay */}
-      <div className="fixed inset-0 -z-10">
+      <div className="absolute inset-0">
         <img src={heroImage} alt="Hierbas medicinales y aromáticas orgánicas EcoHierbas Chile" className="w-full h-full object-cover" />
         <div className="absolute inset-0 -bottom-8 bg-gradient-to-r from-black/70 via-black/40 to-transparent mb-8"></div>
       </div>
