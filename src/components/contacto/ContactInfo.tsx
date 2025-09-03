@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPinIcon, PhoneIcon, EnvelopeIcon, ClockIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
@@ -85,7 +86,11 @@ const ContactInfo = () => {
             volúmenes corporativos o soluciones personalizadas, contáctanos 
             directamente.
           </p>
-          <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+          <Button 
+            variant="outline" 
+            className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             Solicitar Cotización B2B
           </Button>
         </CardContent>

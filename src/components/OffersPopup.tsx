@@ -77,13 +77,8 @@ const OffersPopup = ({ isOpen, onClose }: OffersPopupProps) => {
                 <Button asChild size="lg" className="w-full bg-primary hover:bg-primary/90">
                   <Link to="/productos">Explorar Productos</Link>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="w-full"
-                  onClick={onClose}
-                >
-                  Cotización B2B
+                <Button asChild size="lg" variant="outline" className="w-full">
+                  <Link to="/contacto">Cotización B2B</Link>
                 </Button>
               </div>
 

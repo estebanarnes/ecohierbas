@@ -60,9 +60,11 @@ const Hero = () => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8 py-4 h-auto" data-variant="b2b">
-              Cotización Corporativa
-              <ArrowRightIcon className="ml-2 w-5 h-5" />
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8 py-4 h-auto" data-variant="b2b" asChild>
+              <Link to="/contacto">
+                Cotización Corporativa
+                <ArrowRightIcon className="ml-2 w-5 h-5" />
+              </Link>
             </Button>
             <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 font-medium">
               <Link to="/productos">Ver Productos</Link>

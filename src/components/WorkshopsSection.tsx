@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -134,8 +135,8 @@ const WorkshopsSection = () => {
             bienestar laboral y responsabilidad social empresarial.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
-              Solicitar Propuesta B2B
+            <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
+              <Link to="/contacto">Solicitar Propuesta B2B</Link>
             </Button>
             <Button size="lg" variant="outline">
               Ver Calendario Completo
