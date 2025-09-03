@@ -373,8 +373,8 @@ const Nosotros = () => {
               </div>
               
               <div className="text-center group">
-                <div className="w-20 h-20 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                  <UserGroupIcon className="w-10 h-10 text-blue-600" />
+                <div className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <img src="/lovable-uploads/75e6d464-d3f5-4378-8810-f0301e10fae2.png" alt="Graneles Unidos Asociación Chile" className="w-full h-full object-contain" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">Chile Graneles Unidos</h3>
                 <p className="text-xs text-muted-foreground">Asociación gremial</p>
