@@ -148,7 +148,9 @@ const Footer = () => {
                 <p className="text-sm text-white/80 mb-3">Síguenos:</p>
                 <div className="flex gap-3">
                   <a 
-                    href="#" 
+                    href="https://www.instagram.com/ecohierbaschile" 
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
                     <Instagram className="w-8 h-8 text-white" />
