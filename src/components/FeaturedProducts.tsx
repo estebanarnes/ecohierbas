@@ -106,7 +106,7 @@ const FeaturedProducts = () => {
       <div className="u-container">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="-mt-16 mb-4 bg-accent/10 text-accent border-accent/20">
+          <Badge className="-mt-10 mb-4 bg-accent/10 text-accent border-accent/20 my-10 mx-10">
             Productos Destacados
           </Badge>
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-slate-950">
@@ -119,90 +119,88 @@ const FeaturedProducts = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="flex justify-center mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl w-full px-[15px]">
-            {isLoading ?
-              // Loading skeleton
-              Array.from({
-                length: 3
-              }).map((_, index) => <Card key={index} className="animate-pulse">
-                      <div className="h-64 bg-muted"></div>
-                      <CardContent className="p-6">
-                        <div className="h-4 bg-muted rounded mb-2"></div>
-                        <div className="h-6 bg-muted rounded mb-2"></div>
-                        <div className="h-4 bg-muted rounded mb-4"></div>
-                        <div className="h-6 bg-muted rounded"></div>
-                      </CardContent>
-                    </Card>) : products.map(product => <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden">
-                    <CardHeader className="p-0 relative">
-                      <div className="relative overflow-hidden">
-                        <img src={product.image} alt={product.name} className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        
-                        {/* Badge */}
-                        <Badge className={`absolute top-3 left-3 ${product.badge === "Más Vendido" ? "bg-accent text-accent-foreground" : product.badge === "B2B Popular" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>
-                          {product.badge}
-                        </Badge>
+        <div className="u-grid u-grid--cols-4 gap-8 mb-12">
+          {isLoading ?
+        // Loading skeleton
+        Array.from({
+          length: 3
+        }).map((_, index) => <Card key={index} className="animate-pulse">
+                <div className="h-64 bg-muted"></div>
+                <CardContent className="p-6">
+                  <div className="h-4 bg-muted rounded mb-2"></div>
+                  <div className="h-6 bg-muted rounded mb-2"></div>
+                  <div className="h-4 bg-muted rounded mb-4"></div>
+                  <div className="h-6 bg-muted rounded"></div>
+                </CardContent>
+              </Card>) : products.map(product => <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden">
+              <CardHeader className="p-0 relative">
+                <div className="relative overflow-hidden">
+                  <img src={product.image} alt={product.name} className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Badge */}
+                  <Badge className={`absolute top-3 left-3 ${product.badge === "Más Vendido" ? "bg-accent text-accent-foreground" : product.badge === "B2B Popular" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>
+                    {product.badge}
+                  </Badge>
 
-                        {/* Quick Actions */}
-                        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
-                          <Button size="icon" variant="secondary" className="w-8 h-8">
-                            <EyeIcon className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardHeader>
+                  {/* Quick Actions */}
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
+                    <Button size="icon" variant="secondary" className="w-8 h-8">
+                      <EyeIcon className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
 
-                    <CardContent className="p-6">
-                      <div className="mb-2">
-                        <Badge variant="outline" className="text-xs">
-                          {product.category}
-                        </Badge>
-                      </div>
-                      
-                      <h3 className="font-semibold text-lg text-foreground mb-2 line-clamp-2">
-                        {product.name}
-                      </h3>
-                      
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        {product.description}
-                      </p>
+              <CardContent className="p-6">
+                <div className="mb-2">
+                  <Badge variant="outline" className="text-xs">
+                    {product.category}
+                  </Badge>
+                </div>
+                
+                <h3 className="font-semibold text-lg text-foreground mb-2 line-clamp-2">
+                  {product.name}
+                </h3>
+                
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  {product.description}
+                </p>
 
-                      {/* Rating */}
-                      <div className="flex items-center gap-2 mb-4">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => <StarIcon key={i} className={`w-4 h-4 ${i < Math.floor(product.rating) ? "text-yellow-400 fill-current" : "text-gray-300"}`} />)}
-                        </div>
-                        <span className="text-sm font-medium">{product.rating}</span>
-                        <span className="text-sm text-muted-foreground">
-                          ({product.reviews})
-                        </span>
-                      </div>
+                {/* Rating */}
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-center">
+                    {[...Array(5)].map((_, i) => <StarIcon key={i} className={`w-4 h-4 ${i < Math.floor(product.rating) ? "text-yellow-400 fill-current" : "text-gray-300"}`} />)}
+                  </div>
+                  <span className="text-sm font-medium">{product.rating}</span>
+                  <span className="text-sm text-muted-foreground">
+                    ({product.reviews})
+                  </span>
+                </div>
 
-                      {/* Price */}
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="text-xl font-bold text-primary">
-                          ${product.price.toLocaleString('es-CL')}
-                        </span>
-                        {product.originalPrice && <span className="text-sm text-muted-foreground line-through">
-                            ${product.originalPrice.toLocaleString('es-CL')}
-                          </span>}
-                      </div>
-                    </CardContent>
+                {/* Price */}
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-xl font-bold text-primary">
+                    ${product.price.toLocaleString('es-CL')}
+                  </span>
+                  {product.originalPrice && <span className="text-sm text-muted-foreground line-through">
+                      ${product.originalPrice.toLocaleString('es-CL')}
+                    </span>}
+                </div>
+              </CardContent>
 
-                    <CardFooter className="p-6 pt-0">
-                      <div className="flex gap-2 w-full">
-                        <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => handleAddToCart(product)}>
-                          <ShoppingCartIcon className="w-4 h-4 mr-2" />
-                          Agregar
-                        </Button>
-                        <Button variant="outline" className="px-4" onClick={() => handleViewProduct(product)}>
-                          Ver
-                        </Button>
-                      </div>
-                    </CardFooter>
-                  </Card>)}
-          </div>
+              <CardFooter className="p-6 pt-0">
+                <div className="flex gap-2 w-full">
+                  <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => handleAddToCart(product)}>
+                    <ShoppingCartIcon className="w-4 h-4 mr-2" />
+                    Agregar
+                  </Button>
+                  <Button variant="outline" className="px-4" onClick={() => handleViewProduct(product)}>
+                    Ver
+                  </Button>
+                </div>
+              </CardFooter>
+            </Card>)}
         </div>
 
         {/* CTA */}
