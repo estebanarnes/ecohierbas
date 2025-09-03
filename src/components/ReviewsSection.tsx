@@ -50,8 +50,8 @@ const ReviewsSection = () => {
           </p>
         </div>
 
-        {/* Reviews Grid */}
-        <div className="u-grid u-grid--cols-3 gap-8">
+        {/* Reviews Grid - Desktop | Carousel - Mobile */}
+        <div className="hidden md:grid u-grid u-grid--cols-3 gap-8">
           {reviews.map(review => <Card key={review.id} className="bg-white border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-md">
               <CardContent className="p-6">
                 {/* Rating */}
@@ -99,6 +99,61 @@ const ReviewsSection = () => {
                 </div>
               </CardContent>
             </Card>)}
+        </div>
+
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div className="flex gap-6 overflow-x-auto pb-4 scroll-smooth">
+            {reviews.map(review => 
+              <Card key={review.id} className="bg-white border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-md flex-shrink-0 w-80">
+                <CardContent className="p-6">
+                  {/* Rating */}
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => <StarIcon key={i} className={`w-5 h-5 ${i < review.rating ? "text-yellow-400 fill-current" : "text-gray-300"}`} />)}
+                  </div>
+
+                  {/* Comment */}
+                  <blockquote className="text-foreground mb-6 leading-relaxed">
+                    "{review.comment}"
+                  </blockquote>
+
+                  {/* Product */}
+                  <div className="mb-4">
+                    <Badge variant="outline" className="text-xs">
+                      {review.product}
+                    </Badge>
+                  </div>
+
+                  {/* Reviewer Info */}
+                  <div className="flex items-start gap-3">
+                    <Avatar className="w-12 h-12">
+                      <AvatarImage src={review.avatar} alt={review.name} />
+                      <AvatarFallback className="bg-primary/10 text-primary">
+                        {review.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-semibold text-sm text-foreground">
+                          {review.name}
+                        </h4>
+                        {review.verified && <Badge className="bg-green-100 text-green-800 text-xs border-green-200">
+                            ✓ Verificado
+                          </Badge>}
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        {review.role}
+                      </p>
+                      <p className="text-xs text-muted-foreground font-medium">
+                        {review.company}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </section>;
