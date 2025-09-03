@@ -86,8 +86,8 @@ const Nosotros = () => {
                 </h2>
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
                   <p>
-                    Todo comenzó en 2015 en Pudahuel, Región Metropolitana, cuando decidimos 
-                    crear una alternativa natural y sustentable para el cuidado de la salud. 
+                    Todo comenzó en 2015 en San Vicente Tagua Tagua, VI Región, cuando decidimos 
+                    crear una alternativa natural y sustentable para el cuidado de la salud.
                     Lo que inició como un pequeño emprendimiento familiar, hoy se ha convertido 
                     en una empresa referente en productos orgánicos.
                   </p>

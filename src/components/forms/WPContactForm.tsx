@@ -132,8 +132,8 @@ const WPContactForm = ({
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">Ubicación</h4>
-                      <p className="text-muted-foreground">Santiago, Chile</p>
-                      <p className="text-muted-foreground">Envíos a todo el país</p>
+                      <p className="text-muted-foreground">Camino El tambo, San Vicente Tagua Tagua</p>
+                      <p className="text-muted-foreground">VI Región, Chile</p>
                     </div>
                   </div>
                 </div>

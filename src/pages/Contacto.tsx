@@ -137,9 +137,8 @@ const Contacto = () => {
                       <div>
                         <p className="font-medium text-foreground">Dirección</p>
                         <p className="text-muted-foreground text-sm">
-                          El Crepúsculo 19745<br />
-                          Pudahuel, Región Metropolitana<br />
-                          Santiago, Chile
+                          Camino El tambo, San Vicente Tagua Tagua<br />
+                          VI Región, Chile
                         </p>
                       </div>
                     </div>
