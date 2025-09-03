@@ -118,9 +118,7 @@ const Nosotros = () => {
         <section className="py-16 bg-background">
           <div className="u-container">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
-                Nuestra Historia en Imágenes
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">Nuestro día a día</h2>
               <p className="text-lg text-muted-foreground">
                 Un recorrido visual por los momentos más importantes de EcoHierbas Chile
               </p>
