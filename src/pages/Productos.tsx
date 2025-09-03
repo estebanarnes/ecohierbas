@@ -427,8 +427,8 @@ const Productos = () => {
                       
                       {/* Mobile Pagination Dots - Top */}
                       {mobilePages.length > 1 && (
-                        <div className="flex justify-center mt-6 md:hidden">
-                          <div className="flex gap-2 justify-center">
+                        <div className="flex justify-center items-center mt-6 md:hidden w-full">
+                          <div className="flex gap-2 items-center justify-center">
                             {mobilePages.map((_, index) => (
                               <div 
                                 key={index} 
