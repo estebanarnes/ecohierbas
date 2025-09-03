@@ -269,8 +269,8 @@ const Contacto = () => {
             backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
             willChange: 'transform'
           }}></div>
-          {/* Subtle dark overlay */}
-          <div className="absolute inset-0 bg-black/20 z-1"></div>
+          {/* Transparent overlay */}
+          <div className="absolute inset-0 bg-transparent z-1"></div>
           
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
