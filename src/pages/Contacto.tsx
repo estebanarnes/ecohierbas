@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"; // React hooks for parallax effect
+import React, { useEffect, useRef } from "react"; // FIXED: React hooks import for parallax functionality
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
