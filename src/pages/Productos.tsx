@@ -433,7 +433,11 @@ const Productos = () => {
                             {mobilePages.map((_, index) => (
                               <div 
                                 key={index} 
-                                className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium shadow-lg"
+                                className={`rounded-full bg-green-500 text-white flex items-center justify-center font-medium shadow-lg transition-all duration-200 ${
+                                  index === currentMobilePage 
+                                    ? 'w-10 h-10 text-base' 
+                                    : 'w-8 h-8 text-sm'
+                                }`}
                               >
                                 {index + 1}
                               </div>
