@@ -119,7 +119,7 @@ const FeaturedProducts = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="u-grid u-grid--cols-3 gap-8 mb-12">
+        <div className="u-grid u-grid--cols-4 gap-8 mb-12">
           {isLoading ?
         // Loading skeleton
         Array.from({
