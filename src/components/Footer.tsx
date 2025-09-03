@@ -149,21 +149,21 @@ const Footer = () => {
                 <div className="flex gap-3">
                   <a 
                     href="#" 
-                    className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
+                    className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
-                    <Instagram className="w-6 h-6 text-white" />
+                    <Instagram className="w-8 h-8 text-white" />
                   </a>
                   <a 
                     href="#" 
-                    className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
+                    className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
-                    <Facebook className="w-6 h-6 text-white" />
+                    <Facebook className="w-8 h-8 text-white" />
                   </a>
                   <a 
                     href="#" 
-                    className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
+                    className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
-                    <Linkedin className="w-6 h-6 text-white" />
+                    <Linkedin className="w-8 h-8 text-white" />
                   </a>
                 </div>
               </div>
