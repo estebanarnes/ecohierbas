@@ -36,7 +36,7 @@ const BenefitsSection = () => {
         </div>
 
         {/* Benefits Grid */}
-        <div className="u-grid u-grid--cols-3 lg:grid-cols-3 gap-8">
+        <div className="u-grid u-grid--cols-3 lg:grid-cols-2 gap-8">
           {benefits.map((benefit, index) => {
           const IconComponent = benefit.icon;
           return <div key={index} className="group h-64 [perspective:1000px]">
