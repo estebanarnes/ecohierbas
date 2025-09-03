@@ -454,7 +454,17 @@ const Productos = () => {
 
                     {/* Mobile Carousel (3 products per page) */}
                     <div className="md:hidden -mx-4">
-                      <Carousel className="w-full px-4" opts={{ align: "start", loop: true }}>
+                      <Carousel 
+                        className="w-full px-4" 
+                        opts={{ align: "start", loop: true }}
+                        setApi={(api) => {
+                          if (api) {
+                            api.on("select", () => {
+                              setCurrentMobilePage(api.selectedScrollSnap());
+                            });
+                          }
+                        }}
+                      >
                         <CarouselContent className="-ml-2">
                           {mobilePages.map((pageProducts, pageIndex) => (
                             <CarouselItem key={pageIndex} className="pl-2 basis-full">
