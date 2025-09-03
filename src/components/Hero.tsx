@@ -3,18 +3,32 @@ import { ArrowRightIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import heroImage from "@/assets/hero-ecohierbas.jpg";
+
 const Hero = () => {
   const isMobile = useIsMobile();
   
-  return <section 
-    className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px]" 
-    style={{
-      backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`,
-      backgroundSize: isMobile ? 'cover' : '120% auto',
-      backgroundPosition: isMobile ? 'center' : '-30px -40px',
-      backgroundAttachment: isMobile ? 'scroll' : 'fixed'
-    }}
-  >
+  return (
+    <section className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px]">
+      {/* Background Image - Conditional for mobile */}
+      {!isMobile ? (
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`,
+            backgroundSize: '120% auto',
+            backgroundPosition: '-30px -40px',
+            backgroundAttachment: 'fixed'
+          }}
+        ></div>
+      ) : (
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`
+          }}
+        ></div>
+      )}
+      
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
 
@@ -78,6 +92,8 @@ const Hero = () => {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Hero;

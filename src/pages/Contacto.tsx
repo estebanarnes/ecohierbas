@@ -49,15 +49,24 @@ const Contacto = () => {
       <main>
         {/* Hero */}
         <section className="relative py-16 overflow-hidden">
-          {/* Parallax Background */}
-          <div 
-            ref={parallaxRef}
-            className="absolute inset-0 bg-cover bg-center transform scale-110"
-            style={{
-              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-              willChange: 'transform'
-            }}
-          ></div>
+          {/* Hero Background - Conditional rendering for mobile */}
+          {!isMobile ? (
+            <div 
+              ref={parallaxRef}
+              className="absolute inset-0 bg-cover bg-center transform scale-110"
+              style={{
+                backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+                willChange: 'transform'
+              }}
+            ></div>
+          ) : (
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`
+              }}
+            ></div>
+          )}
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/40"></div>
           
@@ -293,15 +302,24 @@ const Contacto = () => {
 
         {/* FAQ Section */}
         <section className="py-16 relative overflow-hidden">
-          {/* FAQ Parallax Background */}
-          <div 
-            ref={faqParallaxRef}
-            className="absolute inset-0 bg-cover bg-center transform scale-110"
-            style={{
-              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-              willChange: isMobile ? 'auto' : 'transform'
-            }}
-          ></div>
+          {/* FAQ Background - Conditional rendering for mobile */}
+          {!isMobile ? (
+            <div 
+              ref={faqParallaxRef}
+              className="absolute inset-0 bg-cover bg-center transform scale-110"
+              style={{
+                backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+                willChange: 'transform'
+              }}
+            ></div>
+          ) : (
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`
+              }}
+            ></div>
+          )}
           {/* FAQ Overlay */}
           <div className="absolute inset-0 bg-black/70"></div>
           <div className="u-container relative z-10">
