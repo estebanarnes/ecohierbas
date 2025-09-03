@@ -180,19 +180,7 @@ const Nosotros = () => {
                     </Card>
                   </CarouselItem>
 
-                  <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
-                      <div className="aspect-[4/3] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                        <div className="text-center p-6">
-                          <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <AcademicCapIcon className="w-8 h-8 text-primary" />
-                          </div>
-                          <h3 className="font-semibold text-foreground mb-2">Talleres Educativos</h3>
-                          <p className="text-sm text-muted-foreground">Compartiendo conocimiento sobre sustentabilidad</p>
-                        </div>
-                      </div>
-                    </Card>
-                  </CarouselItem>
+                  
 
                   <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
