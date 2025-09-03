@@ -259,8 +259,10 @@ const Contacto = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center center'
         }}></div>
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/30 z-0"></div>
+          {/* Background image overlay */}
+          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0" style={{
+            backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`
+          }}></div>
           
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
