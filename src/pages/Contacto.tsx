@@ -289,18 +289,20 @@ const Contacto = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 relative overflow-hidden">
+        <section className="py-16 relative overflow-hidden min-h-[600px]">
           {/* Parallax Background */}
           <div 
             ref={faqParallaxRef}
-            className="absolute inset-0 bg-cover bg-center transform scale-110"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105"
             style={{
               backgroundImage: `url(/lovable-uploads/62e97ad3-752c-480f-8ab6-1cdda9102893.png)`,
-              willChange: 'transform'
+              willChange: 'transform',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center'
             }}
           ></div>
           {/* Overlay */}
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-black/30"></div>
           
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
