@@ -210,6 +210,8 @@ const Productos = () => {
 
   return (
     <PageTemplate 
+      page={null}
+      template="products"
       customSEO={{
         title: 'Productos Orgánicos y Sustentables - Ecohierbas Chile',
         description: 'Descubre nuestra amplia gama de productos orgánicos: hierbas medicinales, sistemas de vermicompostaje y maceteros ecológicos. Envíos a todo Chile.',
