@@ -93,6 +93,13 @@ function ecohierbas_enqueue_assets() {
             ECOHIERBAS_THEME_VERSION
         );
     }
+    
+    // CSS crítico para evitar FOUC
+    wp_add_inline_style('ecohierbas-style', '
+        body { visibility: visible; }
+        .site-header { display: block; }
+        .u-container { display: block; }
+    ');
 
     // Comentarios threaded
     if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -100,6 +107,22 @@ function ecohierbas_enqueue_assets() {
     }
 }
 add_action('wp_enqueue_scripts', 'ecohierbas_enqueue_assets');
+
+/**
+ * Debug función para verificar carga de assets
+ */
+function ecohierbas_debug_assets() {
+    if (!current_user_can('manage_options') || !isset($_GET['debug_assets'])) {
+        return;
+    }
+    
+    echo '<!-- ECOHIERBAS DEBUG -->';
+    echo '<script>console.log("EcoHierbas Theme Assets Debug:");';
+    echo 'console.log("Theme URL: ' . ECOHIERBAS_THEME_URL . '");';
+    echo 'console.log("CSS Path: ' . ECOHIERBAS_THEME_URL . '/assets/css/app.css");';
+    echo 'console.log("JS Path: ' . ECOHIERBAS_THEME_URL . '/assets/js/utils.js");';
+    echo 'console.log("Theme Version: ' . ECOHIERBAS_THEME_VERSION . '");</script>';
+}
 
 /**
  * Enqueue assets para el admin
@@ -215,7 +238,7 @@ function ecohierbas_preload_assets() {
     echo '<link rel="preload" href="' . get_stylesheet_uri() . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">';
     
     // Preload JavaScript principal
-    echo '<link rel="preload" href="' . ECOHIERBAS_THEME_URL . '/assets/js/main.js" as="script">';
+    echo '<link rel="preload" href="' . ECOHIERBAS_THEME_URL . '/assets/js/utils.js" as="script">';
     
     // Preload fuentes críticas
     echo '<link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>';
@@ -325,8 +348,8 @@ function ecohierbas_service_worker() {
         const urlsToCache = [
             '/',
             '/wp-content/themes/ecohierbas-chile/style.css',
-            '/wp-content/themes/ecohierbas-chile/assets/css/main.css',
-            '/wp-content/themes/ecohierbas-chile/assets/js/main.js',
+            '/wp-content/themes/ecohierbas-chile/assets/css/app.css',
+            '/wp-content/themes/ecohierbas-chile/assets/js/utils.js',
         ];
 
         self.addEventListener('install', function(event) {
@@ -378,3 +401,4 @@ function ecohierbas_register_sw() {
     }
 }
 add_action('wp_footer', 'ecohierbas_register_sw');
+add_action('wp_head', 'ecohierbas_debug_assets', 99);

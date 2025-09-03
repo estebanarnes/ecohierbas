@@ -1,0 +1,50 @@
+/*!
+ * EcoHierbas Chile - Editor Styles
+ * Estilos para el editor de Gutenberg
+ */
+
+/* Importar variables del tema */
+@import url('app.css');
+
+/* Estilos específicos del editor */
+.wp-block {
+    max-width: 800px;
+}
+
+.editor-styles-wrapper {
+    font-family: "Inter", system-ui, sans-serif;
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+    font-family: "Playfair Display", serif;
+    color: hsl(var(--foreground));
+}
+
+.editor-styles-wrapper .wp-block-button__link {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+}
+
+.editor-styles-wrapper .wp-block-quote {
+    border-left: 4px solid hsl(var(--primary));
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+}
+
+.editor-styles-wrapper .wp-block-code {
+    background-color: hsl(var(--muted));
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    font-family: "Courier New", monospace;
+}

@@ -1,0 +1,84 @@
+/*!
+ * EcoHierbas Chile - Admin Styles
+ * Estilos para el panel de administración
+ */
+
+.ecohierbas-admin-wrap {
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+.ecohierbas-admin-header {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.ecohierbas-admin-header h1 {
+    margin: 0 0 10px 0;
+    color: #23282d;
+}
+
+.ecohierbas-admin-section {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.ecohierbas-admin-section h2 {
+    margin: 0;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    background: #f9f9f9;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ecohierbas-admin-section .inside {
+    padding: 20px;
+}
+
+.ecohierbas-field-group {
+    margin-bottom: 20px;
+}
+
+.ecohierbas-field-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.ecohierbas-field-group input[type="text"],
+.ecohierbas-field-group input[type="email"],
+.ecohierbas-field-group input[type="url"],
+.ecohierbas-field-group textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+.ecohierbas-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ecohierbas-status.success {
+    background: #46b450;
+    color: #fff;
+}
+
+.ecohierbas-status.warning {
+    background: #ffb900;
+    color: #fff;
+}
+
+.ecohierbas-status.error {
+    background: #dc3232;
+    color: #fff;
+}
