@@ -53,7 +53,7 @@ const WorkshopsSection = () => {
       className="relative py-20 overflow-hidden" 
       data-banner="talleres"
       style={{
-        backgroundImage: `url('/lovable-uploads/58896905-982b-4e46-a920-6a7420e44ea7.png')`,
+        backgroundImage: `url('/lovable-uploads/94820ffc-6f68-4a0c-a940-8a20fa8d75f6.png')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
