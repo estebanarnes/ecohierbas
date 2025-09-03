@@ -259,8 +259,8 @@ const Contacto = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center center'
         }}></div>
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-transparent"></div>
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/30 z-0"></div>
           
           <div className="u-container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
