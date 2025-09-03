@@ -159,7 +159,7 @@ const Nosotros = () => {
                   <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
                       <div className="aspect-[4/3] overflow-hidden">
-                        <img src="/src/assets/vermicompostaje.jpg" alt="Sistema de vermicompostaje" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <img src="/lovable-uploads/539aefc2-235d-4d1f-812a-52c1f0acfa69.png" alt="Sistema de vermicompostaje EcoChip" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       </div>
                       <CardContent className="p-4">
                         <h3 className="font-semibold text-foreground mb-2">Vermicompostaje</h3>
