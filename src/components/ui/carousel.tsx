@@ -66,21 +66,25 @@ const Carousel = React.forwardRef<
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
 
-    const onSelect = React.useCallback((api: CarouselApi) => {
-      if (!api) {
-        return
-      }
+  const onSelect = React.useCallback((api: CarouselApi) => {
+    if (!api || typeof api.canScrollPrev !== 'function' || typeof api.canScrollNext !== 'function') {
+      return
+    }
 
-      setCanScrollPrev(api.canScrollPrev())
-      setCanScrollNext(api.canScrollNext())
-    }, [])
+    setCanScrollPrev(api.canScrollPrev())
+    setCanScrollNext(api.canScrollNext())
+  }, [])
 
     const scrollPrev = React.useCallback(() => {
-      api?.scrollPrev()
+      if (api && typeof api.scrollPrev === 'function') {
+        api.scrollPrev()
+      }
     }, [api])
 
     const scrollNext = React.useCallback(() => {
-      api?.scrollNext()
+      if (api && typeof api.scrollNext === 'function') {
+        api.scrollNext()
+      }
     }, [api])
 
     const handleKeyDown = React.useCallback(
@@ -96,27 +100,29 @@ const Carousel = React.forwardRef<
       [scrollPrev, scrollNext]
     )
 
-    React.useEffect(() => {
-      if (!api || !setApi) {
-        return
+  React.useEffect(() => {
+    if (!api || !setApi) {
+      return
+    }
+
+    setApi(api)
+  }, [api, setApi])
+
+  React.useEffect(() => {
+    if (!api || typeof api.on !== 'function') {
+      return
+    }
+
+    onSelect(api)
+    api.on("reInit", onSelect)
+    api.on("select", onSelect)
+
+    return () => {
+      if (api && typeof api.off === 'function') {
+        api.off("select", onSelect)
       }
-
-      setApi(api)
-    }, [api, setApi])
-
-    React.useEffect(() => {
-      if (!api) {
-        return
-      }
-
-      onSelect(api)
-      api.on("reInit", onSelect)
-      api.on("select", onSelect)
-
-      return () => {
-        api?.off("select", onSelect)
-      }
-    }, [api, onSelect])
+    }
+  }, [api, onSelect])
 
     return (
       <CarouselContext.Provider
