@@ -203,8 +203,8 @@ const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailModalProp
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
-                  <div className="w-12 h-7 bg-gradient-to-r from-red-500 to-orange-400 rounded text-white text-[8px] font-bold flex items-center justify-center">
-                    MC
+                  <div className="w-12 h-7 bg-white rounded border flex items-center justify-center p-1">
+                    <img src="/lovable-uploads/58896905-982b-4e46-a920-6a7420e44ea7.png" alt="MercadoPago" className="w-full h-full object-contain" />
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
