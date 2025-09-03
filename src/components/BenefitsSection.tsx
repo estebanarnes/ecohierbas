@@ -91,23 +91,7 @@ const BenefitsSection = () => {
 
         {/* CTA Section */}
         <div className="mt-16 text-center">
-          <div className="bg-primary/5 rounded-2xl p-8 border border-primary/20">
-            <h3 className="text-2xl font-serif font-semibold text-foreground mb-3">
-              ¿Listo para hacer el cambio hacia lo natural?
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Únete a las más de 500 empresas que ya confían en nuestros productos 
-              orgánicos para cuidar la salud de sus colaboradores.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                Solicitar Catálogo B2B
-              </Button>
-              <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                <Link to="/productos">Ver Productos</Link>
-              </Button>
-            </div>
-          </div>
+          
         </div>
       </div>
     </section>;
