@@ -381,8 +381,8 @@ const Nosotros = () => {
               </div>
               
               <div className="text-center group">
-                <div className="w-20 h-20 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors">
-                  <span className="text-lg font-bold text-orange-600">C</span>
+                <div className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <img src="/lovable-uploads/e09d1167-229e-4e24-a22f-81907be2c8c3.png" alt="CORFO" className="w-full h-full object-contain" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">CORFO</h3>
                 <p className="text-xs text-muted-foreground">Fomento productivo</p>
