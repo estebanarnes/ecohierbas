@@ -255,40 +255,7 @@ const Nosotros = () => {
           </div>
         </section>
 
-        {/* Valores */}
-        <section className="py-20 bg-muted/20">
-          <div className="u-container">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
-                Nuestros Valores
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Los principios que guían cada decisión y acción en EcoHierbas Chile
-              </p>
-            </div>
-
-            <div className="u-grid u-grid--cols-3 gap-8">
-              {valores.map((valor, index) => {
-                const IconComponent = valor.icon;
-                return (
-                  <Card key={index} className="bg-white border-border/50 hover:border-primary/20 transition-all duration-300">
-                    <CardContent className="p-6 text-center">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                        <IconComponent className="w-6 h-6 text-primary" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-foreground mb-3">
-                        {valor.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {valor.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        {/* Valores section removed - now using ValuesSection component */}
 
         {/* Propósito */}
         <section className="py-20">
