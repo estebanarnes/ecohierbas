@@ -32,6 +32,7 @@ const Contacto = () => {
       // FAQ parallax
       if (faqParallaxRef.current) {
         faqParallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
+        console.log('FAQ parallax applied:', scrolled * speed);
       }
     };
 
@@ -288,15 +289,16 @@ const Contacto = () => {
         </section>
 
         {/* FAQ Section */}
-        <section 
-          className="py-16 relative overflow-hidden"
-          style={{
-            backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed'
-          }}
-        >
+        <section className="py-16 relative overflow-hidden">
+          {/* FAQ Parallax Background */}
+          <div 
+            ref={faqParallaxRef}
+            className="absolute inset-0 bg-cover bg-center transform scale-110"
+            style={{
+              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              willChange: 'transform'
+            }}
+          ></div>
           {/* FAQ Overlay */}
           <div className="absolute inset-0 bg-black/70"></div>
           <div className="u-container relative z-10">

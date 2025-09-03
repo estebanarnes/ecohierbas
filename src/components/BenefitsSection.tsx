@@ -36,10 +36,10 @@ const BenefitsSection = () => {
         </div>
 
         {/* Benefits Grid */}
-        <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
+        <div className="u-grid u-grid--cols-3 lg:grid-cols-2 gap-8">
           {benefits.map((benefit, index) => {
           const IconComponent = benefit.icon;
-          return <div key={index} className="group h-48 w-[30%] min-w-[280px] [perspective:1000px]">
+          return <div key={index} className="group h-64 [perspective:1000px]">
                 <div className="relative w-full h-full [transform-style:preserve-3d] transition-all duration-700 group-hover:[transform:rotateY(180deg)]">
                   {/* Front Face - Original Card */}
                   <div className="absolute inset-0 w-full h-full bg-white rounded-xl p-6 shadow-sm border border-border/50 [backface-visibility:hidden] flex flex-col items-center text-center justify-center">
