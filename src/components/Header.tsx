@@ -25,7 +25,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/8e640810-7468-47da-9d2c-a57014e97966.png" 
+              src="/lovable-uploads/9ea5ebd8-40a7-4c66-a3bc-1777813399af.png" 
               alt="EcoHierbas Chile" 
               className="w-12 h-12 object-contain"
             />
