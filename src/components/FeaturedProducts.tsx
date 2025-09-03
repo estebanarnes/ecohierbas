@@ -171,7 +171,7 @@ const FeaturedProducts = () => {
                 </div>
               </CardHeader>
 
-              <CardContent className="p-6">
+              <CardContent className="p-6 flex-grow">
                 <div className="mb-2">
                   <Badge variant="outline" className="text-xs">
                     {product.category}
