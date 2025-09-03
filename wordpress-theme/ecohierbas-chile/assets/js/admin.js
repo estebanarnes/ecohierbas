@@ -1,139 +1,131 @@
 /**
- * EcoHierbas Admin Scripts
- * Scripts para el panel de administración
+ * JavaScript del panel de administración
  */
+(function($) {
+    'use strict';
 
-const EcoHierbasAdmin = {
-    init() {
-        this.bindEvents();
-        this.initThemeOptions();
-    },
+    $(document).ready(function() {
+        initMediaUploader();
+        initColorPickers();
+        initTabs();
+        initAjaxForms();
+    });
 
-    bindEvents() {
-        // Guardar opciones del tema
-        const saveButton = document.querySelector('#submit');
-        if (saveButton) {
-            saveButton.addEventListener('click', this.saveThemeOptions.bind(this));
-        }
-
-        // Preview logo
-        const logoInput = document.querySelector('#custom_logo');
-        if (logoInput) {
-            logoInput.addEventListener('change', this.previewLogo.bind(this));
-        }
-    },
-
-    initThemeOptions() {
-        // Verificar configuración inicial
-        this.checkThemeSetup();
-    },
-
-    saveThemeOptions(e) {
-        e.preventDefault();
-        
-        const form = e.target.closest('form');
-        const formData = new FormData(form);
-        
-        // Mostrar loading
-        this.showLoading(e.target);
-        
-        fetch(ECOHIERBAS_ADMIN.ajaxUrl, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                this.showNotice('Configuración guardada correctamente', 'success');
-            } else {
-                this.showNotice('Error al guardar la configuración', 'error');
-            }
-        })
-        .catch(() => {
-            this.showNotice('Error de conexión', 'error');
-        })
-        .finally(() => {
-            this.hideLoading(e.target);
-        });
-    },
-
-    previewLogo(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const preview = document.querySelector('#logo-preview');
-                if (preview) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
+    function initMediaUploader() {
+        $('.upload-button').on('click', function(e) {
+            e.preventDefault();
+            
+            const button = $(this);
+            const targetInput = button.siblings('.upload-input');
+            const preview = button.siblings('.upload-preview');
+            
+            const frame = wp.media({
+                title: 'Seleccionar imagen',
+                button: {
+                    text: 'Usar esta imagen'
+                },
+                multiple: false
+            });
+            
+            frame.on('select', function() {
+                const attachment = frame.state().get('selection').first().toJSON();
+                targetInput.val(attachment.url);
+                
+                if (preview.length) {
+                    preview.html(`<img src="${attachment.url}" style="max-width: 200px; height: auto;">`);
                 }
-            };
-            reader.readAsDataURL(file);
-        }
-    },
-
-    checkThemeSetup() {
-        // Verificar que WooCommerce esté instalado
-        if (typeof woocommerce_admin_meta_boxes === 'undefined') {
-            this.showNotice('Recomendamos instalar WooCommerce para funcionalidad completa', 'warning');
-        }
-        
-        // Verificar que las páginas necesarias existan
-        this.checkRequiredPages();
-    },
-
-    checkRequiredPages() {
-        const requiredPages = ['shop', 'cart', 'checkout', 'my-account'];
-        
-        fetch(ECOHIERBAS_ADMIN.ajaxUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                action: 'check_required_pages',
-                nonce: ECOHIERBAS_ADMIN.nonce
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) {
-                this.showNotice('Algunas páginas requeridas no están configuradas', 'warning');
-            }
+                
+                button.text('Cambiar imagen');
+            });
+            
+            frame.open();
         });
-    },
-
-    showLoading(button) {
-        button.disabled = true;
-        button.innerHTML = 'Guardando...';
-        button.classList.add('loading');
-    },
-
-    hideLoading(button) {
-        button.disabled = false;
-        button.innerHTML = 'Guardar cambios';
-        button.classList.remove('loading');
-    },
-
-    showNotice(message, type = 'info') {
-        const noticesContainer = document.querySelector('.wrap h1');
-        if (!noticesContainer) return;
-
-        const notice = document.createElement('div');
-        const noticeClass = type === 'success' ? 'notice-success' : 'notice-error';
-        notice.className = `notice ${noticeClass} is-dismissible`;
-        notice.innerHTML = `<p>${message}</p>`;
-
-        noticesContainer.after(notice);
-
-        // Auto dismiss after 5 seconds
-        setTimeout(() => {
-            notice.remove();
-        }, 5000);
     }
-};
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    EcoHierbasAdmin.init();
-});
+    function initColorPickers() {
+        if ($.fn.wpColorPicker) {
+            $('.color-picker').wpColorPicker();
+        }
+    }
+
+    function initTabs() {
+        $('.nav-tab').on('click', function(e) {
+            e.preventDefault();
+            
+            const tab = $(this);
+            const target = tab.attr('href');
+            
+            $('.nav-tab').removeClass('nav-tab-active');
+            tab.addClass('nav-tab-active');
+            
+            $('.tab-content').hide();
+            $(target).show();
+            
+            localStorage.setItem('ecohierbas_active_tab', target);
+        });
+
+        const activeTab = localStorage.getItem('ecohierbas_active_tab');
+        if (activeTab && $(activeTab).length) {
+            $('.nav-tab[href="' + activeTab + '"]').click();
+        }
+    }
+
+    function initAjaxForms() {
+        $('.ajax-form').on('submit', function(e) {
+            e.preventDefault();
+            
+            const form = $(this);
+            const submitButton = form.find('[type="submit"]');
+            const originalText = submitButton.text();
+            
+            submitButton.text('Guardando...').prop('disabled', true);
+            
+            const formData = new FormData(this);
+            formData.append('action', form.data('action') || 'save_theme_options');
+            formData.append('nonce', ecohierbas_admin.nonce);
+            
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        showNotice('Configuración guardada correctamente', 'success');
+                    } else {
+                        showNotice(response.data || 'Error al guardar la configuración', 'error');
+                    }
+                },
+                error: function() {
+                    showNotice('Error de conexión. Inténtalo de nuevo.', 'error');
+                },
+                complete: function() {
+                    submitButton.text(originalText).prop('disabled', false);
+                }
+            });
+        });
+    }
+
+    function showNotice(message, type = 'info') {
+        const notice = $(`
+            <div class="notice notice-${type} is-dismissible">
+                <p>${message}</p>
+                <button type="button" class="notice-dismiss">
+                    <span class="screen-reader-text">Descartar este aviso.</span>
+                </button>
+            </div>
+        `);
+
+        $('.wrap h1').first().after(notice);
+
+        setTimeout(function() {
+            notice.fadeOut();
+        }, 5000);
+
+        notice.find('.notice-dismiss').on('click', function() {
+            notice.fadeOut();
+        });
+    }
+
+})(jQuery);

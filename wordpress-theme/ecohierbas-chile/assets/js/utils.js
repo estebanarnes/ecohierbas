@@ -1,205 +1,118 @@
 /**
- * EcoHierbas Chile - Utilities
- * Funciones auxiliares compartidas
+ * Utilidades JavaScript
  */
+(function($) {
+    'use strict';
 
-// Global utilities object
-window.EcoHierbas = window.EcoHierbas || {};
+    window.EcoHierbas = window.EcoHierbas || {};
 
-/**
- * Formatear precio en CLP
- */
-EcoHierbas.formatPrice = function(price) {
-    return '$' + new Intl.NumberFormat('es-CL').format(price);
-};
+    EcoHierbas.validation = {
+        isValidEmail: function(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        },
 
-/**
- * Mostrar notificación toast
- */
-EcoHierbas.showNotification = function(message, type = 'success') {
-    // Remover notificaciones existentes
-    const existing = document.querySelectorAll('.notification');
-    existing.forEach(el => el.remove());
-
-    const notification = document.createElement('div');
-    notification.className = `notification notification--${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span>${message}</span>
-            <button class="notification-close">&times;</button>
-        </div>
-    `;
-
-    document.body.appendChild(notification);
-
-    // Mostrar con animación
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 100);
-
-    // Auto-cerrar después de 5 segundos
-    setTimeout(() => {
-        EcoHierbas.hideNotification(notification);
-    }, 5000);
-
-    // Cerrar manualmente
-    const closeButton = notification.querySelector('.notification-close');
-    closeButton.addEventListener('click', () => {
-        EcoHierbas.hideNotification(notification);
-    });
-};
-
-/**
- * Ocultar notificación
- */
-EcoHierbas.hideNotification = function(notification) {
-    notification.classList.remove('show');
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-        }
-    }, 300);
-};
-
-/**
- * Hacer petición AJAX
- */
-EcoHierbas.ajax = function(action, data = {}) {
-    return new Promise((resolve, reject) => {
-        const formData = new FormData();
-        formData.append('action', action);
-        formData.append('nonce', ecohierbas_ajax.nonce);
-        
-        for (const key in data) {
-            formData.append(key, data[key]);
-        }
-
-        fetch(ecohierbas_ajax.ajax_url, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                resolve(result.data);
-            } else {
-                reject(new Error(result.data || 'Error en la petición'));
+        isValidRUT: function(rut) {
+            if (!rut || typeof rut !== 'string') return false;
+            const cleanRUT = rut.replace(/[^0-9kK]/g, '');
+            if (cleanRUT.length < 2) return false;
+            
+            const body = cleanRUT.slice(0, -1);
+            const dv = cleanRUT.slice(-1).toLowerCase();
+            
+            let sum = 0;
+            let multiplier = 2;
+            
+            for (let i = body.length - 1; i >= 0; i--) {
+                sum += parseInt(body[i]) * multiplier;
+                multiplier = multiplier === 7 ? 2 : multiplier + 1;
             }
-        })
-        .catch(error => {
-            reject(error);
-        });
-    });
-};
-
-/**
- * Validar email
- */
-EcoHierbas.validateEmail = function(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-};
-
-/**
- * Debounce function
- */
-EcoHierbas.debounce = function(func, wait, immediate) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            timeout = null;
-            if (!immediate) func(...args);
-        };
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func(...args);
+            
+            const calculatedDV = 11 - (sum % 11);
+            const finalDV = calculatedDV === 11 ? '0' : calculatedDV === 10 ? 'k' : calculatedDV.toString();
+            
+            return dv === finalDV;
+        }
     };
-};
 
-/**
- * Scroll suave a elemento
- */
-EcoHierbas.scrollToElement = function(element, offset = 0) {
-    if (typeof element === 'string') {
-        element = document.querySelector(element);
-    }
-    
-    if (element) {
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
+    EcoHierbas.format = {
+        price: function(amount, currency = 'CLP') {
+            if (currency === 'CLP') {
+                return '$' + new Intl.NumberFormat('es-CL').format(amount);
+            }
+            return amount;
+        },
 
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
-    }
-};
+        rut: function(rut) {
+            if (!rut) return '';
+            const cleanRUT = rut.replace(/[^0-9kK]/g, '');
+            if (cleanRUT.length < 2) return rut;
+            
+            const body = cleanRUT.slice(0, -1);
+            const dv = cleanRUT.slice(-1);
+            const formattedBody = body.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            
+            return formattedBody + '-' + dv;
+        }
+    };
 
-/**
- * Lazy loading images
- */
-EcoHierbas.initLazyLoading = function() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
-                }
+    EcoHierbas.storage = {
+        set: function(key, value) {
+            try {
+                localStorage.setItem('ecohierbas_' + key, JSON.stringify(value));
+                return true;
+            } catch (e) {
+                console.warn('No se pudo guardar en localStorage:', e);
+                return false;
+            }
+        },
+
+        get: function(key, defaultValue = null) {
+            try {
+                const item = localStorage.getItem('ecohierbas_' + key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (e) {
+                console.warn('No se pudo leer de localStorage:', e);
+                return defaultValue;
+            }
+        }
+    };
+
+    EcoHierbas.notify = {
+        success: function(message, duration = 3000) {
+            this.show(message, 'success', duration);
+        },
+
+        error: function(message, duration = 5000) {
+            this.show(message, 'error', duration);
+        },
+
+        show: function(message, type = 'info', duration = 3000) {
+            const notification = $(`
+                <div class="notification notification-${type}">
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close">&times;</button>
+                </div>
+            `);
+
+            if (!$('#notifications-container').length) {
+                $('body').append('<div id="notifications-container"></div>');
+            }
+
+            $('#notifications-container').append(notification);
+
+            setTimeout(() => {
+                notification.fadeOut(300, function() {
+                    $(this).remove();
+                });
+            }, duration);
+
+            notification.find('.notification-close').on('click', () => {
+                notification.fadeOut(300, function() {
+                    $(this).remove();
+                });
             });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
-    } else {
-        // Fallback para navegadores sin soporte
-        images.forEach(img => {
-            img.src = img.dataset.src;
-            img.classList.remove('lazy');
-        });
-    }
-};
+        }
+    };
 
-/**
- * LocalStorage helpers
- */
-EcoHierbas.storage = {
-    get: function(key) {
-        try {
-            const item = localStorage.getItem(key);
-            return item ? JSON.parse(item) : null;
-        } catch (error) {
-            console.error('Error reading from localStorage:', error);
-            return null;
-        }
-    },
-    
-    set: function(key, value) {
-        try {
-            localStorage.setItem(key, JSON.stringify(value));
-            return true;
-        } catch (error) {
-            console.error('Error writing to localStorage:', error);
-            return false;
-        }
-    },
-    
-    remove: function(key) {
-        try {
-            localStorage.removeItem(key);
-            return true;
-        } catch (error) {
-            console.error('Error removing from localStorage:', error);
-            return false;
-        }
-    }
-};
-
-// Exportar para compatibilidad
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = EcoHierbas;
-}
+})(jQuery);
