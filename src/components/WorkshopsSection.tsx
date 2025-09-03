@@ -60,7 +60,7 @@ const WorkshopsSection = () => {
       }}
     >
       {/* Parallax Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-accent/80"></div>
+      <div className="absolute inset-0 bg-black/30"></div>
       
       <div className="relative z-10 u-container">
         {/* Header */}
