@@ -106,7 +106,7 @@ const FeaturedProducts = () => {
       <div className="u-container">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="-mt-8 mb-4 bg-accent/10 text-accent border-accent/20">
+          <Badge className="-mt-16 mb-4 bg-accent/10 text-accent border-accent/20">
             Productos Destacados
           </Badge>
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-slate-950">
