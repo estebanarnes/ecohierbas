@@ -84,7 +84,7 @@ const Nosotros = () => {
                     <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                     <div>
                       <div className="font-medium text-foreground">2015</div>
-                      <div className="text-sm text-muted-foreground">Fundación de JAFER SPA</div>
+                      <div className="text-sm text-muted-foreground">Fundación de Ecohierbas Chile</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -135,7 +135,7 @@ const Nosotros = () => {
                   <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
                       <div className="aspect-[4/3] overflow-hidden">
-                        <img src="/lovable-uploads/8adecc65-ccf3-4b16-baeb-71a26cb59adb.png" alt="Compostaje y manejo sustentable del suelo" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <img src="/src/assets/hero-ecohierbas.jpg" alt="Cultivos orgánicos de EcoHierbas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       </div>
                       <CardContent className="p-4">
                         <h3 className="font-semibold text-foreground mb-2">Nuestros Cultivos</h3>
@@ -147,7 +147,7 @@ const Nosotros = () => {
                   <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
                       <div className="aspect-[4/3] overflow-hidden">
-                        <img src="/lovable-uploads/600b2247-6f71-428e-b9b5-661118e80152.png" alt="Hierbas medicinales premium de EcoHierbas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <img src="/src/assets/productos-hierbas.jpg" alt="Productos de hierbas medicinales" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       </div>
                       <CardContent className="p-4">
                         <h3 className="font-semibold text-foreground mb-2">Productos Premium</h3>
@@ -159,7 +159,7 @@ const Nosotros = () => {
                   <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <Card className="border-border/50 overflow-hidden group hover:shadow-lg transition-all duration-300">
                       <div className="aspect-[4/3] overflow-hidden">
-                        <img src="/lovable-uploads/539aefc2-235d-4d1f-812a-52c1f0acfa69.png" alt="Sistema de vermicompostaje EcoChip" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <img src="/src/assets/vermicompostaje.jpg" alt="Sistema de vermicompostaje" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       </div>
                       <CardContent className="p-4">
                         <h3 className="font-semibold text-foreground mb-2">Vermicompostaje</h3>
