@@ -280,7 +280,8 @@ const Productos = () => {
         <section className="relative py-8 md:py-16 overflow-hidden">
           {/* Parallax Background */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-fixed transform scale-110 transition-transform duration-1000 ease-out"
+            ref={parallaxRef}
+            className="absolute inset-0 bg-cover bg-center transform scale-110"
             style={{
               backgroundImage: `url(/lovable-uploads/ad351ab3-48e9-47e6-83f6-757bdb27c77c.png)`,
               willChange: 'transform'
