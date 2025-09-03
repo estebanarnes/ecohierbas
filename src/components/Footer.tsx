@@ -26,9 +26,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-6">
-              <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/30">
-                <span className="text-white font-bold text-lg">E</span>
-              </div>
+              <img 
+                src="/lovable-uploads/8e640810-7468-47da-9d2c-a57014e97966.png" 
+                alt="EcoHierbas Chile" 
+                className="w-12 h-12 object-contain"
+              />
               <div className="flex flex-col">
                 <span className="text-lg font-serif font-semibold">EcoHierbas</span>
                 <span className="text-xs opacity-80 -mt-1">Chile</span>
