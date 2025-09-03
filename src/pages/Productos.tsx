@@ -535,7 +535,7 @@ const Productos = () => {
                                         )}
                                       </div>
                                       
-                                      <h3 className="font-semibold text-base text-foreground mb-2 line-clamp-2 leading-snug">
+                                      <h3 className="font-semibold text-sm text-foreground mb-2 line-clamp-2 leading-tight min-h-[2.5rem]">
                                         {product.name}
                                       </h3>
                                       
