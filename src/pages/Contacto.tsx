@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"; // FIXED: React hooks import for parallax functionality
+import React, { useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPinIcon, PhoneIcon, EnvelopeIcon, ClockIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
+import faqBackground from "@/assets/faq-background.jpg";
 const Contacto = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const faqParallaxRef = useRef<HTMLDivElement>(null);
@@ -257,7 +258,7 @@ const Contacto = () => {
             ref={faqParallaxRef}
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
+              backgroundImage: `url(${faqBackground})`,
               willChange: 'transform'
             }}
           ></div>
