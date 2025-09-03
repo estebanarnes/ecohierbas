@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import faqBackground from "@/assets/faq-background.jpg";
 
 const FAQSection = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -8,13 +7,10 @@ const FAQSection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
-      const speed = 0.3; // Velocidad más lenta para evitar que se mueva demasiado
+      const speed = 0.5; // Misma velocidad que el hero para sincronizar
 
       if (parallaxRef.current) {
-        // Limitamos el movimiento para que no se salga del contenedor
-        const maxTransform = 50;
-        const transform = Math.min(scrolled * speed, maxTransform);
-        parallaxRef.current.style.transform = `translateY(${transform}px)`;
+        parallaxRef.current.style.transform = `translateY(${scrolled * speed}px)`;
       }
     };
     
@@ -43,12 +39,12 @@ const FAQSection = () => {
 
   return (
     <section className="py-16 relative overflow-hidden min-h-[600px]">
-      {/* Background Image */}
+      {/* Background Image - Misma imagen del hero */}
       <div 
         ref={parallaxRef}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110"
         style={{
-          backgroundImage: `url(${faqBackground})`,
+          backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
           willChange: 'transform'
         }}
       />
