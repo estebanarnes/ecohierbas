@@ -39,6 +39,7 @@ const Contacto = () => {
         <section className="relative py-16 overflow-hidden">
           {/* Parallax Background */}
           <div 
+            ref={parallaxRef}
             className="absolute inset-0 bg-cover bg-center transform scale-110"
             style={{
               backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
