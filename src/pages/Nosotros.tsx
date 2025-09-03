@@ -1,3 +1,4 @@
+import ValuesSection from "@/components/ValuesSection";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
@@ -255,7 +256,7 @@ const Nosotros = () => {
           </div>
         </section>
 
-        {/* Valores section removed - now using ValuesSection component */}
+        <ValuesSection />
 
         {/* Propósito */}
         <section className="py-20">
