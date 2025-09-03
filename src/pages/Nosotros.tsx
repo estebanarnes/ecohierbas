@@ -365,8 +365,8 @@ const Nosotros = () => {
               </div>
               
               <div className="text-center group">
-                <div className="w-20 h-20 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors">
-                  <ArrowPathIcon className="w-10 h-10 text-green-600" />
+                <div className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <img src="/lovable-uploads/45017a15-9474-4d46-9468-ede70b81f9d7.png" alt="RedPyme Circular" className="w-full h-full object-contain" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">RedPyme Circular</h3>
                 <p className="text-xs text-muted-foreground">Economía circular</p>
