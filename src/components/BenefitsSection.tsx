@@ -33,7 +33,7 @@ const benefits = [{
   image: "/src/assets/hero-ecohierbas.jpg"
 }];
 const BenefitsSection = () => {
-  return <section className="relative py-20">
+  return <section className="relative -mt-20 py-20 z-10">
       <div className="max-w-6xl mx-auto px-8 bg-muted/20 rounded-t-3xl backdrop-blur-sm">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 mt-5">
