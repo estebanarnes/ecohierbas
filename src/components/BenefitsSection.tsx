@@ -19,10 +19,10 @@ const benefits = [{
 }];
 const BenefitsSection = () => {
   return <section className="relative z-10 bg-background rounded-t-3xl -mt-16">
-      <div className="max-w-4xl lg:max-w-none mx-auto px-8 lg:px-16 pt-20 md:pt-20 pb-0 -mb-2.5 mt-10 md:mt-4">
+      <div className="max-w-4xl mx-auto px-8 pt-20 md:pt-20 pb-0 -mb-2.5 mt-10 md:mt-4">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 -mt-5">
-          <div className="inline-flex items-center gap-3 bg-primary/10 text-primary px-6 py-3 rounded-full text-base font-medium mb-4 relative -top-[50px]">
+        <div className="text-center max-w-3xl mx-auto mb-16 mt-5">
+          <div className="inline-flex items-center gap-3 bg-primary/10 text-primary rounded-full text-base font-medium mb-4 relative -top-20 px-[25px] py-[16px] mx-0 my-0">
             <TruckIcon className="w-5 h-5" />
             Envíos a todo Chile
           </div>
@@ -36,10 +36,10 @@ const BenefitsSection = () => {
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-3 lg:grid-cols-2 gap-6">
           {benefits.map((benefit, index) => {
           const IconComponent = benefit.icon;
-          return <div key={index} className="group h-64 [perspective:1000px]">
+          return <div key={index} className="group h-48 [perspective:1000px]">
                 <div className="relative w-full h-full [transform-style:preserve-3d] transition-all duration-700 group-hover:[transform:rotateY(180deg)]">
                   {/* Front Face - Original Card */}
                   <div className="absolute inset-0 w-full h-full bg-white rounded-xl p-6 shadow-sm border border-border/50 [backface-visibility:hidden] flex flex-col items-center text-center justify-center">
