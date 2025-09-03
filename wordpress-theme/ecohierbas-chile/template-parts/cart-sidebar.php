@@ -19,6 +19,7 @@
                     <p class="text-muted-foreground">Tu carrito está vacío</p>
                     <button id="continue-shopping" class="mt-4 u-btn u-btn--outline">Seguir Comprando</button>
                 </div>
+                <div id="cart-items-list"></div>
             </div>
         </div>
         <div id="cart-footer" class="border-t border-border p-6 space-y-4" style="display: none;">

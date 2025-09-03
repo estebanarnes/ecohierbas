@@ -131,6 +131,15 @@
     <!-- Notificaciones Toast -->
     <div id="toast-container" class="toast-container" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 200;"></div>
 
+    <!-- Cart Sidebar -->
+    <?php get_template_part('template-parts/cart-sidebar'); ?>
+
+    <!-- Product Modal -->
+    <?php get_template_part('template-parts/modal-product'); ?>
+
+    <!-- B2B Quote Modal -->
+    <?php get_template_part('template-parts/b2b-quote-modal'); ?>
+
     <?php wp_footer(); ?>
 
     <!-- Scripts de inicialización -->

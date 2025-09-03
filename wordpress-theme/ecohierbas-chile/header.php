@@ -78,12 +78,13 @@
                         <button 
                             class="u-btn u-btn--primary cart-toggle" 
                             id="cart-toggle"
-                            aria-label="<?php esc_attr_e('Abrir carrito de compras', 'ecohierbas'); ?>">
+                            data-cart-trigger
+                            aria-label="<?php esc_attr_e('Abrir carrito de compras', 'ecohierbas'); ?>"
                             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M7 4V2a1 1 0 0 1 2 0v2h6V2a1 1 0 1 1 2 0v2h1a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1zM6 6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H6z"/>
                                 <path d="M7 12h10M7 16h10"/>
                             </svg>
-                            <span id="cart-count" class="cart-count">0</span>
+                            <span id="cart-count" class="cart-count" data-cart-count>0</span>
                         </button>
                         <?php endif; ?>
 
