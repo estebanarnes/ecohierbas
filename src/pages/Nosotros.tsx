@@ -333,8 +333,8 @@ const Nosotros = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               <div className="text-center group">
-                <div className="w-20 h-20 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                  <span className="text-2xl font-bold text-primary">MC</span>
+                <div className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <img src="/lovable-uploads/c5e2da9d-c47a-4ca3-9ed5-75ef2a952997.png" alt="Chile Logo" className="w-full h-full object-cover" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">Marca Chile</h3>
                 <p className="text-xs text-muted-foreground">Sello de calidad nacional</p>
