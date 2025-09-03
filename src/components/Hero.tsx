@@ -8,7 +8,7 @@ const Hero = () => {
       className="relative h-[120vh] flex items-center overflow-hidden -mt-[5px]"
       style={{
         backgroundImage: `url(/lovable-uploads/d9ef91ad-5427-4c86-8851-614ac592b7ff.png)`,
-        backgroundSize: 'cover',
+        backgroundSize: '120% auto',
         backgroundPosition: '-30px -40px',
         backgroundAttachment: 'fixed'
       }}
