@@ -12,37 +12,37 @@ const valores = [
     icon: HeartIcon,
     title: "Salud y Bienestar",
     description: "Promovemos el bienestar integral a través de productos naturales que nutren cuerpo y alma.",
-    image: "/src/assets/productos-hierbas.jpg"
+    image: "/lovable-uploads/600b2247-6f71-428e-b9b5-661118e80152.png"
   },
   {
     icon: GlobeAltIcon,
     title: "Sostenibilidad",
     description: "Cada decisión que tomamos considera el impacto ambiental para las futuras generaciones.",
-    image: "/src/assets/hero-ecohierbas.jpg"
+    image: "/lovable-uploads/8adecc65-ccf3-4b16-baeb-71a26cb59adb.png"
   },
   {
     icon: AcademicCapIcon,
     title: "Educación",
     description: "Compartimos conocimiento para que más personas adopten un estilo de vida sustentable.",
-    image: "/src/assets/maceteros-kits.jpg"
+    image: "/lovable-uploads/ad351ab3-48e9-47e6-83f6-757bdb27c77c.png"
   },
   {
     icon: ArrowPathIcon,
     title: "Innovación",
     description: "Buscamos constantemente nuevas formas de crear productos que respeten el medio ambiente.",
-    image: "/src/assets/vermicompostaje.jpg"
+    image: "/lovable-uploads/539aefc2-235d-4d1f-812a-52c1f0acfa69.png"
   },
   {
     icon: ShieldCheckIcon,
     title: "Calidad",
     description: "Nos comprometemos con los más altos estándares en cada producto que ofrecemos.",
-    image: "/src/assets/productos-hierbas.jpg"
+    image: "/lovable-uploads/600b2247-6f71-428e-b9b5-661118e80152.png"
   },
   {
     icon: UserGroupIcon,
     title: "Comunidad",
     description: "Creemos en el poder de la comunidad para generar cambios positivos y duraderos.",
-    image: "/src/assets/hero-ecohierbas.jpg"
+    image: "/lovable-uploads/8adecc65-ccf3-4b16-baeb-71a26cb59adb.png"
   }
 ];
 
