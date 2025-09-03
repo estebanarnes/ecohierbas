@@ -7,6 +7,7 @@ import {
   EnvelopeIcon,
   HeartIcon 
 } from "@heroicons/react/24/outline";
+import { Instagram, Facebook, Linkedin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -150,19 +151,19 @@ const Footer = () => {
                     href="#" 
                     className="w-9 h-9 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
-                    <span className="text-sm font-bold text-white">IG</span>
+                    <Instagram className="w-4 h-4 text-white" />
                   </a>
                   <a 
                     href="#" 
                     className="w-9 h-9 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
-                    <span className="text-sm font-bold text-white">FB</span>
+                    <Facebook className="w-4 h-4 text-white" />
                   </a>
                   <a 
                     href="#" 
                     className="w-9 h-9 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
                   >
-                    <span className="text-sm font-bold text-white">LI</span>
+                    <Linkedin className="w-4 h-4 text-white" />
                   </a>
                 </div>
               </div>
