@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
 const reviews = [{
   id: 1,
   name: "María González",
@@ -34,6 +35,7 @@ const reviews = [{
   verified: true
 }];
 const ReviewsSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
   return <section className="py-20 bg-muted/20" data-section="reviews">
       <div className="u-container">
         {/* Header */}
@@ -103,56 +105,81 @@ const ReviewsSection = () => {
 
         {/* Mobile Carousel */}
         <div className="md:hidden">
-          <div className="flex gap-6 overflow-x-auto pb-4 scroll-smooth">
-            {reviews.map(review => 
-              <Card key={review.id} className="bg-white border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-md flex-shrink-0 w-80">
-                <CardContent className="p-6">
-                  {/* Rating */}
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => <StarIcon key={i} className={`w-5 h-5 ${i < review.rating ? "text-yellow-400 fill-current" : "text-gray-300"}`} />)}
-                  </div>
+          <div className="relative">
+            <div className="overflow-hidden">
+              <div 
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {reviews.map(review => 
+                  <div key={review.id} className="w-full flex-shrink-0 px-4">
+                    <Card className="bg-white border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-md">
+                      <CardContent className="p-6">
+                        {/* Rating */}
+                        <div className="flex items-center gap-1 mb-4">
+                          {[...Array(5)].map((_, i) => <StarIcon key={i} className={`w-5 h-5 ${i < review.rating ? "text-yellow-400 fill-current" : "text-gray-300"}`} />)}
+                        </div>
 
-                  {/* Comment */}
-                  <blockquote className="text-foreground mb-6 leading-relaxed">
-                    "{review.comment}"
-                  </blockquote>
+                        {/* Comment */}
+                        <blockquote className="text-foreground mb-6 leading-relaxed">
+                          "{review.comment}"
+                        </blockquote>
 
-                  {/* Product */}
-                  <div className="mb-4">
-                    <Badge variant="outline" className="text-xs">
-                      {review.product}
-                    </Badge>
-                  </div>
+                        {/* Product */}
+                        <div className="mb-4">
+                          <Badge variant="outline" className="text-xs">
+                            {review.product}
+                          </Badge>
+                        </div>
 
-                  {/* Reviewer Info */}
-                  <div className="flex items-start gap-3">
-                    <Avatar className="w-12 h-12">
-                      <AvatarImage src={review.avatar} alt={review.name} />
-                      <AvatarFallback className="bg-primary/10 text-primary">
-                        {review.name.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-semibold text-sm text-foreground">
-                          {review.name}
-                        </h4>
-                        {review.verified && <Badge className="bg-green-100 text-green-800 text-xs border-green-200">
-                            ✓ Verificado
-                          </Badge>}
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        {review.role}
-                      </p>
-                      <p className="text-xs text-muted-foreground font-medium">
-                        {review.company}
-                      </p>
-                    </div>
+                        {/* Reviewer Info */}
+                        <div className="flex items-start gap-3">
+                          <Avatar className="w-12 h-12">
+                            <AvatarImage src={review.avatar} alt={review.name} />
+                            <AvatarFallback className="bg-primary/10 text-primary">
+                              {review.name.split(' ').map(n => n[0]).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-semibold text-sm text-foreground">
+                                {review.name}
+                              </h4>
+                              {review.verified && <Badge className="bg-green-100 text-green-800 text-xs border-green-200">
+                                  ✓ Verificado
+                                </Badge>}
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                              {review.role}
+                            </p>
+                            <p className="text-xs text-muted-foreground font-medium">
+                              {review.company}
+                            </p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
-                </CardContent>
-              </Card>
-            )}
+                )}
+              </div>
+            </div>
+            
+            {/* Navigation Dots */}
+            <div className="flex justify-center mt-6 gap-2">
+              {reviews.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                    index === currentSlide 
+                      ? 'bg-primary' 
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
