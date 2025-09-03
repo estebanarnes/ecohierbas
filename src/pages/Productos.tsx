@@ -422,7 +422,7 @@ const Productos = () => {
                   <div className="relative">
                     <div className="mb-4 md:mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                       <h2 className="text-xl md:text-2xl font-semibold text-foreground">
-                        Productos ({filtered.length})
+                        Productos
                       </h2>
                       <div className="text-xs md:text-sm text-muted-foreground">
                         <span className="hidden md:inline">
