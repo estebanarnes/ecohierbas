@@ -13,6 +13,7 @@ import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 import CartSidebar from "@/components/CartSidebar";
 import OffersPopup from "@/components/OffersPopup";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/nosotros" element={<Nosotros />} />
