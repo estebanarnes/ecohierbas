@@ -293,7 +293,7 @@ const Contacto = () => {
           {/* FAQ Parallax Background */}
           <div 
             ref={faqParallaxRef}
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110 z-0"
+            className="absolute inset-0 bg-cover bg-center transform scale-110 z-0"
             style={{
               backgroundImage: `url(/lovable-uploads/21a1dd2c-ac23-49be-bc0a-657cbbd497c8.png)`,
               willChange: 'transform'
