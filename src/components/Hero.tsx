@@ -7,7 +7,7 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img src={heroImage} alt="Hierbas medicinales y aromáticas orgánicas EcoHierbas Chile" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+        <div className="absolute inset-0 -bottom-8 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
       </div>
 
       {/* Content */}
