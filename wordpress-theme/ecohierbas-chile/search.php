@@ -213,11 +213,11 @@ get_header(); ?>
                     </h3>
                     
                     <?php
-                    // Mostrar productos aleatorios como sugerencias
-                    $suggested_products = ecohierbas_get_products(array(
-                        'limit' => 4,
-                        'orderby' => 'rand'
-                    ));
+                     // Mostrar productos aleatorios como sugerencias
+                     $suggested_products = wc_get_products(array(
+                         'limit' => 4,
+                         'orderby' => 'rand'
+                     ));
                     
                     if ($suggested_products):
                     ?>
