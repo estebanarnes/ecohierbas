@@ -1,7 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { CartProvider } from "@/contexts/CartContext";
@@ -15,13 +14,10 @@ import CartSidebar from "@/components/CartSidebar";
 import OffersPopup from "@/components/OffersPopup";
 import ScrollToTop from "@/components/ScrollToTop";
 
-const queryClient = new QueryClient();
-
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <TooltipProvider>
-        <CartProvider>
+  <HelmetProvider>
+    <TooltipProvider>
+      <CartProvider>
           <Toaster />
           <Sonner />
           <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -37,11 +33,10 @@ const App = () => (
             </Routes>
             <CartSidebar />
           </BrowserRouter>
-          <OffersPopup isOpen={false} onClose={() => {}} />
-        </CartProvider>
-      </TooltipProvider>
-    </HelmetProvider>
-  </QueryClientProvider>
+        <OffersPopup isOpen={false} onClose={() => {}} />
+      </CartProvider>
+    </TooltipProvider>
+  </HelmetProvider>
 );
 
 export default App;
