@@ -330,12 +330,9 @@ class EcoHierbasCart {
         }
     }
 
+    // REMOVIDO: formatPrice duplicado - usar EcoHierbas.formatPrice centralizado
     formatPrice(price) {
-        return new Intl.NumberFormat('es-CL', {
-            style: 'currency',
-            currency: 'CLP',
-            minimumFractionDigits: 0
-        }).format(price);
+        return EcoHierbas.formatPrice(price);
     }
 
     goToCheckout() {
@@ -344,23 +341,13 @@ class EcoHierbasCart {
         }
     }
 
-    // Storage
+    // Storage unificado - usar EcoHierbas.storage
     getCartFromStorage() {
-        try {
-            const stored = localStorage.getItem('ecohierbas-cart');
-            return stored ? JSON.parse(stored) : [];
-        } catch (error) {
-            console.error('Error loading cart from storage:', error);
-            return [];
-        }
+        return EcoHierbas.storage.get('cart', []);
     }
 
     saveCartToStorage() {
-        try {
-            localStorage.setItem('ecohierbas-cart', JSON.stringify(this.cart));
-        } catch (error) {
-            console.error('Error saving cart to storage:', error);
-        }
+        EcoHierbas.storage.set('cart', this.cart);
     }
 
     // API pública

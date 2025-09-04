@@ -5,6 +5,7 @@ import { StarIcon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/solid
 import { HeartIcon, ShareIcon } from "@heroicons/react/24/outline";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
+import { formatPrice } from "@/lib/utils";
 
 interface Product {
   id: number;
@@ -128,11 +129,11 @@ const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailModalProp
             {/* Price */}
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl font-bold text-primary">
-                ${product.price.toLocaleString('es-CL')}
+                {formatPrice(product.price)}
               </span>
               {product.originalPrice && (
                 <span className="text-lg text-muted-foreground line-through">
-                  ${product.originalPrice.toLocaleString('es-CL')}
+                  {formatPrice(product.originalPrice)}
                 </span>
               )}
               {product.originalPrice && (

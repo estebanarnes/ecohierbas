@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductDetailModal from "@/components/ProductDetailModal";
+import { formatPrice } from "@/lib/utils";
 
 const FeaturedProducts = () => {
   const { addItem, openCart } = useCart();
@@ -143,10 +144,10 @@ const FeaturedProducts = () => {
                 {/* Price */}
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-xl font-bold text-primary">
-                    ${product.price.toLocaleString('es-CL')}
+                    {formatPrice(product.price)}
                   </span>
                   {product.originalPrice && <span className="text-sm text-muted-foreground line-through">
-                      ${product.originalPrice.toLocaleString('es-CL')}
+                      {formatPrice(product.originalPrice)}
                     </span>}
                 </div>
               </CardContent>

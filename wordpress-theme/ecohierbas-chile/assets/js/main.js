@@ -93,8 +93,8 @@ function initScrollEffects() {
  * Popup de ofertas (migración del React OffersPopup)
  */
 function initOffersPopup() {
-    // Verificar si ya se mostró el popup
-    const hasSeenPopup = localStorage.getItem('ecohierbas-popup-seen');
+    // Usar storage unificado
+    const hasSeenPopup = EcoHierbas.storage.get('popup-seen', false);
     
     if (hasSeenPopup) return;
     
@@ -108,11 +108,11 @@ function initOffersPopup() {
         document.body.style.overflow = 'hidden';
     }, 2000);
     
-    // Función para cerrar popup
+    // Función para cerrar popup - usar storage unificado
     function closePopup() {
         popup.style.display = 'none';
         document.body.style.overflow = '';
-        localStorage.setItem('ecohierbas-popup-seen', 'true');
+        EcoHierbas.storage.set('popup-seen', true);
     }
     
     // Cerrar con botón X
@@ -211,24 +211,8 @@ function initCartFunctionality() {
         });
     }
     
-    // Agregar evento para botones "Add to Cart"
-    const addToCartButtons = document.querySelectorAll('.ajax_add_to_cart');
-    
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Mostrar loading state
-            this.classList.add('loading');
-            this.disabled = true;
-            
-            // WooCommerce manejará la funcionalidad AJAX
-            // Después del éxito, mostrar notificación
-            setTimeout(() => {
-                this.classList.remove('loading');
-                this.disabled = false;
-                showNotification('Producto agregado al carrito');
-            }, 1000);
-        });
-    });
+    // REMOVIDO: Event listener duplicado - cart.js ya maneja esto
+    // Los botones add-to-cart son manejados por cart.js para evitar duplicación
 }
 
 /**

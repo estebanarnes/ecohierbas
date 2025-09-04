@@ -1,10 +1,24 @@
 /**
- * Utilidades JavaScript
+ * Utilidades JavaScript - Unificadas con React
  */
 (function($) {
     'use strict';
 
     window.EcoHierbas = window.EcoHierbas || {};
+
+    // Constantes unificadas
+    const STORAGE_PREFIX = 'ecohierbas_';
+    const CURRENCY = 'CLP';
+    const LOCALE = 'es-CL';
+
+    // FUNCIÓN CENTRALIZADA formatPrice - EXACTA implementación que React
+    EcoHierbas.formatPrice = function(price) {
+        return new Intl.NumberFormat(LOCALE, {
+            style: 'currency',
+            currency: CURRENCY,
+            minimumFractionDigits: 0
+        }).format(price);
+    };
 
     EcoHierbas.validation = {
         isValidEmail: function(email) {
@@ -32,18 +46,9 @@
             const finalDV = calculatedDV === 11 ? '0' : calculatedDV === 10 ? 'k' : calculatedDV.toString();
             
             return dv === finalDV;
-        }
-    };
-
-    EcoHierbas.format = {
-        price: function(amount, currency = 'CLP') {
-            if (currency === 'CLP') {
-                return '$' + new Intl.NumberFormat('es-CL').format(amount);
-            }
-            return amount;
         },
 
-        rut: function(rut) {
+        formatRUT: function(rut) {
             if (!rut) return '';
             const cleanRUT = rut.replace(/[^0-9kK]/g, '');
             if (cleanRUT.length < 2) return rut;
@@ -56,24 +61,58 @@
         }
     };
 
+    // DEPRECATED: Mantener para compatibilidad, pero usar EcoHierbas.formatPrice
+    EcoHierbas.format = {
+        price: function(amount, currency = 'CLP') {
+            return EcoHierbas.formatPrice(amount);
+        },
+
+        rut: function(rut) {
+            return EcoHierbas.validation.formatRUT(rut);
+        }
+    };
+
+    // Storage unificado - EXACTO que React
     EcoHierbas.storage = {
         set: function(key, value) {
             try {
-                localStorage.setItem('ecohierbas_' + key, JSON.stringify(value));
+                localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(value));
                 return true;
             } catch (e) {
-                console.warn('No se pudo guardar en localStorage:', e);
+                // Removido console.warn para producción
                 return false;
             }
         },
 
         get: function(key, defaultValue = null) {
             try {
-                const item = localStorage.getItem('ecohierbas_' + key);
+                const item = localStorage.getItem(STORAGE_PREFIX + key);
                 return item ? JSON.parse(item) : defaultValue;
             } catch (e) {
-                console.warn('No se pudo leer de localStorage:', e);
+                // Removido console.warn para producción
                 return defaultValue;
+            }
+        },
+
+        remove: function(key) {
+            try {
+                localStorage.removeItem(STORAGE_PREFIX + key);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        },
+
+        clear: function() {
+            try {
+                Object.keys(localStorage).forEach(key => {
+                    if (key.startsWith(STORAGE_PREFIX)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                return true;
+            } catch (e) {
+                return false;
             }
         }
     };

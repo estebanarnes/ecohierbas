@@ -12,6 +12,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { CreditCard, Building, Smartphone, DollarSign } from "lucide-react";
 import { Link } from "react-router-dom";
+import { formatPrice } from "@/lib/utils";
 
 const CartSidebar = () => {
   const { state, updateQuantity, removeItem, closeCart, clearCart } = useCart();
@@ -127,11 +128,11 @@ const CartSidebar = () => {
                 
                 <div className="text-right">
                   <p className="text-sm font-semibold text-primary">
-                    ${(item.price * item.quantity).toLocaleString('es-CL')}
+                    {formatPrice(item.price * item.quantity)}
                   </p>
                   {item.originalPrice && (
                     <p className="text-xs text-muted-foreground line-through">
-                      ${(item.originalPrice * item.quantity).toLocaleString('es-CL')}
+                      {formatPrice(item.originalPrice * item.quantity)}
                     </p>
                   )}
                 </div>
@@ -145,7 +146,7 @@ const CartSidebar = () => {
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Subtotal:</span>
               <span className="font-medium">
-                ${state.totalPrice.toLocaleString('es-CL')}
+                {formatPrice(state.totalPrice)}
               </span>
             </div>
             <div className="flex justify-between text-sm">
@@ -156,7 +157,7 @@ const CartSidebar = () => {
             <div className="flex justify-between font-semibold">
               <span>Total:</span>
               <span className="text-primary">
-                ${state.totalPrice.toLocaleString('es-CL')}
+                {formatPrice(state.totalPrice)}
               </span>
             </div>
           </div>
