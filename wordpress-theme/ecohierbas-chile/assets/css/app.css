@@ -50,12 +50,14 @@
   
   
   /* Espaciado EcoHierbas */
-  --eco-space-xs: 0.25rem;
-  --eco-space-s: 0.5rem;
-  --eco-space-m: 1rem;
-  --eco-space-l: 1.5rem;
-  --eco-space-xl: 2rem;
-  --eco-space-xxl: 3rem;
+  --eco-space-2: 0.125rem;
+  --eco-space-4: 0.25rem;
+  --eco-space-8: 0.5rem;
+  --eco-space-12: 0.75rem;
+  --eco-space-16: 1rem;
+  --eco-space-24: 1.5rem;
+  --eco-space-32: 2rem;
+  --eco-space-48: 3rem;
   
   /* Bordes EcoHierbas */
   --eco-border-width: 1px;
@@ -73,40 +75,41 @@
   --eco-transition-normal: 250ms ease-in-out;
   --eco-transition-slow: 350ms ease-in-out;
   
-  /* Radios EcoHierbas - CORREGIDO: Variables faltantes */
-  --eco-radius-xs: 0.125rem;
+  /* Bordes y radios */
   --eco-radius-s: 0.25rem;
-  --eco-radius-m: 0.375rem;
-  --eco-radius-l: 0.5rem;
-  --eco-radius-xl: 0.75rem;
-  --eco-radius-xxl: 1rem;
+  --eco-radius-m: 0.5rem;
+  --eco-radius-l: 1rem;
+  --eco-border-width-1: 1px;
+  --eco-border-width-2: 2px;
   
-  /* Variables de compatibilidad con Tailwind - CORREGIDO */
+  /* Sombras */
+  --eco-shadow-soft: 0 2px 8px hsla(142, 69%, 40%, 0.08);
+  --eco-shadow-card: 0 4px 16px hsla(142, 69%, 40%, 0.12);
+  --eco-shadow-hover: 0 8px 24px hsla(142, 69%, 40%, 0.16);
+  
   --radius: var(--eco-radius-m);
-  --radius-lg: var(--eco-radius-l);
-  --transition-fast: var(--eco-transition-fast);
-  --transition-normal: var(--eco-transition-normal);
 }
 
-/* Dark mode - CORREGIDO: Soporte completo dark mode */
-[data-theme="dark"] {
-  --background: 215 28% 17%;
-  --foreground: 210 20% 98%;
-  --card: 215 28% 17%;
-  --card-foreground: 210 20% 98%;
-  --popover: 215 28% 17%;
-  --popover-foreground: 210 20% 98%;
+.dark {
+  --eco-color-bg: 215 25% 12%;
+  --eco-color-text: 48 33% 96%;
+  --background: 215 25% 12%;
+  --foreground: 48 33% 96%;
+  --card: 215 25% 15%;
+  --card-foreground: 48 33% 96%;
+  --popover: 215 25% 15%;
+  --popover-foreground: 48 33% 96%;
   --primary: 142 69% 45%;
-  --primary-foreground: 215 28% 17%;
-  --secondary: 215 25% 25%;
-  --secondary-foreground: 210 20% 98%;
-  --muted: 215 25% 25%;
+  --primary-foreground: 215 25% 12%;
+  --secondary: 215 25% 18%;
+  --secondary-foreground: 48 33% 96%;
+  --muted: 215 25% 18%;
   --muted-foreground: 215 16% 65%;
   --accent: 33 82% 60%;
-  --accent-foreground: 215 28% 17%;
-  --destructive: 0 75% 60%;
-  --destructive-foreground: 210 20% 98%;
-  --border: 215 25% 25%;
+  --accent-foreground: 215 25% 12%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 48 33% 96%;
+  --border: 215 25% 20%;
   --input: 215 25% 20%;
   --ring: 142 69% 45%;
 }
