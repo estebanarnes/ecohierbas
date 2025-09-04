@@ -55,7 +55,9 @@ $is_mobile = wp_is_mobile();
         <!-- Sale Badge -->
         <?php if ($product['originalPrice'] && $product['originalPrice'] > $product['price']): ?>
             <div class="absolute top-3 left-3 mt-8">
-                <?php echo ecohierbas_get_discount_badge($product['price'], $product['originalPrice']); ?>
+                <span class="u-badge bg-accent text-accent-foreground">
+                    <?php echo '-' . round((($product['originalPrice'] - $product['price']) / $product['originalPrice']) * 100) . '%'; ?>
+                </span>
             </div>
         <?php endif; ?>
     </div>
@@ -89,18 +91,25 @@ $is_mobile = wp_is_mobile();
         <!-- Rating -->
         <?php if ($product['rating'] > 0): ?>
             <div class="flex items-center gap-2 mb-4">
-                <?php echo ecohierbas_get_rating_stars($product['rating'], $product['reviews']); ?>
+                <div class="flex items-center">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <svg class="w-4 h-4 <?php echo $i <= $product['rating'] ? 'text-accent fill-current' : 'text-muted-foreground'; ?>" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    <?php endfor; ?>
+                    <span class="text-sm text-muted-foreground ml-2">(<?php echo intval($product['reviews']); ?>)</span>
+                </div>
             </div>
         <?php endif; ?>
 
         <!-- Price -->
         <div class="flex items-baseline gap-2 mb-4">
             <span class="text-xl font-bold text-foreground">
-                <?php echo ecohierbas_format_price($product['price']); ?>
+                <?php echo EcoHierbas.formatPrice ? EcoHierbas.formatPrice($product['price']) : '$' . number_format($product['price'], 0, ',', '.'); ?>
             </span>
             <?php if ($product['originalPrice'] && $product['originalPrice'] > $product['price']): ?>
                 <span class="text-sm text-muted-foreground line-through">
-                    <?php echo ecohierbas_format_price($product['originalPrice']); ?>
+                    <?php echo EcoHierbas.formatPrice ? EcoHierbas.formatPrice($product['originalPrice']) : '$' . number_format($product['originalPrice'], 0, ',', '.'); ?>
                 </span>
             <?php endif; ?>
         </div>

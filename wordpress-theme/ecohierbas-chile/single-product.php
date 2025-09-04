@@ -10,7 +10,7 @@ get_header(); ?>
     <?php while (have_posts()) : the_post(); ?>
         <?php
         global $product;
-        $normalized_product = ecohierbas_normalize_product($product);
+        // CORREGIDO: No usar función que no existe
         ?>
 
         <!-- Product Detail -->
