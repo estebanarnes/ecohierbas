@@ -117,16 +117,16 @@ get_header(); ?>
                                     $product = wc_get_product(get_the_ID());
                                     if ($product):
                                     ?>
-                                        <div class="mb-4">
-                                            <span class="text-2xl font-bold text-foreground">
-                                                <?php echo ecohierbas_format_price($product->get_price()); ?>
-                                            </span>
-                                            <?php if ($product->is_on_sale()): ?>
-                                                <span class="text-muted-foreground line-through ml-2">
-                                                    <?php echo ecohierbas_format_price($product->get_regular_price()); ?>
-                                                </span>
-                                            <?php endif; ?>
-                                        </div>
+                                         <div class="mb-4">
+                             <span class="text-2xl font-bold text-foreground">
+                                 <?php echo wc_price($product->get_price()); ?>
+                             </span>
+                             <?php if ($product->is_on_sale()): ?>
+                                 <span class="text-muted-foreground line-through ml-2">
+                                     <?php echo wc_price($product->get_regular_price()); ?>
+                                 </span>
+                             <?php endif; ?>
+                         </div>
                                     <?php endif; ?>
                                 <?php endif; ?>
 

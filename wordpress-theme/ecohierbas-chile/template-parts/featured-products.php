@@ -34,9 +34,9 @@ if (empty($products)) {
             <?php $shop_url = class_exists('WooCommerce') ? get_permalink(wc_get_page_id('shop')) : '/productos'; ?>
             <a href="<?php echo esc_url($shop_url); ?>" 
                class="u-btn u-btn--primary text-lg px-8 py-4">
-                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                </svg>
+                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                 </svg>
                 <?php esc_html_e('Ver Todos los Productos', 'ecohierbas'); ?>
             </a>
         </div>
@@ -66,9 +66,9 @@ if (empty($products)) {
                 
                 <div class="text-center">
                     <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                        </svg>
+                         <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+                         </svg>
                     </div>
                     <h3 class="text-lg font-semibold mb-2"><?php esc_html_e('Sustentable', 'ecohierbas'); ?></h3>
                     <p class="text-muted-foreground"><?php esc_html_e('Compromiso con el medio ambiente', 'ecohierbas'); ?></p>
