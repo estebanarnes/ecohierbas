@@ -1,2 +1,0 @@
-Placeholder for theme images directory.
-Copy all images from src/assets/ to this directory for production use.
