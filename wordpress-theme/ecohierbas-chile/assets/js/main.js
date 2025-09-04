@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initMobileMenu() {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenu = document.getElementById('mobile-navigation');
     const mobileMenuClose = document.querySelector('[data-mobile-menu-close]');
     
     if (!mobileMenuToggle || !mobileMenu) return;
@@ -32,13 +32,13 @@ function initMobileMenu() {
     // Abrir menú móvil
     mobileMenuToggle.addEventListener('click', function(e) {
         e.preventDefault();
-        mobileMenu.classList.remove('hidden');
+        mobileMenu.style.display = 'block';
         document.body.style.overflow = 'hidden';
     });
     
     // Cerrar menú móvil
     function closeMobileMenu() {
-        mobileMenu.classList.add('hidden');
+        mobileMenu.style.display = 'none';
         document.body.style.overflow = '';
     }
     
@@ -55,7 +55,7 @@ function initMobileMenu() {
     
     // Cerrar con ESC
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+        if (e.key === 'Escape' && mobileMenu.style.display !== 'none') {
             closeMobileMenu();
         }
     });
@@ -93,8 +93,8 @@ function initScrollEffects() {
  * Popup de ofertas (migración del React OffersPopup)
  */
 function initOffersPopup() {
-    // Usar storage unificado
-    const hasSeenPopup = EcoHierbas.storage.get('popup-seen', false);
+    // Usar storage unificado si está disponible
+    const hasSeenPopup = window.EcoHierbas?.storage?.get('popup-seen', false) || localStorage.getItem('popup-seen') === 'true';
     
     if (hasSeenPopup) return;
     
@@ -112,7 +112,11 @@ function initOffersPopup() {
     function closePopup() {
         popup.style.display = 'none';
         document.body.style.overflow = '';
-        EcoHierbas.storage.set('popup-seen', true);
+        if (window.EcoHierbas?.storage) {
+            window.EcoHierbas.storage.set('popup-seen', true);
+        } else {
+            localStorage.setItem('popup-seen', 'true');
+        }
     }
     
     // Cerrar con botón X
@@ -199,14 +203,16 @@ function initCartFunctionality() {
     if (cartTrigger && cartSidebar) {
         cartTrigger.addEventListener('click', function(e) {
             e.preventDefault();
-            cartSidebar.classList.add('open');
+            cartSidebar.style.display = 'block';
+            cartSidebar.style.transform = 'translateX(0)';
             document.body.style.overflow = 'hidden';
         });
     }
     
     if (cartClose && cartSidebar) {
         cartClose.addEventListener('click', function() {
-            cartSidebar.classList.remove('open');
+            cartSidebar.style.display = 'none';
+            cartSidebar.style.transform = 'translateX(100%)';
             document.body.style.overflow = '';
         });
     }

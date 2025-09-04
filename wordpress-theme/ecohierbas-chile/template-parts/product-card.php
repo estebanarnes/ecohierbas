@@ -105,11 +105,11 @@ $is_mobile = wp_is_mobile();
         <!-- Price -->
         <div class="flex items-baseline gap-2 mb-4">
             <span class="text-xl font-bold text-foreground">
-                <?php echo EcoHierbas.formatPrice ? EcoHierbas.formatPrice($product['price']) : '$' . number_format($product['price'], 0, ',', '.'); ?>
+                $<?php echo number_format($product['price'], 0, ',', '.'); ?>
             </span>
             <?php if ($product['originalPrice'] && $product['originalPrice'] > $product['price']): ?>
                 <span class="text-sm text-muted-foreground line-through">
-                    <?php echo EcoHierbas.formatPrice ? EcoHierbas.formatPrice($product['originalPrice']) : '$' . number_format($product['originalPrice'], 0, ',', '.'); ?>
+                    $<?php echo number_format($product['originalPrice'], 0, ',', '.'); ?>
                 </span>
             <?php endif; ?>
         </div>
