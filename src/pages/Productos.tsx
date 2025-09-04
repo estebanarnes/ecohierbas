@@ -210,7 +210,6 @@ const Productos = () => {
 
   return (
     <PageTemplate 
-      page={null}
       template="products"
       customSEO={{
         title: 'Productos Orgánicos y Sustentables - Ecohierbas Chile',
