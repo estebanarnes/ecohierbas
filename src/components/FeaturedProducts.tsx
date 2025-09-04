@@ -9,6 +9,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductDetailModal from "@/components/ProductDetailModal";
 import { formatPrice } from "@/lib/utils";
+import boxMujerImage from "@/assets/producto-box-mujer.jpg";
+import vermicomposteraImage from "@/assets/producto-vermicompostera.jpg";
+import maceteroAlerceImage from "@/assets/producto-macetero-alerce.jpg";
 
 const FeaturedProducts = () => {
   const { addItem, openCart } = useCart();
@@ -23,7 +26,7 @@ const FeaturedProducts = () => {
     category: "Infusiones",
     price: 24990,
     originalPrice: 29990,
-    image: "/lovable-uploads/3fb978b6-70af-4293-9f46-eb9844c19a47.png",
+    image: boxMujerImage,
     rating: 4.8,
     reviews: 156,
     badge: "Más Vendido",
@@ -34,7 +37,7 @@ const FeaturedProducts = () => {
     category: "Vermicompostaje",
     price: 89990,
     originalPrice: null,
-    image: "/lovable-uploads/45017a15-9474-4d46-9468-ede70b81f9d7.png",
+    image: vermicomposteraImage,
     rating: 4.9,
     reviews: 89,
     badge: "B2B Popular",
@@ -45,7 +48,7 @@ const FeaturedProducts = () => {
     category: "Maceteros",
     price: 15990,
     originalPrice: 19990,
-    image: "/lovable-uploads/4a215e72-3825-4f2c-9d97-b5cb71633acb.png",
+    image: maceteroAlerceImage,
     rating: 4.7,
     reviews: 203,
     badge: "Oferta",
