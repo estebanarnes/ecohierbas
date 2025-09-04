@@ -11,11 +11,20 @@ import {
   TrashIcon 
 } from "@heroicons/react/24/outline";
 import { CreditCard, Building, Smartphone, DollarSign } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { formatPrice } from "@/lib/utils";
+import { useEffect } from "react";
 
 const CartSidebar = () => {
   const { state, updateQuantity, removeItem, closeCart, clearCart } = useCart();
+  const location = useLocation();
+
+  // Cerrar carrito automáticamente cuando se navega a checkout (especialmente en móviles)
+  useEffect(() => {
+    if (location.pathname === '/checkout' && state.isOpen) {
+      closeCart();
+    }
+  }, [location.pathname, state.isOpen, closeCart]);
 
   if (state.items.length === 0) {
     return (
@@ -195,7 +204,11 @@ const CartSidebar = () => {
           </div>
 
           <div className="space-y-2">
-            <Button asChild className="w-full bg-primary hover:bg-primary/90">
+            <Button 
+              asChild 
+              className="w-full bg-primary hover:bg-primary/90"
+              onClick={closeCart}
+            >
               <Link to="/checkout">Finalizar Compra</Link>
             </Button>
             <Button 
