@@ -31,5 +31,5 @@ export type CartAction =
 // Constantes del carrito
 export const CART_STORAGE_KEY = 'ecohierbas-cart';
 export const POPUP_STORAGE_KEY = 'ecohierbas-popup-seen';
-export const CURRENCY = 'CLP';
-export const LOCALE = 'es-CL';
+
+// Las constantes CURRENCY y LOCALE se movieron a utils.ts para evitar import circular
