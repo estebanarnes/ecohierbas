@@ -37,9 +37,9 @@
             </button>
             <button class="b2b-button" aria-controls="b2b-modal">Cotizar B2B</button>
         </div>
-        <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+        <button class="menu-toggle" aria-label="Abrir menú" aria-controls="mobile-menu" aria-expanded="false">☰</button>
     </div>
-    <nav class="mobile-menu">
+    <nav id="mobile-menu" class="mobile-menu">
         <?php
         wp_nav_menu(
             array(

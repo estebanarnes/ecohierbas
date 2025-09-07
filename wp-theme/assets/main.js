@@ -3,10 +3,18 @@
   document.addEventListener('DOMContentLoaded', function(){
     // Mobile menu toggle
     var toggle = document.querySelector('.menu-toggle');
-    var mobileMenu = document.querySelector('.mobile-menu');
-    if(toggle && mobileMenu){
-      toggle.addEventListener('click', function(){
+    var mobileMenu = document.getElementById('mobile-menu');
+    if (toggle && mobileMenu) {
+      toggle.addEventListener('click', function () {
+        var expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         mobileMenu.classList.toggle('open');
+      });
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          mobileMenu.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
       });
     }
 
