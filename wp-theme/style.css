@@ -283,6 +283,9 @@ form button{ background:#0a9396; color:#fff; border:none; padding:0.75rem 1.5rem
 .filters{ margin-bottom:1rem; }
 .product-filter{ margin-right:0.5rem; padding:0.5rem 1rem; border:1px solid #0a9396; background:#fff; color:#0a9396; cursor:pointer; }
 .product-filter.active{ background:#0a9396; color:#fff; }
+.price-filters{ margin:1rem 0; display:flex; gap:0.5rem; flex-wrap:wrap; }
+.price-filters input{ width:100px; padding:0.5rem; border:1px solid #ccc; border-radius:4px; }
+.price-filters button{ padding:0.5rem 1rem; background:#0a9396; color:#fff; border:none; cursor:pointer; }
 
 /* Toasts */
 .toast-container{ position:fixed; bottom:1rem; right:1rem; z-index:300; }

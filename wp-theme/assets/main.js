@@ -24,6 +24,9 @@
     var cartPanel = document.getElementById('cart-panel');
     var cartCount = document.querySelector('.cart-count');
 
+    function saveCart(items){
+      try{ localStorage.setItem('ec_cart', JSON.stringify(items)); }catch(e){}
+    }
     function renderCart(items){
       var list = cartPanel.querySelector('.cart-items');
       list.innerHTML = '';
@@ -36,10 +39,25 @@
       });
       var totalDiv = cartPanel.querySelector('.cart-total');
       if(totalDiv){ totalDiv.textContent = 'Total: $' + total.toFixed(0); }
+      saveCart(items);
     }
     if(typeof ecohierbas !== 'undefined'){
       cartCount.textContent = ecohierbas.cartCount || 0;
-      renderCart(ecohierbas.cartItems || []);
+      var items = ecohierbas.cartItems || [];
+      if(!items.length){
+        var stored = localStorage.getItem('ec_cart');
+        if(stored){
+          try{
+            var arr = JSON.parse(stored);
+            arr.forEach(function(it){
+              var body = 'action=ecohierbas_add_to_cart&product_id=' + it.id + '&quantity=' + it.qty + '&_ajax_nonce=' + ecohierbas.nonce;
+              fetch(ecohierbas.ajaxurl, {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:body});
+            });
+            items = arr;
+          }catch(e){}
+        }
+      }
+      renderCart(items);
     }
 
     if(cartBtn && cartPanel){
@@ -115,29 +133,45 @@
     // Product filters
     var filterButtons = document.querySelectorAll('.product-filter');
     var productCards = document.querySelectorAll('.product-card');
+    var activeCat = 'all';
+    var searchTerm = '';
+    var minPrice = 0;
+    var maxPrice = Infinity;
+
+    function applyFilters(){
+      productCards.forEach(function(card){
+        var catOk = (activeCat === 'all' || card.getAttribute('data-cat').split(' ').includes(activeCat));
+        var title = card.getAttribute('data-title').toLowerCase();
+        var searchOk = title.indexOf(searchTerm) !== -1;
+        var price = parseFloat(card.getAttribute('data-price')) || 0;
+        var priceOk = price >= minPrice && price <= maxPrice;
+        card.style.display = (catOk && searchOk && priceOk) ? 'block' : 'none';
+      });
+    }
+
     filterButtons.forEach(function(btn){
       btn.addEventListener('click', function(){
         filterButtons.forEach(function(b){ b.classList.remove('active'); });
         btn.classList.add('active');
-        var cat = btn.getAttribute('data-cat');
-        productCards.forEach(function(card){
-          if(cat === 'all' || card.getAttribute('data-cat').split(' ').includes(cat)){
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+        activeCat = btn.getAttribute('data-cat');
+        applyFilters();
       });
     });
 
     var searchInput = document.getElementById('product-search');
     if(searchInput){
       searchInput.addEventListener('input', function(){
-        var term = searchInput.value.toLowerCase();
-        productCards.forEach(function(card){
-          var title = card.getAttribute('data-title').toLowerCase();
-          card.style.display = title.indexOf(term) !== -1 ? 'block' : 'none';
-        });
+        searchTerm = searchInput.value.toLowerCase();
+        applyFilters();
+      });
+    }
+
+    var applyPrice = document.getElementById('apply-price');
+    if(applyPrice){
+      applyPrice.addEventListener('click', function(){
+        minPrice = parseFloat(document.getElementById('min-price').value) || 0;
+        maxPrice = parseFloat(document.getElementById('max-price').value) || Infinity;
+        applyFilters();
       });
     }
 

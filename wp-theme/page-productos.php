@@ -16,6 +16,11 @@ get_header();
         }
         ?>
     </div>
+    <div class="price-filters">
+        <input type="number" id="min-price" placeholder="Precio mín." />
+        <input type="number" id="max-price" placeholder="Precio máx." />
+        <button id="apply-price">Aplicar</button>
+    </div>
     <div class="product-grid">
         <?php
         $query = new WP_Query( array(
