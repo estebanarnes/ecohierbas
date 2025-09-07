@@ -39,7 +39,8 @@
         </div>
         <button class="menu-toggle" aria-label="Abrir menú" aria-controls="mobile-menu" aria-expanded="false">☰</button>
     </div>
-    <nav id="mobile-menu" class="mobile-menu">
+    <nav id="mobile-menu" class="mobile-menu" aria-hidden="true">
+        <button class="close-menu" aria-label="Cerrar">×</button>
         <?php
         wp_nav_menu(
             array(
@@ -50,6 +51,7 @@
         );
         ?>
     </nav>
+    <div class="menu-overlay" tabindex="-1"></div>
 </header>
 <div id="cart-panel" class="cart-panel">
     <div class="cart-inner">
