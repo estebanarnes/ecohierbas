@@ -43,7 +43,7 @@ export interface Product {
   description: string;
 }
 
-const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://your-wordpress-site.com/wp-json/wp/v2';
+const WORDPRESS_API_URL = import.meta.env.VITE_WORDPRESS_API_URL || 'https://your-wordpress-site.com/wp-json/wp/v2';
 
 class WordPressService {
   private async fetchWithTimeout(url: string, timeout = 5000): Promise<Response> {
