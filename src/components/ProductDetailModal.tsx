@@ -16,7 +16,7 @@ interface Product {
   image: string;
   rating: number;
   reviews: number;
-  badge: string;
+  inStock: boolean;
   description: string;
 }
 
@@ -65,14 +65,12 @@ const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailModalProp
             />
             <Badge 
               className={`absolute top-4 left-4 ${
-                product.badge === "Más Vendido" 
-                  ? "bg-accent text-accent-foreground" 
-                  : product.badge === "B2B Popular"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-secondary-foreground"
+                product.inStock 
+                  ? "bg-green-100 text-green-800 border-green-200" 
+                  : "bg-red-100 text-red-800 border-red-200"
               }`}
             >
-              {product.badge}
+              {product.inStock ? "En Stock" : "Agotado"}
             </Badge>
             
             <div className="absolute top-4 right-4 space-y-2">
