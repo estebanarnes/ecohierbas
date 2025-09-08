@@ -1,50 +1,38 @@
 import { useState, useEffect } from 'react';
-import { wordpressService, Product } from '@/services/wordpress';
+import { productService, Product } from '@/services/wordpress';
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const fetchedProducts = await wordpressService.getProducts();
-        setProducts(fetchedProducts);
-      } catch (err) {
-        setError('Error al cargar productos');
-        console.error('Error fetching products:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await productService.getProducts();
+      setProducts(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al cargar productos');
+      console.error('Error fetching products:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchProducts();
   }, []);
 
-  const refetch = async () => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const fetchedProducts = await wordpressService.getProducts();
-        setProducts(fetchedProducts);
-      } catch (err) {
-        setError('Error al cargar productos');
-        console.error('Error fetching products:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    await fetchProducts();
+  return {
+    products,
+    loading,
+    error,
+    refetch: fetchProducts,
   };
-
-  return { products, loading, error, refetch };
 };
 
-export const useFeaturedProducts = (limit = 3) => {
+export const useFeaturedProducts = (limit?: number) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -54,10 +42,10 @@ export const useFeaturedProducts = (limit = 3) => {
       try {
         setLoading(true);
         setError(null);
-        const fetchedProducts = await wordpressService.getFeaturedProducts(limit);
-        setProducts(fetchedProducts);
+        const data = await productService.getFeaturedProducts(limit);
+        setProducts(data);
       } catch (err) {
-        setError('Error al cargar productos destacados');
+        setError(err instanceof Error ? err.message : 'Error al cargar productos destacados');
         console.error('Error fetching featured products:', err);
       } finally {
         setLoading(false);
@@ -67,5 +55,49 @@ export const useFeaturedProducts = (limit = 3) => {
     fetchFeaturedProducts();
   }, [limit]);
 
-  return { products, loading, error };
+  return {
+    products,
+    loading,
+    error,
+  };
+};
+
+// Hook adicional para búsqueda de productos
+export const useProductSearch = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [results, setResults] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const searchProducts = async (query: string) => {
+    if (!query.trim()) {
+      setResults([]);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const data = await productService.searchProducts(query);
+      setResults(data);
+    } catch (err) {
+      console.error('Error searching products:', err);
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const delayedSearch = setTimeout(() => {
+      searchProducts(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(delayedSearch);
+  }, [searchQuery]);
+
+  return {
+    searchQuery,
+    setSearchQuery,
+    results,
+    loading,
+  };
 };
