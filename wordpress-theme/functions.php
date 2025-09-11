@@ -59,30 +59,41 @@ add_action('init', 'ecohierbas_start_session');
 
 // Enqueue scripts y estilos
 function ecohierbas_enqueue_scripts() {
-    // CSS principal
-    wp_enqueue_style(
-        'ecohierbas-style', 
-        get_stylesheet_uri(), 
-        array(), 
-        wp_get_theme()->get('Version')
-    );
-    
-    // JavaScript principal
-    wp_enqueue_script(
-        'ecohierbas-main',
-        get_template_directory_uri() . '/assets/js/main.js',
-        array('jquery'),
-        wp_get_theme()->get('Version'),
-        true
-    );
-    
-    // Localizar script con datos AJAX
-    wp_localize_script('ecohierbas-main', 'ecohierbas_ajax', array(
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('ecohierbas_nonce'),
-        'cart_count' => ecohierbas_get_cart_count(),
-        'cart_total' => ecohierbas_get_cart_total()
-    ));
+    $theme_dir = get_template_directory();
+    $theme_uri = get_template_directory_uri();
+
+    // CSS principal con nombre hasheado
+    $css_files = glob($theme_dir . '/assets/css/*.css');
+    if (!empty($css_files)) {
+        $css_file = basename($css_files[0]);
+        wp_enqueue_style(
+            'ecohierbas-style',
+            $theme_uri . '/assets/css/' . $css_file,
+            array(),
+            null
+        );
+    }
+
+    // JavaScript principal con nombre hasheado
+    $js_files = glob($theme_dir . '/assets/js/*.js');
+    if (!empty($js_files)) {
+        $js_file = basename($js_files[0]);
+        wp_enqueue_script(
+            'ecohierbas-main',
+            $theme_uri . '/assets/js/' . $js_file,
+            array('jquery'),
+            null,
+            true
+        );
+
+        // Localizar script con datos AJAX
+        wp_localize_script('ecohierbas-main', 'ecohierbas_ajax', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('ecohierbas_nonce'),
+            'cart_count' => ecohierbas_get_cart_count(),
+            'cart_total' => ecohierbas_get_cart_total()
+        ));
+    }
 }
 add_action('wp_enqueue_scripts', 'ecohierbas_enqueue_scripts');
 
