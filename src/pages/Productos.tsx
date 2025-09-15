@@ -1,32 +1,160 @@
 import { useState } from "react";
 import PageTemplate from "@/components/templates/PageTemplate";
+import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import ProductDetailModal from "@/components/ProductDetailModal";
+import productosHierbas from "@/assets/productos-hierbas.jpg";
+import vermicompostaje from "@/assets/vermicompostaje.jpg";
+import maceterosKits from "@/assets/maceteros-kits.jpg";
 import HeroSection from "@/components/productos/HeroSection";
 import ProductFilters from "@/components/productos/ProductFilters";
 import ProductGrid from "@/components/productos/ProductGrid";
-import { useProducts } from "@/hooks/useProducts";
-import { Product } from "@/services/wordpress";
 
+const productos = [
+  {
+    id: 1,
+    name: "Box Especial Mujer - Refresca tu Piel",
+    slug: "box-especial-mujer-refresca-tu-piel",
+    category: "Infusiones",
+    finalidad: "Piel",
+    price: 24990,
+    originalPrice: 29990,
+    image: productosHierbas,
+    rating: 4.8,
+    reviews: 156,
+    inStock: true,
+    description: "Mezcla especial de hierbas para el cuidado y regeneración de la piel femenina"
+  },
+  {
+    id: 2,
+    name: "Especial Hombres - Sana tu Próstata y Piel",
+    slug: "especial-hombres-sana-tu-prostata-y-piel",
+    category: "Infusiones",
+    finalidad: "Masculina",
+    price: 26990,
+    originalPrice: null,
+    image: productosHierbas,
+    rating: 4.7,
+    reviews: 89,
+    inStock: true,
+    description: "Fórmula natural para la salud masculina integral"
+  },
+  {
+    id: 3,
+    name: "Infusión Relajante Nocturna",
+    slug: "infusion-relajante-nocturna",
+    category: "Infusiones",
+    finalidad: "Relajación",
+    price: 18990,
+    originalPrice: 22990,
+    image: productosHierbas,
+    rating: 4.9,
+    reviews: 203,
+    inStock: true,
+    description: "Mezcla de hierbas para promover un sueño reparador"
+  },
+  {
+    id: 4,
+    name: "Digestivo Natural Premium",
+    slug: "digestivo-natural-premium",
+    category: "Infusiones",
+    finalidad: "Digestivo",
+    price: 21990,
+    originalPrice: null,
+    image: productosHierbas,
+    rating: 4.6,
+    reviews: 134,
+    inStock: true,
+    description: "Hierbas seleccionadas para mejorar la digestión naturalmente"
+  },
+  {
+    id: 5,
+    name: "Vermicompostera 5 Niveles",
+    slug: "vermicompostera-5-niveles",
+    category: "Vermicompostaje",
+    finalidad: null,
+    price: 89990,
+    originalPrice: null,
+    image: vermicompostaje,
+    rating: 4.9,
+    reviews: 89,
+    inStock: true,
+    description: "Sistema completo de vermicompostaje para empresas y hogares"
+  },
+  {
+    id: 6,
+    name: "Kit Vermicompostaje Familiar",
+    slug: "kit-vermicompostaje-familiar",
+    category: "Vermicompostaje",
+    finalidad: null,
+    price: 45990,
+    originalPrice: 54990,
+    image: vermicompostaje,
+    rating: 4.8,
+    reviews: 167,
+    inStock: true,
+    description: "Kit inicial perfecto para familias conscientes"
+  },
+  {
+    id: 7,
+    name: "Eco Macetero Alerce",
+    slug: "eco-macetero-alerce",
+    category: "Maceteros",
+    finalidad: null,
+    price: 15990,
+    originalPrice: 19990,
+    image: maceterosKits,
+    rating: 4.7,
+    reviews: 203,
+    inStock: true,
+    description: "Macetero ecológico de madera alerce sustentable"
+  },
+  {
+    id: 8,
+    name: "Kit Cultivo Hierbas Aromáticas",
+    slug: "kit-cultivo-hierbas-aromaticas",
+    category: "Maceteros",
+    finalidad: null,
+    price: 32990,
+    originalPrice: null,
+    image: maceterosKits,
+    rating: 4.8,
+    reviews: 145,
+    inStock: true,
+    description: "Kit completo para cultivar hierbas aromáticas en casa"
+  }
+];
+
+interface ModalProduct {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  originalPrice: number | null;
+  image: string;
+  rating: number;
+  reviews: number;
+  badge: string;
+  description: string;
+}
 
 const Productos = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedFinalidad, setSelectedFinalidad] = useState("all");
   const [priceFilter, setPriceFilter] = useState("all");
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ModalProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const { addItem, openCart } = useCart();
-  const { products, loading, error } = useProducts();
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: typeof productos[0]) => {
     if (!product.inStock) return;
     
     addItem({
       id: product.id,
-      name: product.name,
+      name: product.slug,
       slug: product.slug,
       price: product.price,
       originalPrice: product.originalPrice || undefined,
@@ -43,8 +171,19 @@ const Productos = () => {
     });
   };
 
-  const handleViewProduct = (product: Product) => {
-    setSelectedProduct(product);
+  const handleViewProduct = (product: typeof productos[0]) => {
+    setSelectedProduct({
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      rating: product.rating,
+      reviews: product.reviews,
+      badge: product.inStock ? "Disponible" : "Agotado",
+      description: product.description
+    });
     setIsModalOpen(true);
   };
 
@@ -56,7 +195,7 @@ const Productos = () => {
   };
 
   // Filtrar productos basado en filtros seleccionados
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = productos.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
     const matchesFinalidad = selectedFinalidad === "all" || product.finalidad === selectedFinalidad;
@@ -69,40 +208,9 @@ const Productos = () => {
     return matchesSearch && matchesCategory && matchesFinalidad && matchesPrice;
   });
 
-  if (loading) {
-    return (
-      <PageTemplate template="products">
-        <div className="u-container py-20">
-          <div className="text-center">
-            <div className="animate-pulse space-y-4">
-              <div className="h-8 bg-muted rounded w-64 mx-auto"></div>
-              <div className="h-4 bg-muted rounded w-96 mx-auto"></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-                {[...Array(8)].map((_, i) => (
-                  <div key={i} className="h-64 bg-muted rounded"></div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </PageTemplate>
-    );
-  }
-
-  if (error) {
-    return (
-      <PageTemplate template="products">
-        <div className="u-container py-20">
-          <div className="text-center">
-            <p className="text-muted-foreground">{error}</p>
-          </div>
-        </div>
-      </PageTemplate>
-    );
-  }
-
   return (
     <PageTemplate 
+      page={null}
       template="products"
       customSEO={{
         title: 'Productos Orgánicos y Sustentables - Ecohierbas Chile',
@@ -110,7 +218,7 @@ const Productos = () => {
         keywords: 'productos orgánicos, hierbas medicinales, vermicompostaje, maceteros ecológicos, sustentable, chile'
       }}
     >
-      <HeroSection productCount={products.length} />
+      <HeroSection productCount={productos.length} />
 
       <ProductFilters
         searchTerm={searchTerm}

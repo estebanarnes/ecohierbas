@@ -5,7 +5,6 @@ import { StarIcon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/solid
 import { HeartIcon, ShareIcon } from "@heroicons/react/24/outline";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
-import { formatPrice } from "@/lib/utils";
 
 interface Product {
   id: number;
@@ -16,7 +15,7 @@ interface Product {
   image: string;
   rating: number;
   reviews: number;
-  inStock: boolean;
+  badge: string;
   description: string;
 }
 
@@ -65,12 +64,14 @@ const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailModalProp
             />
             <Badge 
               className={`absolute top-4 left-4 ${
-                product.inStock 
-                  ? "bg-green-100 text-green-800 border-green-200" 
-                  : "bg-red-100 text-red-800 border-red-200"
+                product.badge === "Más Vendido" 
+                  ? "bg-accent text-accent-foreground" 
+                  : product.badge === "B2B Popular"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-secondary-foreground"
               }`}
             >
-              {product.inStock ? "En Stock" : "Agotado"}
+              {product.badge}
             </Badge>
             
             <div className="absolute top-4 right-4 space-y-2">
@@ -127,11 +128,11 @@ const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailModalProp
             {/* Price */}
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl font-bold text-primary">
-                {formatPrice(product.price)}
+                ${product.price.toLocaleString('es-CL')}
               </span>
               {product.originalPrice && (
                 <span className="text-lg text-muted-foreground line-through">
-                  {formatPrice(product.originalPrice)}
+                  ${product.originalPrice.toLocaleString('es-CL')}
                 </span>
               )}
               {product.originalPrice && (

@@ -1,7 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
-import { productService } from "@/services/wordpress";
 
 interface ProductFiltersProps {
   searchTerm: string;
@@ -55,9 +54,9 @@ const ProductFilters = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">Todas las categorías</SelectItem>
-                    {productService.getCategories().map(category => (
-                      <SelectItem key={category} value={category}>{category}</SelectItem>
-                    ))}
+                    <SelectItem value="Infusiones">Infusiones</SelectItem>
+                    <SelectItem value="Vermicompostaje">Vermicompostaje</SelectItem>
+                    <SelectItem value="Maceteros">Maceteros</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -70,9 +69,10 @@ const ProductFilters = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">Todas las finalidades</SelectItem>
-                    {productService.getFinalidades().map(finalidad => (
-                      <SelectItem key={finalidad} value={finalidad}>{finalidad}</SelectItem>
-                    ))}
+                    <SelectItem value="Relajación">Relajación</SelectItem>
+                    <SelectItem value="Digestivo">Digestivo</SelectItem>
+                    <SelectItem value="Piel">Piel</SelectItem>
+                    <SelectItem value="Masculina">Masculina</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

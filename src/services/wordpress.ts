@@ -1,73 +1,43 @@
-// Servicio centralizado de productos - Preparado para migración a WordPress/WooCommerce
-import { 
-  PRODUCTS_DATABASE, 
-  getFeaturedProducts as getLocalFeaturedProducts,
-  ProductData,
-  CATEGORIES,
-  FINALIDADES,
-  getProductById,
-  getProductBySlug,
-  getProductsByCategory,
-  searchProducts
-} from '@/data/products';
+// WordPress REST API Service (optimizado)
+const WORDPRESS_BASE_URL = import.meta.env.VITE_WORDPRESS_URL || 'https://tu-sitio-wordpress.com';
+const WP_API_BASE = `${WORDPRESS_BASE_URL}/wp-json/wp/v2`;
 
-// Interfaz compatible con WordPress (para futura migración)
-export interface Product extends ProductData {}
-
-class ProductService {
-  // Simulación de delay de API para experiencia realista
-  private async simulateApiDelay(): Promise<void> {
-    await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 200));
-  }
-
-  async getProducts(): Promise<Product[]> {
-    await this.simulateApiDelay();
-    return [...PRODUCTS_DATABASE];
-  }
-
-  async getFeaturedProducts(limit = 3): Promise<Product[]> {
-    await this.simulateApiDelay();
-    return getLocalFeaturedProducts(limit);
-  }
-
-  async getProductById(id: number): Promise<Product | null> {
-    await this.simulateApiDelay();
-    return getProductById(id) || null;
-  }
-
-  async getProductBySlug(slug: string): Promise<Product | null> {
-    await this.simulateApiDelay();
-    return getProductBySlug(slug) || null;
-  }
-
-  async getProductsByCategory(category: string): Promise<Product[]> {
-    await this.simulateApiDelay();
-    return getProductsByCategory(category);
-  }
-
-  async searchProducts(query: string): Promise<Product[]> {
-    await this.simulateApiDelay();
-    return searchProducts(query);
-  }
-
-  // Métodos para obtener metadatos (útil para filtros)
-  getCategories(): string[] {
-    return [...CATEGORIES];
-  }
-
-  getFinalidades(): string[] {
-    return [...FINALIDADES];
-  }
-
-  // Método que será útil para la migración a WordPress
-  async syncWithWordPress(): Promise<void> {
-    // Este método se implementará durante la migración
-    console.log('Sincronización con WordPress pendiente de implementación');
-  }
+// WordPress Types (solo los que se usan)
+export interface WPPage {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
+  slug: string;
+  template: string;
+  meta: Record<string, any>;
+  featured_media: number;
 }
 
-// Instancia del servicio centralizada
-export const productService = new ProductService();
+// WordPress REST API functions (optimizado - solo funciones utilizadas)
+export const wpApi = {
+  // Pages - solo getPageBySlug que se usa
+  async getPageBySlug(slug: string) {
+    const response = await fetch(`${WP_API_BASE}/pages?slug=${slug}`);
+    if (!response.ok) throw new Error('Failed to fetch page');
+    const pages = await response.json() as WPPage[];
+    return pages[0] || null;
+  },
+};
 
-// Alias para compatibilidad con código existente
-export const wordpressService = productService;
+// WP Forms API integration (optimizado - solo submitForm que se usa)
+export const wpFormsApi = {
+  async submitForm(formId: number, formData: Record<string, any>) {
+    const response = await fetch(`${WORDPRESS_BASE_URL}/wp-json/wpforms/v1/forms/${formId}/entries`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fields: formData,
+      }),
+    });
+    
+    if (!response.ok) throw new Error('Failed to submit form');
+    return response.json();
+  },
+};

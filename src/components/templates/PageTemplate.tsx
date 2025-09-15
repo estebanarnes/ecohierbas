@@ -2,8 +2,10 @@ import { ReactNode } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { WPPage } from '@/services/wordpress';
 
 interface PageTemplateProps {
+  page?: WPPage | null;
   template?: string;
   children: ReactNode;
   customSEO?: {
@@ -15,10 +17,13 @@ interface PageTemplateProps {
   };
 }
 
-const PageTemplate = ({ template = 'default', children, customSEO }: PageTemplateProps) => {
+const PageTemplate = ({ page, template = 'default', children, customSEO }: PageTemplateProps) => {
   // SEO data
-  const pageTitle = customSEO?.title || 'Ecohierbas Chile';
-  const pageDescription = customSEO?.description || 'Productos orgánicos y sustentables para tu bienestar';
+  const pageTitle = customSEO?.title || page?.title?.rendered || 'Ecohierbas Chile';
+  const pageDescription = customSEO?.description || 
+    (page?.content?.rendered ? 
+      page.content.rendered.replace(/<[^>]*>/g, '').substring(0, 160) + '...' : 
+      'Productos orgánicos y sustentables para tu bienestar');
   const pageKeywords = customSEO?.keywords || 'ecohierbas, orgánico, sustentable, hierbas, vermicompostaje';
   const pageImage = customSEO?.image || '/og-image.jpg';
   const canonicalUrl = customSEO?.canonicalUrl || `${window.location.origin}${window.location.pathname}`;
@@ -111,7 +116,8 @@ const PageTemplate = ({ template = 'default', children, customSEO }: PageTemplat
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Page template meta */}
+        {/* Additional meta for WordPress integration */}
+        {page?.id && <meta name="wp-page-id" content={page.id.toString()} />}
         {template && <meta name="page-template" content={template} />}
       </Helmet>
       

@@ -8,59 +8,65 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductDetailModal from "@/components/ProductDetailModal";
-import { formatPrice } from "@/lib/utils";
-import { useFeaturedProducts } from "@/hooks/useProducts";
-import { Product } from "@/services/wordpress";
 
 const FeaturedProducts = () => {
   const { addItem, openCart } = useCart();
   const navigate = useNavigate();
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const { products, loading, error } = useFeaturedProducts(3);
 
-  if (loading) {
-    return (
-      <section className="pt-10 pb-20 bg-background">
-        <div className="u-container">
-          <div className="text-center">
-            <div className="animate-pulse">
-              <div className="h-8 bg-muted rounded w-64 mx-auto mb-4"></div>
-              <div className="h-4 bg-muted rounded w-96 mx-auto"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // Fallback a productos estáticos si no hay conexión con WooCommerce
+  const fallbackProducts = [{
+    id: 1,
+    name: "Box Especial Mujer - Refresca tu Piel",
+    category: "Infusiones",
+    price: 24990,
+    originalPrice: 29990,
+    image: "/src/assets/productos-hierbas.jpg",
+    rating: 4.8,
+    reviews: 156,
+    badge: "Más Vendido",
+    description: "Mezcla de hierbas especialmente seleccionadas para el cuidado de la piel femenina"
+  }, {
+    id: 2,
+    name: "Vermicompostera 5 Niveles",
+    category: "Vermicompostaje",
+    price: 89990,
+    originalPrice: null,
+    image: "/src/assets/vermicompostaje.jpg",
+    rating: 4.9,
+    reviews: 89,
+    badge: "B2B Popular",
+    description: "Sistema completo de vermicompostaje para empresas y hogares conscientes"
+  }, {
+    id: 3,
+    name: "Eco Macetero Alerce + Kit Cultivo",
+    category: "Maceteros",
+    price: 15990,
+    originalPrice: 19990,
+    image: "/src/assets/maceteros-kits.jpg",
+    rating: 4.7,
+    reviews: 203,
+    badge: "Oferta",
+    description: "Macetero ecológico de madera alerce con kit completo para cultivar hierbas"
+  }];
 
-  if (error) {
-    return (
-      <section className="pt-10 pb-20 bg-background">
-        <div className="u-container">
-          <div className="text-center">
-            <p className="text-muted-foreground">Error al cargar productos destacados</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-  const handleViewProduct = (product: Product) => {
+  // Usar productos estáticos directamente para carga rápida
+  const products = fallbackProducts;
+  const handleViewProduct = (product: typeof products[0]) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
   };
-  
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: typeof products[0]) => {
     addItem({
       id: product.id,
       name: product.name,
-      slug: product.slug,
+      slug: product.name.toLowerCase().replace(/\s+/g, '-'),
       price: product.price,
       originalPrice: product.originalPrice || undefined,
       image: product.image,
       category: product.category,
-      inStock: product.inStock
+      inStock: true
     });
     toast.success(`${product.name} agregado al carrito`, {
       action: {
@@ -94,9 +100,9 @@ const FeaturedProducts = () => {
                   <img src={product.image} alt={product.name} className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
-                  {/* Stock Status */}
-                  <Badge className={`absolute top-3 left-3 ${product.inStock ? "bg-green-100 text-green-800 border-green-200" : "bg-red-100 text-red-800 border-red-200"}`}>
-                    {product.inStock ? "En Stock" : "Agotado"}
+                  {/* Badge */}
+                  <Badge className={`absolute top-3 left-3 ${product.badge === "Más Vendido" ? "bg-accent text-accent-foreground" : product.badge === "B2B Popular" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>
+                    {product.badge}
                   </Badge>
 
                   {/* Quick Actions */}
@@ -137,21 +143,17 @@ const FeaturedProducts = () => {
                 {/* Price */}
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-xl font-bold text-primary">
-                    {formatPrice(product.price)}
+                    ${product.price.toLocaleString('es-CL')}
                   </span>
                   {product.originalPrice && <span className="text-sm text-muted-foreground line-through">
-                      {formatPrice(product.originalPrice)}
+                      ${product.originalPrice.toLocaleString('es-CL')}
                     </span>}
                 </div>
               </CardContent>
 
               <CardFooter className="p-6 pt-0">
                 <div className="flex gap-2 w-full">
-                  <Button 
-                    className="flex-1 bg-primary hover:bg-primary/90" 
-                    disabled={!product.inStock}
-                    onClick={() => handleAddToCart(product)}
-                  >
+                  <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => handleAddToCart(product)}>
                     <ShoppingCartIcon className="w-4 h-4 mr-2" />
                     Agregar
                   </Button>

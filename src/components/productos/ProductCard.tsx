@@ -2,7 +2,6 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { StarIcon, ShoppingCartIcon, EyeIcon } from "@heroicons/react/24/solid";
-import { formatPrice } from "@/lib/utils";
 
 interface Product {
   id: number;
@@ -116,11 +115,11 @@ const ProductCard = ({ product, onAddToCart, onViewProduct, isMobile = false }: 
           <span className={`font-bold text-primary ${
             isMobile ? 'text-xl' : 'text-lg'
           }`}>
-            {formatPrice(product.price)}
+            ${product.price.toLocaleString('es-CL')}
           </span>
           {product.originalPrice && (
             <span className="text-sm text-muted-foreground line-through">
-              {formatPrice(product.originalPrice)}
+              ${product.originalPrice.toLocaleString('es-CL')}
             </span>
           )}
         </div>

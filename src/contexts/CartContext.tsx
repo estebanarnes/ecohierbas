@@ -1,26 +1,41 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
-import { CartItem, CartState, CartAction } from '@/lib/cartTypes';
-import { storage } from '@/lib/storage';
-import { CART_STORAGE_KEY } from '@/lib/cartTypes';
 
-// Cargar estado inicial desde localStorage
-const getInitialState = (): CartState => {
-  const savedCart = storage.get<CartItem[]>('cart', []);
-  const items = savedCart || [];
-  
-  return {
-    items,
-    totalItems: items.reduce((sum, item) => sum + item.quantity, 0),
-    totalPrice: items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-    isOpen: false,
-  };
+export interface CartItem {
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  category: string;
+  quantity: number;
+  inStock: boolean;
+}
+
+interface CartState {
+  items: CartItem[];
+  totalItems: number;
+  totalPrice: number;
+  isOpen: boolean;
+}
+
+type CartAction =
+  | { type: 'ADD_ITEM'; payload: Omit<CartItem, 'quantity'> }
+  | { type: 'REMOVE_ITEM'; payload: number }
+  | { type: 'UPDATE_QUANTITY'; payload: { id: number; quantity: number } }
+  | { type: 'CLEAR_CART' }
+  | { type: 'TOGGLE_CART' }
+  | { type: 'OPEN_CART' }
+  | { type: 'CLOSE_CART' };
+
+const initialState: CartState = {
+  items: [],
+  totalItems: 0,
+  totalPrice: 0,
+  isOpen: false,
 };
 
-const initialState: CartState = getInitialState();
-
 function cartReducer(state: CartState, action: CartAction): CartState {
-  let newState: CartState;
-  
   switch (action.type) {
     case 'ADD_ITEM': {
       const existingItem = state.items.find(item => item.id === action.payload.id);
@@ -39,13 +54,12 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       const totalItems = newItems.reduce((sum, item) => sum + item.quantity, 0);
       const totalPrice = newItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-      newState = {
+      return {
         ...state,
         items: newItems,
         totalItems,
         totalPrice,
       };
-      break;
     }
 
     case 'REMOVE_ITEM': {
@@ -53,13 +67,12 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       const totalItems = newItems.reduce((sum, item) => sum + item.quantity, 0);
       const totalPrice = newItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-      newState = {
+      return {
         ...state,
         items: newItems,
         totalItems,
         totalPrice,
       };
-      break;
     }
 
     case 'UPDATE_QUANTITY': {
@@ -72,52 +85,43 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       const totalItems = newItems.reduce((sum, item) => sum + item.quantity, 0);
       const totalPrice = newItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-      newState = {
+      return {
         ...state,
         items: newItems,
         totalItems,
         totalPrice,
       };
-      break;
     }
 
     case 'CLEAR_CART':
-      newState = {
+      return {
         ...state,
         items: [],
         totalItems: 0,
         totalPrice: 0,
       };
-      break;
 
     case 'TOGGLE_CART':
-      newState = {
+      return {
         ...state,
         isOpen: !state.isOpen,
       };
-      break;
 
     case 'OPEN_CART':
-      newState = {
+      return {
         ...state,
         isOpen: true,
       };
-      break;
 
     case 'CLOSE_CART':
-      newState = {
+      return {
         ...state,
         isOpen: false,
       };
-      break;
 
     default:
       return state;
   }
-  
-  // Guardar en localStorage automáticamente después de cada cambio
-  storage.set('cart', newState.items);
-  return newState;
 }
 
 const CartContext = createContext<{

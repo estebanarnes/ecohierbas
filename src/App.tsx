@@ -24,7 +24,7 @@ const App = () => (
         <CartProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <BrowserRouter>
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
@@ -37,7 +37,6 @@ const App = () => (
             </Routes>
             <CartSidebar />
           </BrowserRouter>
-          <OffersPopup isOpen={false} onClose={() => {}} />
         </CartProvider>
       </TooltipProvider>
     </HelmetProvider>

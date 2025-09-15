@@ -11,20 +11,10 @@ import {
   TrashIcon 
 } from "@heroicons/react/24/outline";
 import { CreditCard, Building, Smartphone, DollarSign } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { formatPrice } from "@/lib/utils";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const CartSidebar = () => {
   const { state, updateQuantity, removeItem, closeCart, clearCart } = useCart();
-  const location = useLocation();
-
-  // Cerrar carrito automáticamente cuando se navega a checkout (especialmente en móviles)
-  useEffect(() => {
-    if (location.pathname === '/checkout' && state.isOpen) {
-      closeCart();
-    }
-  }, [location.pathname, state.isOpen, closeCart]);
 
   if (state.items.length === 0) {
     return (
@@ -137,11 +127,11 @@ const CartSidebar = () => {
                 
                 <div className="text-right">
                   <p className="text-sm font-semibold text-primary">
-                    {formatPrice(item.price * item.quantity)}
+                    ${(item.price * item.quantity).toLocaleString('es-CL')}
                   </p>
                   {item.originalPrice && (
                     <p className="text-xs text-muted-foreground line-through">
-                      {formatPrice(item.originalPrice * item.quantity)}
+                      ${(item.originalPrice * item.quantity).toLocaleString('es-CL')}
                     </p>
                   )}
                 </div>
@@ -155,7 +145,7 @@ const CartSidebar = () => {
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Subtotal:</span>
               <span className="font-medium">
-                {formatPrice(state.totalPrice)}
+                ${state.totalPrice.toLocaleString('es-CL')}
               </span>
             </div>
             <div className="flex justify-between text-sm">
@@ -166,7 +156,7 @@ const CartSidebar = () => {
             <div className="flex justify-between font-semibold">
               <span>Total:</span>
               <span className="text-primary">
-                {formatPrice(state.totalPrice)}
+                ${state.totalPrice.toLocaleString('es-CL')}
               </span>
             </div>
           </div>
@@ -204,11 +194,7 @@ const CartSidebar = () => {
           </div>
 
           <div className="space-y-2">
-            <Button 
-              asChild 
-              className="w-full bg-primary hover:bg-primary/90"
-              onClick={closeCart}
-            >
+            <Button asChild className="w-full bg-primary hover:bg-primary/90">
               <Link to="/checkout">Finalizar Compra</Link>
             </Button>
             <Button 

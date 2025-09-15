@@ -23,7 +23,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { formatPrice } from "@/lib/utils";
 
 const Checkout = () => {
   const { state, clearCart } = useCart();
@@ -357,7 +356,7 @@ const Checkout = () => {
                         </div>
                         <div className="text-right">
                           <p className="font-semibold">
-                            {method.price === 0 ? "Gratis" : formatPrice(method.price)}
+                            {method.price === 0 ? "Gratis" : `$${method.price.toLocaleString('es-CL')}`}
                           </p>
                         </div>
                       </div>
@@ -477,7 +476,7 @@ const Checkout = () => {
                         <p className="text-xs text-muted-foreground">Cantidad: {item.quantity}</p>
                       </div>
                       <p className="text-sm font-semibold">
-                        {formatPrice(item.price * item.quantity)}
+                        ${(item.price * item.quantity).toLocaleString('es-CL')}
                       </p>
                     </div>
                   ))}
@@ -488,18 +487,18 @@ const Checkout = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Subtotal:</span>
-                    <span>{formatPrice(state.totalPrice)}</span>
+                    <span>${state.totalPrice.toLocaleString('es-CL')}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Envío ({selectedMethod?.name}):</span>
                     <span>
-                      {shippingCost === 0 ? "Gratis" : formatPrice(shippingCost)}
+                      {shippingCost === 0 ? "Gratis" : `$${shippingCost.toLocaleString('es-CL')}`}
                     </span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-semibold text-lg">
                     <span>Total:</span>
-                    <span className="text-primary">{formatPrice(total)}</span>
+                    <span className="text-primary">${total.toLocaleString('es-CL')}</span>
                   </div>
                 </div>
 
@@ -520,7 +519,7 @@ const Checkout = () => {
                   ) : (
                     <>
                       <CheckCircleIcon className="w-4 h-4 mr-2" />
-                      Confirmar Pedido - {formatPrice(total)}
+                      Confirmar Pedido - ${total.toLocaleString('es-CL')}
                     </>
                   )}
                 </Button>
