@@ -1,5 +1,7 @@
 import { useState } from "react";
-import PageTemplate from "@/components/templates/PageTemplate";
+import { Helmet } from 'react-helmet-async';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
@@ -209,47 +211,49 @@ const Productos = () => {
   });
 
   return (
-    <PageTemplate 
-      page={null}
-      template="products"
-      customSEO={{
-        title: 'Productos Orgánicos y Sustentables - Ecohierbas Chile',
-        description: 'Descubre nuestra amplia gama de productos orgánicos: hierbas medicinales, sistemas de vermicompostaje y maceteros ecológicos. Envíos a todo Chile.',
-        keywords: 'productos orgánicos, hierbas medicinales, vermicompostaje, maceteros ecológicos, sustentable, chile'
-      }}
-    >
-      <HeroSection productCount={productos.length} />
+    <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Productos Orgánicos y Sustentables - Ecohierbas Chile</title>
+        <meta name="description" content="Descubre nuestra amplia gama de productos orgánicos: hierbas medicinales, sistemas de vermicompostaje y maceteros ecológicos. Envíos a todo Chile." />
+        <meta name="keywords" content="productos orgánicos, hierbas medicinales, vermicompostaje, maceteros ecológicos, sustentable, chile" />
+      </Helmet>
+      
+      <Header />
+      <main>
+        <HeroSection productCount={productos.length} />
 
-      <ProductFilters
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        selectedFinalidad={selectedFinalidad}
-        setSelectedFinalidad={setSelectedFinalidad}
-        priceFilter={priceFilter}
-        setPriceFilter={setPriceFilter}
-      />
+        <ProductFilters
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          selectedFinalidad={selectedFinalidad}
+          setSelectedFinalidad={setSelectedFinalidad}
+          priceFilter={priceFilter}
+          setPriceFilter={setPriceFilter}
+        />
 
-      {/* Products Section */}
-      <section className="py-8 md:py-16">
-        <div className="u-container">
-          <ProductGrid
-            products={filteredProducts}
-            onAddToCart={handleAddToCart}
-            onViewProduct={handleViewProduct}
-            onClearFilters={handleClearFilters}
-          />
-        </div>
-      </section>
+        {/* Products Section */}
+        <section className="py-8 md:py-16">
+          <div className="u-container">
+            <ProductGrid
+              products={filteredProducts}
+              onAddToCart={handleAddToCart}
+              onViewProduct={handleViewProduct}
+              onClearFilters={handleClearFilters}
+            />
+          </div>
+        </section>
 
-      {/* Product Detail Modal */}
-      <ProductDetailModal
-        product={selectedProduct}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-    </PageTemplate>
+        {/* Product Detail Modal */}
+        <ProductDetailModal
+          product={selectedProduct}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </main>
+      <Footer />
+    </div>
   );
 };
 
