@@ -12,6 +12,7 @@ import maceterosKits from "@/assets/maceteros-kits.jpg";
 import HeroSection from "@/components/productos/HeroSection";
 import ProductFilters from "@/components/productos/ProductFilters";
 import ProductGrid from "@/components/productos/ProductGrid";
+import SomosLokalSection from "@/components/SomosLokalSection";
 
 const productos = [
   {
@@ -244,6 +245,9 @@ const Productos = () => {
             />
           </div>
         </section>
+
+        {/* Somos Lokal Section */}
+        <SomosLokalSection />
 
         {/* Product Detail Modal */}
         <ProductDetailModal

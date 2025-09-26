@@ -51,7 +51,7 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
 
   // Configuración de productos por página
   const productsPerPageMobile = 3;
-  const productsPerPageDesktop = 8;
+  const productsPerPageDesktop = 6; // 3x2 grid
   
   // Crear páginas para mobile (3 productos por página en orden secuencial)
   const mobilePages = [];
@@ -59,7 +59,7 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
     mobilePages.push(products.slice(i, i + productsPerPageMobile));
   }
   
-  // Crear páginas para desktop (8 productos por página en orden secuencial)
+  // Crear páginas para desktop (6 productos por página en orden secuencial)
   const desktopPages = [];
   for (let i = 0; i < products.length; i += productsPerPageDesktop) {
     desktopPages.push(products.slice(i, i + productsPerPageDesktop));
@@ -152,7 +152,7 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
         )}
       </div>
 
-      {/* Desktop Carousel (8 products per page in 4x2 grid) */}
+      {/* Desktop Carousel (6 products per page in 3x2 grid) */}
       <div className="hidden md:block">
         {/* Desktop Pagination Dots */}
         {desktopPages.length > 1 && (
@@ -175,9 +175,9 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
             {desktopPages.map((pageProducts, pageIndex) => (
               <CarouselItem key={pageIndex} className="pl-4">
                 <div className="space-y-6">
-                  {/* Primera fila - 4 productos */}
-                  <div className="grid grid-cols-4 gap-6">
-                    {pageProducts.slice(0, 4).map((product) => (
+                  {/* Primera fila - 3 productos */}
+                  <div className="grid grid-cols-3 gap-6">
+                    {pageProducts.slice(0, 3).map((product) => (
                       <ProductCard
                         key={product.id}
                         product={product}
@@ -188,10 +188,10 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
                     ))}
                   </div>
                   
-                  {/* Segunda fila - 4 productos restantes */}
-                  {pageProducts.length > 4 && (
-                    <div className="grid grid-cols-4 gap-6">
-                      {pageProducts.slice(4, 8).map((product) => (
+                  {/* Segunda fila - 3 productos restantes */}
+                  {pageProducts.length > 3 && (
+                    <div className="grid grid-cols-3 gap-6">
+                      {pageProducts.slice(3, 6).map((product) => (
                         <ProductCard
                           key={product.id}
                           product={product}
