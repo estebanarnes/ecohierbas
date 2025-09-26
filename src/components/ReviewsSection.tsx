@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { StarIcon } from "@heroicons/react/24/solid";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
@@ -75,12 +75,9 @@ const ReviewsSection = () => {
 
                 {/* Reviewer Info */}
                 <div className="flex items-start gap-3">
-                  <Avatar className="w-12 h-12">
-                    <AvatarImage src={review.avatar} alt={review.name} />
-                    <AvatarFallback className="bg-primary/10 text-primary">
-                      {review.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
+                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm">
+                    {review.name.split(' ').map(n => n[0]).join('')}
+                  </div>
                   
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
@@ -134,12 +131,9 @@ const ReviewsSection = () => {
 
                         {/* Reviewer Info */}
                         <div className="flex items-start gap-3">
-                          <Avatar className="w-12 h-12">
-                            <AvatarImage src={review.avatar} alt={review.name} />
-                            <AvatarFallback className="bg-primary/10 text-primary">
-                              {review.name.split(' ').map(n => n[0]).join('')}
-                            </AvatarFallback>
-                          </Avatar>
+                          <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm">
+                            {review.name.split(' ').map(n => n[0]).join('')}
+                          </div>
                           
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
