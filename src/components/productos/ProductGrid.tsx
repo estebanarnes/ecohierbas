@@ -174,34 +174,17 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
           <CarouselContent>
             {desktopPages.map((pageProducts, pageIndex) => (
               <CarouselItem key={pageIndex} className="pl-4">
-                <div className="space-y-6">
-                  {/* Primera fila - 3 productos */}
-                  <div className="grid grid-cols-3 gap-6">
-                    {pageProducts.slice(0, 3).map((product) => (
+                <div className="grid grid-cols-3 grid-rows-2 gap-6 min-h-[800px]">
+                  {pageProducts.map((product) => (
+                    <div key={product.id} className="h-[380px] flex">
                       <ProductCard
-                        key={product.id}
                         product={product}
                         onAddToCart={onAddToCart}
                         onViewProduct={onViewProduct}
                         isMobile={false}
                       />
-                    ))}
-                  </div>
-                  
-                  {/* Segunda fila - 3 productos restantes */}
-                  {pageProducts.length > 3 && (
-                    <div className="grid grid-cols-3 gap-6">
-                      {pageProducts.slice(3, 6).map((product) => (
-                        <ProductCard
-                          key={product.id}
-                          product={product}
-                          onAddToCart={onAddToCart}
-                          onViewProduct={onViewProduct}
-                          isMobile={false}
-                        />
-                      ))}
                     </div>
-                  )}
+                  ))}
                 </div>
               </CarouselItem>
             ))}

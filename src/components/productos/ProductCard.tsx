@@ -28,7 +28,7 @@ interface ProductCardProps {
 const ProductCard = ({ product, onAddToCart, onViewProduct, isMobile = false }: ProductCardProps) => {
   return (
     <Card 
-      className={`group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden ${
+      className={`group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden flex flex-col h-full ${
         isMobile ? 'w-full max-w-sm mx-auto' : ''
       }`}
     >
@@ -66,62 +66,66 @@ const ProductCard = ({ product, onAddToCart, onViewProduct, isMobile = false }: 
         </div>
       </CardHeader>
 
-      <CardContent className="p-4">
-        <div className={isMobile ? "mb-3" : "mb-2"}>
-          <Badge variant="outline" className="text-xs">
-            {product.category}
-          </Badge>
-          {product.finalidad && (
-            <Badge variant="outline" className="text-xs ml-2">
-              {product.finalidad}
+      <CardContent className="p-4 flex-1 flex flex-col">
+        <div>
+          <div className={isMobile ? "mb-3" : "mb-2"}>
+            <Badge variant="outline" className="text-xs">
+              {product.category}
             </Badge>
-          )}
-        </div>
-        
-        <h3 className={`font-semibold text-foreground mb-2 line-clamp-2 ${
-          isMobile ? 'text-sm leading-tight min-h-[2.5rem]' : 'text-base'
-        }`}>
-          {product.name}
-        </h3>
-        
-        <p className={`text-muted-foreground mb-3 line-clamp-2 ${
-          isMobile ? 'text-sm leading-relaxed' : 'text-xs'
-        }`}>
-          {product.description}
-        </p>
-
-        {/* Rating */}
-        <div className="flex items-center gap-1 mb-3">
-          <div className="flex items-center">
-            {[...Array(5)].map((_, i) => (
-              <StarIcon
-                key={i}
-                className={`w-3 h-3 ${
-                  i < Math.floor(product.rating)
-                    ? "text-yellow-400 fill-current"
-                    : "text-gray-300"
-                }`}
-              />
-            ))}
+            {product.finalidad && (
+              <Badge variant="outline" className="text-xs ml-2">
+                {product.finalidad}
+              </Badge>
+            )}
           </div>
-          <span className="text-sm font-medium">{product.rating}</span>
-          <span className="text-sm text-muted-foreground">
-            ({product.reviews})
-          </span>
+          
+          <h3 className={`font-semibold text-foreground mb-2 line-clamp-2 ${
+            isMobile ? 'text-sm leading-tight min-h-[2.5rem]' : 'text-base'
+          }`}>
+            {product.name}
+          </h3>
+          
+          <p className={`text-muted-foreground mb-3 line-clamp-2 ${
+            isMobile ? 'text-sm leading-relaxed' : 'text-xs'
+          }`}>
+            {product.description}
+          </p>
         </div>
 
-        {/* Price */}
-        <div className="flex items-center gap-2">
-          <span className={`font-bold text-primary ${
-            isMobile ? 'text-xl' : 'text-lg'
-          }`}>
-            ${product.price.toLocaleString('es-CL')}
-          </span>
-          {product.originalPrice && (
-            <span className="text-sm text-muted-foreground line-through">
-              ${product.originalPrice.toLocaleString('es-CL')}
+        <div className="mt-auto">
+          {/* Rating */}
+          <div className="flex items-center gap-1 mb-3">
+            <div className="flex items-center">
+              {[...Array(5)].map((_, i) => (
+                <StarIcon
+                  key={i}
+                  className={`w-3 h-3 ${
+                    i < Math.floor(product.rating)
+                      ? "text-yellow-400 fill-current"
+                      : "text-gray-300"
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="text-sm font-medium">{product.rating}</span>
+            <span className="text-sm text-muted-foreground">
+              ({product.reviews})
             </span>
-          )}
+          </div>
+
+          {/* Price */}
+          <div className="flex items-center gap-2">
+            <span className={`font-bold text-primary ${
+              isMobile ? 'text-xl' : 'text-lg'
+            }`}>
+              ${product.price.toLocaleString('es-CL')}
+            </span>
+            {product.originalPrice && (
+              <span className="text-sm text-muted-foreground line-through">
+                ${product.originalPrice.toLocaleString('es-CL')}
+              </span>
+            )}
+          </div>
         </div>
       </CardContent>
 
