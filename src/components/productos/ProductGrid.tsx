@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import { 
   Carousel, 
   CarouselContent, 
-  CarouselItem
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext
 } from "@/components/ui/carousel";
 import ProductCard from "./ProductCard";
 
@@ -104,7 +106,7 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
       </div>
 
       {/* Mobile Carousel (3 products per page) */}
-      <div className="md:hidden -mx-4">
+      <div className="md:hidden -mx-4 relative">
         <Carousel 
           className="w-full px-4" 
           opts={{ align: "start", loop: true }}
@@ -135,6 +137,8 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
         </Carousel>
 
         {/* Mobile Pagination Dots */}
@@ -155,7 +159,7 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
       </div>
 
       {/* Desktop Carousel (6 products per page in 3x2 grid) */}
-      <div className="hidden md:block">
+      <div className="hidden md:block relative">
         {/* Desktop Pagination Dots */}
         {desktopPages.length > 1 && (
           <div className="flex justify-center items-center mb-6 w-full">
@@ -191,6 +195,8 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious className="left-4" />
+          <CarouselNext className="right-4" />
         </Carousel>
       </div>
     </div>
