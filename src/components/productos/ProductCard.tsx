@@ -33,11 +33,11 @@ const ProductCard = ({ product, onAddToCart, onViewProduct, isMobile = false }: 
       }`}
     >
       <CardHeader className="p-0 relative">
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden aspect-[4/3]">
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           
@@ -79,15 +79,19 @@ const ProductCard = ({ product, onAddToCart, onViewProduct, isMobile = false }: 
             )}
           </div>
           
-          <h3 className={`font-semibold text-foreground mb-2 line-clamp-2 ${
-            isMobile ? 'text-sm leading-tight min-h-[2.5rem]' : 'text-base'
-          }`}>
+          <h3
+            className={`font-semibold text-foreground mb-2 ${
+              isMobile ? 'text-sm leading-tight' : 'text-base'
+            } min-h-[2.5rem] overflow-hidden`}
+          >
             {product.name}
           </h3>
           
-          <p className={`text-muted-foreground mb-3 line-clamp-2 ${
-            isMobile ? 'text-sm leading-relaxed' : 'text-xs'
-          }`}>
+          <p
+            className={`text-muted-foreground mb-3 ${
+              isMobile ? 'text-sm leading-relaxed' : 'text-xs'
+            } min-h-[3rem] overflow-hidden`}
+          >
             {product.description}
           </p>
         </div>
