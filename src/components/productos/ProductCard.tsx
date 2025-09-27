@@ -28,12 +28,10 @@ interface ProductCardProps {
 const ProductCard = ({ product, onAddToCart, onViewProduct, isMobile = false }: ProductCardProps) => {
   return (
     <Card 
-      className={`group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden flex flex-col h-full ${
-        isMobile ? 'w-full max-w-sm mx-auto' : ''
-      }`}
+      className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20 overflow-hidden flex flex-col h-full w-full"
     >
       <CardHeader className="p-0 relative">
-        <div className="relative overflow-hidden aspect-[4/3]">
+        <div className={`relative overflow-hidden ${isMobile ? 'aspect-[16/9]' : 'aspect-[4/3]'}`}>
           <img
             src={product.image}
             alt={product.name}
@@ -81,8 +79,8 @@ const ProductCard = ({ product, onAddToCart, onViewProduct, isMobile = false }: 
           
           <h3
             className={`font-semibold text-foreground mb-2 ${
-              isMobile ? 'text-sm leading-tight' : 'text-base'
-            } min-h-[2.5rem] overflow-hidden`}
+              isMobile ? 'text-base leading-tight' : 'text-sm'
+            } min-h-[2.5rem] overflow-hidden line-clamp-2`}
           >
             {product.name}
           </h3>
@@ -90,7 +88,7 @@ const ProductCard = ({ product, onAddToCart, onViewProduct, isMobile = false }: 
           <p
             className={`text-muted-foreground mb-3 ${
               isMobile ? 'text-sm leading-relaxed' : 'text-xs'
-            } min-h-[3rem] overflow-hidden`}
+            } min-h-[2.5rem] overflow-hidden line-clamp-2`}
           >
             {product.description}
           </p>

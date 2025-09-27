@@ -119,15 +119,17 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
           <CarouselContent className="-ml-2">
             {mobilePages.map((pageProducts, pageIndex) => (
               <CarouselItem key={pageIndex} className="pl-2 basis-full">
-                <div className="grid grid-cols-1 gap-4 px-2">
+                <div className="grid grid-cols-1 gap-4 px-2 auto-rows-fr items-stretch">
                   {pageProducts.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      onAddToCart={onAddToCart}
-                      onViewProduct={onViewProduct}
-                      isMobile={true}
-                    />
+                    <div key={product.id} className="flex h-full">
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        onAddToCart={onAddToCart}
+                        onViewProduct={onViewProduct}
+                        isMobile={true}
+                      />
+                    </div>
                   ))}
                 </div>
               </CarouselItem>
