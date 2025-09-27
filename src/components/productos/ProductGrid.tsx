@@ -171,12 +171,12 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
         )}
         
         <Carousel className="w-full" opts={{ align: "start", loop: true }}>
-          <CarouselContent>
+          <CarouselContent className="-ml-0">
             {desktopPages.map((pageProducts, pageIndex) => (
-              <CarouselItem key={pageIndex} className="pl-4">
-                <div className="grid grid-cols-3 grid-rows-2 gap-6 min-h-[800px]">
+              <CarouselItem key={pageIndex} className="pl-0">
+                <div className="grid grid-cols-3 gap-6 auto-rows-fr">
                   {pageProducts.map((product) => (
-                    <div key={product.id} className="h-[380px] flex">
+                    <div key={product.id} className="flex">
                       <ProductCard
                         product={product}
                         onAddToCart={onAddToCart}
