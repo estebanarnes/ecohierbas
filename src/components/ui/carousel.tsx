@@ -22,6 +22,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     const [currentIndex, setCurrentIndex] = React.useState(0)
     const containerRef = React.useRef<HTMLDivElement>(null)
     const [totalSlides, setTotalSlides] = React.useState(0)
+    const callbacksRef = React.useRef<{[key: string]: (() => void)[]}>({})
 
     const api = React.useMemo(() => ({
       selectedScrollSnap: () => currentIndex,
@@ -32,14 +33,16 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         if (content) {
           content.style.transform = `translateX(-${index * 100}%)`
         }
+        // Call select callbacks
+        if (callbacksRef.current.select) {
+          callbacksRef.current.select.forEach(callback => callback())
+        }
       },
       on: (event: string, callback: () => void) => {
-        if (event === "select") {
-          // Call callback when selection changes
-          React.useEffect(() => {
-            callback()
-          }, [currentIndex])
+        if (!callbacksRef.current[event]) {
+          callbacksRef.current[event] = []
         }
+        callbacksRef.current[event].push(callback)
       }
     }), [currentIndex])
 
