@@ -80,6 +80,26 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
     }
   };
 
+  const goToPreviousMobile = () => {
+    const prevIndex = currentMobilePage > 0 ? currentMobilePage - 1 : mobilePages.length - 1;
+    goToMobilePage(prevIndex);
+  };
+
+  const goToNextMobile = () => {
+    const nextIndex = currentMobilePage < mobilePages.length - 1 ? currentMobilePage + 1 : 0;
+    goToMobilePage(nextIndex);
+  };
+
+  const goToPreviousDesktop = () => {
+    const prevIndex = currentDesktopPage > 0 ? currentDesktopPage - 1 : desktopPages.length - 1;
+    goToDesktopPage(prevIndex);
+  };
+
+  const goToNextDesktop = () => {
+    const nextIndex = currentDesktopPage < desktopPages.length - 1 ? currentDesktopPage + 1 : 0;
+    goToDesktopPage(nextIndex);
+  };
+
   return (
     <div className="relative">
       <div className="mb-4 md:mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
@@ -147,8 +167,8 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-2" />
-          <CarouselNext className="right-2" />
+          <CarouselPrevious className="left-2" onClick={goToPreviousMobile} />
+          <CarouselNext className="right-2" onClick={goToNextMobile} />
         </Carousel>
 
         {/* Mobile Pagination Dots */}
@@ -226,8 +246,8 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-4" />
-          <CarouselNext className="right-4" />
+          <CarouselPrevious className="left-4" onClick={goToPreviousDesktop} />
+          <CarouselNext className="right-4" onClick={goToNextDesktop} />
         </Carousel>
       </div>
     </div>

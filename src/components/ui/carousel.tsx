@@ -21,12 +21,24 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   ({ className, children, opts, setApi, ...props }, ref) => {
     const [currentIndex, setCurrentIndex] = React.useState(0)
     const containerRef = React.useRef<HTMLDivElement>(null)
+    const [totalSlides, setTotalSlides] = React.useState(0)
 
     const api = React.useMemo(() => ({
       selectedScrollSnap: () => currentIndex,
+      scrollTo: (index: number) => {
+        setCurrentIndex(index)
+        // Trigger transform on the content
+        const content = containerRef.current?.querySelector('[data-carousel-content]') as HTMLElement
+        if (content) {
+          content.style.transform = `translateX(-${index * 100}%)`
+        }
+      },
       on: (event: string, callback: () => void) => {
         if (event === "select") {
-          // Simple implementation - in a real carousel you'd handle events properly
+          // Call callback when selection changes
+          React.useEffect(() => {
+            callback()
+          }, [currentIndex])
         }
       }
     }), [currentIndex])
@@ -36,6 +48,14 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         setApi(api)
       }
     }, [setApi, api])
+
+    React.useEffect(() => {
+      // Count slides on mount
+      const slides = containerRef.current?.querySelectorAll('[data-carousel-item]')
+      if (slides) {
+        setTotalSlides(slides.length)
+      }
+    }, [children])
 
     return (
       <div
@@ -57,7 +77,8 @@ const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>(
     return (
       <div
         ref={ref}
-        className={cn("flex", className)}
+        data-carousel-content
+        className={cn("flex transition-transform duration-300 ease-in-out", className)}
         {...props}
       />
     )
@@ -70,6 +91,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
     return (
       <div
         ref={ref}
+        data-carousel-item
         className={cn("min-w-0 shrink-0 grow-0", basis && `basis-${basis}`, className)}
         {...props}
       />
