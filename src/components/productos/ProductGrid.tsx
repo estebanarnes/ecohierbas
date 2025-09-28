@@ -33,6 +33,9 @@ interface ProductGridProps {
 
 const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: ProductGridProps) => {
   const [currentMobilePage, setCurrentMobilePage] = useState(0);
+  const [currentDesktopPage, setCurrentDesktopPage] = useState(0);
+  const [mobileApi, setMobileApi] = useState<any>(null);
+  const [desktopApi, setDesktopApi] = useState<any>(null);
 
   if (products.length === 0) {
     return (
@@ -52,14 +55,11 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
   }
 
   // Configuración de productos por página
-  const productsPerPageMobile = 3;
+  const productsPerPageMobile = 1;
   const productsPerPageDesktop = 6; // 3x2 grid
   
-  // Crear páginas para mobile (3 productos por página en orden secuencial)
-  const mobilePages = [];
-  for (let i = 0; i < products.length; i += productsPerPageMobile) {
-    mobilePages.push(products.slice(i, i + productsPerPageMobile));
-  }
+  // Crear páginas para mobile (1 producto por página para navegación fluida)
+  const mobilePages = products.map(product => [product]);
   
   // Crear páginas para desktop (6 productos por página en orden secuencial)
   const desktopPages = [];
@@ -67,10 +67,18 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
     desktopPages.push(products.slice(i, i + productsPerPageDesktop));
   }
 
-  // Resetear página actual si es mayor al número de páginas disponibles
-  if (currentMobilePage >= mobilePages.length && mobilePages.length > 0) {
-    setCurrentMobilePage(0);
-  }
+  // Funciones para navegar a páginas específicas
+  const goToMobilePage = (pageIndex: number) => {
+    if (mobileApi) {
+      mobileApi.scrollTo(pageIndex);
+    }
+  };
+
+  const goToDesktopPage = (pageIndex: number) => {
+    if (desktopApi) {
+      desktopApi.scrollTo(pageIndex);
+    }
+  };
 
   return (
     <div className="relative">
@@ -84,16 +92,17 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
           <div className="flex justify-center items-center mt-6 md:hidden w-full">
             <div className="flex gap-2 items-center justify-center">
               {mobilePages.map((_, index) => (
-                <div 
+                <button
                   key={index} 
-                  className={`rounded-full bg-green-500 text-white flex items-center justify-center font-medium shadow-lg transition-all duration-200 ${
+                  onClick={() => goToMobilePage(index)}
+                  className={`rounded-full bg-green-500 text-white flex items-center justify-center font-medium shadow-lg transition-all duration-200 hover:bg-green-600 cursor-pointer ${
                     index === currentMobilePage 
-                      ? 'w-10 h-10 text-base' 
-                      : 'w-8 h-8 text-sm'
+                      ? 'w-10 h-10 text-base ring-2 ring-green-300' 
+                      : 'w-8 h-8 text-sm opacity-70'
                   }`}
                 >
                   {index + 1}
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -111,6 +120,7 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
           className="w-full px-4" 
           opts={{ align: "start", loop: true }}
           setApi={(api) => {
+            setMobileApi(api);
             if (api) {
               api.on("select", () => {
                 setCurrentMobilePage(api.selectedScrollSnap());
@@ -146,12 +156,17 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
           <div className="flex justify-center mt-6">
             <div className="flex gap-2">
               {mobilePages.map((_, index) => (
-                <div 
+                <button
                   key={index} 
-                  className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium shadow-lg"
+                  onClick={() => goToMobilePage(index)}
+                  className={`rounded-full bg-green-500 text-white flex items-center justify-center font-medium shadow-lg transition-all duration-200 hover:bg-green-600 cursor-pointer ${
+                    index === currentMobilePage 
+                      ? 'w-10 h-10 text-base ring-2 ring-green-300' 
+                      : 'w-8 h-8 text-sm opacity-70'
+                  }`}
                 >
                   {index + 1}
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -165,18 +180,34 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
           <div className="flex justify-center items-center mb-6 w-full">
             <div className="flex gap-2 items-center justify-center">
               {desktopPages.map((_, index) => (
-                <div 
+                <button
                   key={index} 
-                  className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium shadow-lg"
+                  onClick={() => goToDesktopPage(index)}
+                  className={`rounded-full bg-green-500 text-white flex items-center justify-center font-medium shadow-lg transition-all duration-200 hover:bg-green-600 cursor-pointer ${
+                    index === currentDesktopPage 
+                      ? 'w-10 h-10 text-base ring-2 ring-green-300' 
+                      : 'w-8 h-8 text-sm opacity-70'
+                  }`}
                 >
                   {index + 1}
-                </div>
+                </button>
               ))}
             </div>
           </div>
         )}
         
-        <Carousel className="w-full" opts={{ align: "start", loop: true }}>
+        <Carousel 
+          className="w-full" 
+          opts={{ align: "start", loop: true }}
+          setApi={(api) => {
+            setDesktopApi(api);
+            if (api) {
+              api.on("select", () => {
+                setCurrentDesktopPage(api.selectedScrollSnap());
+              });
+            }
+          }}
+        >
           <CarouselContent className="-ml-0">
             {desktopPages.map((pageProducts, pageIndex) => (
               <CarouselItem key={pageIndex} className="pl-0 basis-full">

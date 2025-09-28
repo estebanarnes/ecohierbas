@@ -84,7 +84,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, CarouselButtonProps
       <button
         ref={ref}
         className={cn(
-          "absolute top-1/2 -translate-y-1/2 left-4 h-8 w-8 rounded-full border border-input bg-background shadow-md hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+          "absolute top-1/2 -translate-y-1/2 left-4 h-10 w-10 rounded-full border border-input bg-background shadow-md hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex items-center justify-center z-10",
           className
         )}
         {...props}
@@ -115,7 +115,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, CarouselButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "absolute top-1/2 -translate-y-1/2 right-4 h-8 w-8 rounded-full border border-input bg-background shadow-md hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+          "absolute top-1/2 -translate-y-1/2 right-4 h-10 w-10 rounded-full border border-input bg-background shadow-md hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex items-center justify-center z-10",
           className
         )}
         {...props}
