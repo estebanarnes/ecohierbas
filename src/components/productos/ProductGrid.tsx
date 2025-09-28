@@ -69,12 +69,14 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
 
   // Funciones para navegar a páginas específicas
   const goToMobilePage = (pageIndex: number) => {
+    setCurrentMobilePage(pageIndex);
     if (mobileApi) {
       mobileApi.scrollTo(pageIndex);
     }
   };
 
   const goToDesktopPage = (pageIndex: number) => {
+    setCurrentDesktopPage(pageIndex);
     if (desktopApi) {
       desktopApi.scrollTo(pageIndex);
     }
@@ -82,22 +84,34 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
 
   const goToPreviousMobile = () => {
     const prevIndex = currentMobilePage > 0 ? currentMobilePage - 1 : mobilePages.length - 1;
-    goToMobilePage(prevIndex);
+    setCurrentMobilePage(prevIndex);
+    if (mobileApi) {
+      mobileApi.scrollTo(prevIndex);
+    }
   };
 
   const goToNextMobile = () => {
     const nextIndex = currentMobilePage < mobilePages.length - 1 ? currentMobilePage + 1 : 0;
-    goToMobilePage(nextIndex);
+    setCurrentMobilePage(nextIndex);
+    if (mobileApi) {
+      mobileApi.scrollTo(nextIndex);
+    }
   };
 
   const goToPreviousDesktop = () => {
     const prevIndex = currentDesktopPage > 0 ? currentDesktopPage - 1 : desktopPages.length - 1;
-    goToDesktopPage(prevIndex);
+    setCurrentDesktopPage(prevIndex);
+    if (desktopApi) {
+      desktopApi.scrollTo(prevIndex);
+    }
   };
 
   const goToNextDesktop = () => {
     const nextIndex = currentDesktopPage < desktopPages.length - 1 ? currentDesktopPage + 1 : 0;
-    goToDesktopPage(nextIndex);
+    setCurrentDesktopPage(nextIndex);
+    if (desktopApi) {
+      desktopApi.scrollTo(nextIndex);
+    }
   };
 
   return (
@@ -141,11 +155,7 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
           opts={{ align: "start", loop: true }}
           setApi={(api) => {
             setMobileApi(api);
-            if (api) {
-              api.on("select", () => {
-                setCurrentMobilePage(api.selectedScrollSnap());
-              });
-            }
+            // No necesitamos el listener "select" aquí ya que manejamos el estado manualmente
           }}
         >
           <CarouselContent className="-ml-2">
@@ -221,11 +231,7 @@ const ProductGrid = ({ products, onAddToCart, onViewProduct, onClearFilters }: P
           opts={{ align: "start", loop: true }}
           setApi={(api) => {
             setDesktopApi(api);
-            if (api) {
-              api.on("select", () => {
-                setCurrentDesktopPage(api.selectedScrollSnap());
-              });
-            }
+            // No necesitamos el listener "select" aquí ya que manejamos el estado manualmente
           }}
         >
           <CarouselContent className="-ml-0">
