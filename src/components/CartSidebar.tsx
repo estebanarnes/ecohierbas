@@ -11,10 +11,16 @@ import {
   TrashIcon 
 } from "@heroicons/react/24/outline";
 import { CreditCard, Building, Smartphone, DollarSign } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartSidebar = () => {
   const { state, updateQuantity, removeItem, closeCart, clearCart } = useCart();
+  const navigate = useNavigate();
+
+  const handleFinalizarCompra = () => {
+    closeCart();
+    navigate("/checkout");
+  };
 
   if (state.items.length === 0) {
     return (
@@ -194,8 +200,11 @@ const CartSidebar = () => {
           </div>
 
           <div className="space-y-2">
-            <Button asChild className="w-full bg-primary hover:bg-primary/90">
-              <Link to="/checkout">Finalizar Compra</Link>
+            <Button 
+              className="w-full bg-primary hover:bg-primary/90"
+              onClick={handleFinalizarCompra}
+            >
+              Finalizar Compra
             </Button>
             <Button 
               asChild
