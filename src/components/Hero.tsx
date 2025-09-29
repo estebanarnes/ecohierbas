@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRightIcon, PlayIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import heroImage from "@/assets/hero-ecohierbas.jpg";
 
 const Hero = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
